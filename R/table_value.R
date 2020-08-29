@@ -1,140 +1,125 @@
 
 
-table_value <- function(x, rspec = NULL, fspec = NULL){
 
-  .rspec <- rspec %||% getOption(x = 'round_spec') %||% default_rspec()
-  .fspec <- fspec %||% getOption(x = 'format_spec') %||% default_fspec()
 
-  .table_value(
-    x = x,
-    round_half_to_even = rspec$round_half == 'even',
-    breaks = rspec$args$round_using$breaks,
-    decimals = rspec$args$round_using$decimals,
-  )
+#' Table values
+#'
+#' `table_value()` casts numeric vectors into character vectors.
+#'   The main purpose of `table_value()` is to round and format
+#'   numeric data for presentation.
+#'
+#' @param x a vector of numeric values.
+#'
+#' @param rspec a `rounding_specification` object. If no `rspec`
+#'   is given, a default setting will round values to decimal places
+#'   based on the magnitude of the values.
+#'
+#' @return a vector of character values (rounded numbers).
+#'
+#' @export
+#'
+#' @examples
+#'
+#' table_value(0.123)
+#' table_value(1.23)
+#' table_value(12.3)
+#'
+#' with(mtcars, table_value(disp))
+#'
+table_value <- function(x, rspec = NULL){
+
+  # integer types need not be rounded to a decimal place,
+  # but can still be formatted nicely.
+  if(is.integer(x)){
+    rspec$digits <- 0L
+    return(fr_dispatch(x, rspec, r_fun = function(x, ...) x))
+  }
+
+  # find the most immediate rounding specification.
+  .rspec <- rspec %||% getOption(x = 'round_spec') %||% round_spec()
+
+  # use the format(round()) combination dictated by .rspec
+  switch(glue::glue("{round_using}_{round_half}", .envir = .rspec),
+         "decimal_up"     = fr_decimal_up(x, .rspec),
+         "decimal_even"   = fr_decimal_even(x, .rspec),
+         "signif_up"      = fr_signif_up(x, .rspec),
+         "signif_even"    = fr_signif_even(x, .rspec),
+         "magnitude_up"   = fr_magnitude(x, .rspec),
+         "magnitude_even" = fr_magnitude(x, .rspec))
 
 }
 
-.table_value <- function(
-  x,
-  round_half_to_even = FALSE,
-  breaks = c(1, 10, Inf),
-  decimals = c(2, 1, 0),
-  miss_replace = '--',
-  big_mark = ',',
-  big_interval = 3L,
-  small_mark = '',
-  small_interval = 5L,
-  decimal_mark = getOption('OutDec'),
-  zero_print = NULL,
-  trim = TRUE
-) {
+fr_dispatch <- function(x, .rspec, r_fun){
 
-  check_call(
-    match.call(),
-    expected = list(
-      'x' = list(
-        type = 'numeric',
-        length = NULL,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'round_half_to_even' = list(
-        type = 'logical',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'breaks' = list(
-        type = 'numeric',
-        length = c(1, 3, length(decimals)),
-        lwr = 0,
-        upr = NULL
-      ),
-      'decimals' = list(
-        type = 'numeric',
-        length = c(1, 3, length(breaks)),
-        lwr = -20,
-        upr = 20
-      ),
-      'miss_replace' = list(
-        type = 'character',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'big_mark' = list(
-        type = 'character',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'big_interval' = list(
-        type = 'numeric',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'small_mark' = list(
-        type = 'character',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'small_interval' = list(
-        type = 'numeric',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'decimal_mark' = list(
-        type = 'character',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'zero_print' = list(
-        type = c('logical', 'character'),
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      ),
-      'trim' = list(
-        type = 'logical',
-        length = 1,
-        lwr = NULL,
-        upr = NULL
-      )
-    )
+  nsmall <- if(.rspec$round_using == 'signif') 0 else .rspec$digits
+
+  format(
+    x = r_fun(x, digits = .rspec$digits, breaks = .rspec$breaks),
+    nsmall = safe_nsmall(nsmall),
+    big.mark = .rspec$big_mark,
+    big.interval = .rspec$big_interval,
+    small.mark = .rspec$small_mark,
+    small.interval = .rspec$small_interval,
+    decimal.mark = .rspec$decimal_mark,
+    zero.print = .rspec$zero_print,
+    trim = TRUE
   )
+}
 
-  # recycle decimals if length is 1
-  if(length(decimals) == 1) decimals <- rep(decimals, length(breaks))
+r_decimal_up <- function(x, digits = 0, breaks = NULL){
 
-  if (length(breaks) != length(decimals))
-    stop('breaks and decimals should have equal length', call. = FALSE)
+  posneg = sign(x)
+  z = abs(x)*10^digits
+  z = z + 0.5
+  z = trunc(z)
+  z = z/10^digits
+  z*posneg
 
-  if (is_empty(x)) stop("cannot format empty vectors", call. = FALSE)
+}
+fr_decimal_up <- function(x , .rspec){
+  fr_dispatch(x, .rspec, r_decimal_up)
+}
 
-  if (!is.numeric(x))
-    stop("x should be numeric", call. = FALSE)
+r_decimal_even <- function(x, digits = 0, breaks = NULL){
+  round(x, digits = digits)
+}
+fr_decimal_even <- function(x , .rspec){
+  fr_dispatch(x, .rspec, r_decimal_even)
+}
 
-  if (is.integer(x)) return(format(x, big.mark = big_mark))
+r_signif_up <- function(x, digits = 6, breaks = NULL){
+  signif(x + 1*10^(-digits-1), digits = digits)
+}
+fr_signif_up <- function(x , .rspec){
+  fr_dispatch(x, .rspec, r_signif_up)
+}
 
-  if(any(diff(breaks) < 0))
-    stop("breaks should be strictly monotonically increasing", call. = FALSE)
+r_signif_even <- function(x, digits = 6, breaks = NULL){
+  signif(x, digits = digits)
+}
+fr_signif_even <- function(x , .rspec){
+  fr_dispatch(x, .rspec, r_signif_even)
+}
 
-  ..round <- if(round_half_to_even) base::round else .round
+fr_magnitude <- function(x, .rspec){
 
-  out <- rep(miss_replace, length(x))
+  r_fun <- switch(.rspec$round_half,
+                  'even' = r_decimal_even,
+                  'up' = r_decimal_up)
+
+  out <- rep(.rspec$miss_replace, length(x))
 
   if (all(is.na(x))) return(out)
 
-  # take absolute value to round based only on magnitudes
+  # take absolute value to round based on magnitude
   x_abs <- abs(x)
 
+  breaks <- .rspec$breaks
   # the breaks are based on rounded x instead of x itself
   breaks_smallest_10 <- sapply(breaks, find_smallest_10)
 
+  # makes my code easier to read...
+  decimals <- .rspec$digits
   # rounding to 0 decimals, 9.5 should be considered as if it were 10
   # rounding to 1 decimals, 9.95 should be considered as if it were 10
   # rounding to 2 decimals, 9.995 should be considered as if it were 10
@@ -168,19 +153,18 @@ table_value <- function(x, rspec = NULL, fspec = NULL){
 
     if(!is_empty(ob)){
 
-      ob_rounded <- ..round(x[ob], digits = decimals[i])
+      ob_rounded <- r_fun(x[ob], digits = decimals[i])
 
       out[ob] <- format(
         ob_rounded,
         nsmall = safe_nsmall(decimals[i]),
-        big.mark = big_mark,
-        big.interval = big_interval,
-        small.mark = small_mark,
-        small.interval = small_interval,
-        decimal.mark = decimal_mark,
-        zero.print = zero_print,
-        #justify = justify,
-        trim = trim,
+        big.mark = .rspec$big_mark,
+        big.interval = .rspec$big_interval,
+        small.mark = .rspec$small_mark,
+        small.interval = .rspec$small_interval,
+        decimal.mark = .rspec$decimal_mark,
+        zero.print = .rspec$zero_print,
+        trim = TRUE
       )
 
     }

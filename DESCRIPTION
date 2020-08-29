@@ -18,4 +18,5 @@ Suggests:
     testthat,
     covr
 Imports: 
-    glue
+    glue,
+    rlang
