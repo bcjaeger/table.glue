@@ -9,18 +9,15 @@ format_decimal(rspec, mark = ".")
 \arguments{
 \item{rspec}{a \code{rounding_specification} object (see \link{round_spec}).}
 
-\item{mark}{a character value used to separate number groups to the
-left of the decimal point. See \link{prettyNum} for more details on this.
-Set this input to '' to negate it's effect.}
-
-\item{interval}{a numeric value indicating the size of number groups
-for numbers left of the decimal.}
+\item{mark}{a character value used to represent the decimal point.}
 }
 \value{
 an object of class \code{rounding_specification}.
 }
 \description{
-The decimal symbol can be update.
+\code{format_decimal()} lets you update the settings of a
+\code{rounding_specification} object (see \link{round_spec}) so that
+the decimal is represented by a user-specified mark.
 }
 \examples{
 
@@ -28,8 +25,13 @@ small_x <- 0.1234567
 
 rspec <- round_spec()
 rspec <- round_using_decimal(rspec, digits = 7)
-rspec <- format_small(rspec, mark = '*', interval = 1)
+rspec <- format_decimal(rspec, mark = '*')
 
 table_value(small_x, rspec)
 
 }
+\seealso{
+Other formatting helpers: 
+\code{\link{format_small}()}
+}
+\concept{formatting helpers}

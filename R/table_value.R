@@ -18,6 +18,8 @@
 #'
 #' @export
 #'
+#' @family table helpers
+#'
 #' @examples
 #'
 #' table_value(0.123)
@@ -36,7 +38,11 @@ table_value <- function(x, rspec = NULL){
   }
 
   # find the most immediate rounding specification.
-  .rspec <- rspec %||% getOption(x = 'round_spec') %||% round_spec()
+  .rspec <- if(!is.null(rspec)) rspec else round_spec()
+
+  check_input(arg_name  = 'rspec',
+              arg_value = .rspec,
+              expected  = list(class = 'rounding_specification'))
 
   # use the format(round()) combination dictated by .rspec
   switch(glue::glue("{round_using}_{round_half}", .envir = .rspec),
@@ -76,6 +82,7 @@ r_decimal_up <- function(x, digits = 0, breaks = NULL){
   z*posneg
 
 }
+
 fr_decimal_up <- function(x , .rspec){
   fr_dispatch(x, .rspec, r_decimal_up)
 }
@@ -83,6 +90,7 @@ fr_decimal_up <- function(x , .rspec){
 r_decimal_even <- function(x, digits = 0, breaks = NULL){
   round(x, digits = digits)
 }
+
 fr_decimal_even <- function(x , .rspec){
   fr_dispatch(x, .rspec, r_decimal_even)
 }
@@ -90,6 +98,7 @@ fr_decimal_even <- function(x , .rspec){
 r_signif_up <- function(x, digits = 6, breaks = NULL){
   signif(x + 1*10^(-digits-1), digits = digits)
 }
+
 fr_signif_up <- function(x , .rspec){
   fr_dispatch(x, .rspec, r_signif_up)
 }
@@ -97,6 +106,7 @@ fr_signif_up <- function(x , .rspec){
 r_signif_even <- function(x, digits = 6, breaks = NULL){
   signif(x, digits = digits)
 }
+
 fr_signif_even <- function(x , .rspec){
   fr_dispatch(x, .rspec, r_signif_even)
 }

@@ -22,6 +22,11 @@ Rounding specifications are meant to be passed into the \link{table_glue}
 and \link{table_value} functions. The specification can also be passed into
 \code{table_} functions implicitly by saving a rounding specification into
 the global options.
+
+The \code{round_spec()} function intentionally uses no input arguments.
+This is to encourage users to develop rounding specifications
+using the \code{round_} and \code{format_} families in conjunction with
+the pipe (\verb{\%>\%}) operator.
 }
 \examples{
 

@@ -1,0 +1,17 @@
+reference:
+- title: Rounding helpers
+  desc:  Design a customized rounding specification.
+- contents:
+  - starts_with("round_")
+- title: Formatting helpers
+  desc:  Specify how rounding specifications should print rounded numbers
+- contents:
+  - starts_with("format_")
+- title: Table helpers
+  desc:  Produce table-ready rounded data
+- contents:
+  - starts_with("table_")
+- title: Update global options
+  desc:  Make your rounding specification the local default
+- contents:
+  - contains("default")

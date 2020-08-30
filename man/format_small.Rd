@@ -37,3 +37,8 @@ rspec <- format_small(rspec, mark = '*', interval = 1)
 table_value(small_x, rspec)
 
 }
+\seealso{
+Other formatting helpers: 
+\code{\link{format_decimal}()}
+}
+\concept{formatting helpers}

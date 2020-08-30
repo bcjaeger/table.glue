@@ -30,3 +30,10 @@ table_value(12.3)
 with(mtcars, table_value(disp))
 
 }
+\seealso{
+Other table helpers: 
+\code{\link{table_ester}()},
+\code{\link{table_glue}()},
+\code{\link{table_pvalue}()}
+}
+\concept{table helpers}

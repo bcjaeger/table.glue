@@ -35,3 +35,4 @@ rspec <- format_big(round_spec(), mark = '|', interval = 3)
 table_value(big_x, rspec) # returns "1|234|567"
 
 }
+\concept{format helpers}
