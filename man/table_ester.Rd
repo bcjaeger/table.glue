@@ -3,7 +3,7 @@
 \name{table_ester}
 \alias{table_ester}
 \alias{table_estin}
-\title{Estimate and error (or interval) presentation}
+\title{Round estimates and their corresponding errors}
 \usage{
 table_ester(
   estimate,

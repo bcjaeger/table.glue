@@ -216,3 +216,50 @@ check_call <- function(call, expected){
   }
 
 }
+
+check_dots_are_characters <- function(.dots){
+
+  .dots_are_chars <- sapply(eval(.dots), is.character)
+
+  if(!all(.dots_are_chars)){
+
+    wrong_types <- which(!.dots_are_chars) + 1
+
+    wrong_objects <- vector(mode = 'character', length = length(wrong_types))
+
+
+    for(i in seq_along(wrong_types)){
+      wrong_objects[i] <- paste0("<",deparse(.dots[[wrong_types[i]]]),">")
+    }
+
+    if(length(wrong_types) == 1) {
+      was_or_were <- 'was'
+      this_or_these <- 'this'
+      obj <- 'object'
+      nm <- 'name'
+    } else {
+      was_or_were <- 'were'
+      this_or_these <- 'these'
+      obj <- 'objects'
+      nm <- 'names'
+    }
+
+    wrong_objects <- glue::glue_collapse(wrong_objects,
+                                         sep = ', ',
+                                         last = ' and ')
+
+
+    message <- glue::glue(
+      "non-character {obj} {wrong_objects} ",
+      "{was_or_were} included in ...\n",
+      "Did you forget to specify the input ",
+      "{nm} for {this_or_these} {obj}?"
+    )
+
+    stop(message, call. = FALSE)
+
+  }
+
+  invisible()
+
+}

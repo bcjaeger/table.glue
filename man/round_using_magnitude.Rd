@@ -4,7 +4,7 @@
 \alias{round_using_magnitude}
 \alias{round_using_signif}
 \alias{round_using_decimal}
-\title{Rounding rules}
+\title{Set rules for rounding numbers}
 \usage{
 round_using_magnitude(rspec, digits = c(2, 1, 0), breaks = c(1, 10, Inf))
 

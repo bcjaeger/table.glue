@@ -2,7 +2,7 @@
 % Please edit documentation in R/table_glue.R
 \name{table_glue}
 \alias{table_glue}
-\title{Construct expressions for tables}
+\title{Expressive rounding for table values}
 \usage{
 table_glue(..., rspec = NULL, .sep = "", .envir = parent.frame())
 }
@@ -22,7 +22,7 @@ based on the magnitude of the values.}
 a character vector of length equal to the vectors supplied in \code{...}
 }
 \description{
-Construct expressions for tables
+Expressive rounding for table values
 }
 \examples{
 

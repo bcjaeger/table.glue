@@ -1,7 +1,7 @@
 
 
 
-#' Construct expressions for tables
+#' Expressive rounding for table values
 #'
 #' @inheritParams table_value
 #'
@@ -59,6 +59,7 @@ table_glue <- function(
 ){
 
   .dots <- substitute(alist(...))
+  check_dots_are_characters(.dots)
 
   string <- Reduce(base::c, eval(.dots))
   string <- paste(string, collapse = .sep)

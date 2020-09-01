@@ -3,7 +3,7 @@
 \name{round_half_up}
 \alias{round_half_up}
 \alias{round_half_even}
-\title{Rounding tie-breakers}
+\title{Set rules for rounding ties}
 \usage{
 round_half_up(rspec)
 

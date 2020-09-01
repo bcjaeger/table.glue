@@ -1,5 +1,5 @@
 
-#' Estimate and error (or interval) presentation
+#' Round estimates and their corresponding errors
 #'
 #' Though they are not easy to find in print, there are some general
 #'   conventions for rounding numbers. When rounding a summary statistic

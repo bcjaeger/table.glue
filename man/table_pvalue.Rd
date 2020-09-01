@@ -2,7 +2,7 @@
 % Please edit documentation in R/table_pvalue.R
 \name{table_pvalue}
 \alias{table_pvalue}
-\title{P-value rounding}
+\title{Round p-values}
 \usage{
 table_pvalue(
   x,
@@ -10,10 +10,10 @@ table_pvalue(
   decimals_outer = 3L,
   decimals_inner = 2L,
   alpha = 0.05,
-  boundary_lo = 0.01,
-  boundary_hi = 0.99,
-  thresh_lo = 0.001,
-  thresh_hi = 0.999,
+  bound_inner_low = 0.01,
+  bound_inner_high = 0.99,
+  bound_outer_low = 0.001,
+  bound_outer_high = 0.999,
   miss_replace = "--",
   drop_leading_zero = TRUE
 )
@@ -27,23 +27,23 @@ See \link{round_half_even} and \link{round_half_up} for details. Valid inputs
 are 'even' and 'up'.}
 
 \item{decimals_outer}{number of decimals to print when
-p > thresh_hi or p < thresh_lo.}
+p > bound_outer_high or p < bound_outer_low.}
 
 \item{decimals_inner}{number of decimals to print when
-\code{thresh_lo} < p < \code{thresh_hi}.}
+\code{bound_outer_low} < p < \code{bound_outer_high}.}
 
 \item{alpha}{a numeric value indicating the significance level,
 i.e. the probability that you will make the mistake of rejecting
 the null hypothesis when it is true.}
 
-\item{boundary_lo}{the lower bound of the inner range.}
+\item{bound_inner_low}{the lower bound of the inner range.}
 
-\item{boundary_hi}{the upper bound of the inner range.}
+\item{bound_inner_high}{the upper bound of the inner range.}
 
-\item{thresh_lo}{the lowest value printed. Values lower than the
+\item{bound_outer_low}{the lowest value printed. Values lower than the
 threshold will be printed as <threshold.}
 
-\item{thresh_hi}{the highest value printed. Values higher than the
+\item{bound_outer_high}{the highest value printed. Values higher than the
 threshold will be printed as >threshold.}
 
 \item{miss_replace}{a character value that replaces missing values.}
@@ -110,9 +110,8 @@ table_pvalue(pvals_ama)
 
 pvals_close <- c(0.04998, 0.05, 0.050002)
 
-table_pvalue(c(pvals_close, pvals_ama))
-# > [1] ".04998" ".05"    ".05"    ".16"    ".04"    ".047"   ".003"
-# > [8] "<.001"  "<.001"  "<.001"
+table_pvalue(pvals_close)
+# > [1] ".04998" ".05"    ".05"
 
 }
 \references{

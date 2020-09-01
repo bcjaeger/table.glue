@@ -1,7 +1,7 @@
 
 
 
-#' Rounding specification
+#' Make a rounding specification
 #'
 #' `round_spec()` creates a rounding specification object with default
 #'   settings. The settings of a rounding specification object can be
@@ -248,7 +248,7 @@ format_decimal <- function(rspec, mark = '.'){
 
 
 
-#' Rounding tie-breakers
+#' Set rules for rounding ties
 #'
 #' Rounding a number x to the nearest integer requires some tie-breaking
 #'  rule for those cases when x is exactly half-way between two integers,
@@ -343,7 +343,7 @@ round_half_even <- function(rspec){
 }
 
 
-#' Rounding rules
+#' Set rules for rounding numbers
 #'
 #' These functions update a `rounding_specification` object (see
 #'  [round_spec]) so that a particular approach to rounding is applied:
@@ -443,24 +443,24 @@ round_using_decimal <- function(rspec, digits = 1){
 #'
 #' If you ever get tired of having to write
 #'   `table_glue(..., rspec = your_rspec)` and would rather just write
-#'   `table_glue(...)`, you can use the `make_default_rounder()` function
+#'   `table_glue(...)`, you can use the `default_rounder_set()` function
 #'   on `your_rspec` to temporarily update `options` in your current R
 #'   session and update the default rounding specification to match
 #'   whatever your current rounding specification is.
-#'   Naturally, mistakes will be made when `make_default_rounder()` is used.
+#'   Naturally, mistakes will be made when `default_rounder_set()` is used.
 #'   To reset the rounding specifications to factory defaults,
-#'   use `reset_default_rounder()`.
+#'   use `default_rounder_reset()`.
 #'
 #' @inheritParams format_missing
 #'
-#' @return `make_default_rounder()` changes global options and does
+#' @return `default_rounder_set()` changes global options and does
 #'   not return a value.
 #'
 #' @details Setting a default rounding specification will impact
 #'   all functions in the `table helpers` family. Use with caution! Also,
-#'   please make all use of `make_default_rounder()` __explicit__
+#'   please make all use of `default_rounder_set()` __explicit__
 #'   in your code so that it can be reproduced. It is highly recommended
-#'   that you __do not__ use `make_default_rounder()` in your .Rprofile.
+#'   that you __do not__ use `default_rounder_set()` in your .Rprofile.
 #'
 #' @export
 #'
@@ -470,22 +470,22 @@ round_using_decimal <- function(rspec, digits = 1){
 #' your_rspec <- format_small(your_rspec, mark = '--')
 #'
 #' # now your_rspec is the default.
-#' make_default_rounder(your_rspec)
+#' default_rounder_set(your_rspec)
 #'
 #' # so it is applied whenever you use table_value(),
 #' # unless you specify otherwise.
 #' table_value(rnorm(5))
 #'
 #'
-make_default_rounder <- function(rspec){
+default_rounder_set <- function(rspec){
   names(rspec) <- paste('table.glue', names(rspec), sep = '.')
   options(rspec)
   invisible()
 }
 
-#' @rdname make_default_rounder
+#' @rdname default_rounder_set
 #' @export
-reset_default_rounder <- function() {
+default_rounder_reset <- function() {
 
   op <- options()
 

@@ -1,6 +1,6 @@
 
 
-#' P-value rounding
+#' Round p-values
 #'
 #' When presenting p-values, journals tend to request a lot of finessing.
 #'   `table_pvalue()` is meant to do almost all of the finessing for you.
@@ -18,23 +18,23 @@
 #'   are 'even' and 'up'.
 #'
 #' @param decimals_outer number of decimals to print when
-#'   p > thresh_hi or p < thresh_lo.
+#'   p > bound_outer_high or p < bound_outer_low.
 #'
 #' @param decimals_inner number of decimals to print when
-#'   `thresh_lo` < p < `thresh_hi`.
+#'   `bound_outer_low` < p < `bound_outer_high`.
 #'
 #' @param alpha a numeric value indicating the significance level,
 #'   i.e. the probability that you will make the mistake of rejecting
 #'   the null hypothesis when it is true.
 #'
-#' @param boundary_lo the lower bound of the inner range.
+#' @param bound_inner_low the lower bound of the inner range.
 #'
-#' @param boundary_hi the upper bound of the inner range.
+#' @param bound_inner_high the upper bound of the inner range.
 #'
-#' @param thresh_lo the lowest value printed. Values lower than the
+#' @param bound_outer_low the lowest value printed. Values lower than the
 #'   threshold will be printed as <threshold.
 #'
-#' @param thresh_hi the highest value printed. Values higher than the
+#' @param bound_outer_high the highest value printed. Values higher than the
 #'   threshold will be printed as >threshold.
 #'
 #' @param miss_replace a character value that replaces missing values.
@@ -102,19 +102,18 @@
 #'
 #' pvals_close <- c(0.04998, 0.05, 0.050002)
 #'
-#' table_pvalue(c(pvals_close, pvals_ama))
-#' # > [1] ".04998" ".05"    ".05"    ".16"    ".04"    ".047"   ".003"
-#' # > [8] "<.001"  "<.001"  "<.001"
+#' table_pvalue(pvals_close)
+#' # > [1] ".04998" ".05"    ".05"
 #'
 table_pvalue <- function(x,
                          round_half_to = 'even', # or 'up'
                          decimals_outer = 3L,
                          decimals_inner = 2L,
                          alpha = 0.05,
-                         boundary_lo = 0.01,
-                         boundary_hi = 0.99,
-                         thresh_lo = 0.001,
-                         thresh_hi = 0.999,
+                         bound_inner_low = 0.01,
+                         bound_inner_high = 0.99,
+                         bound_outer_low = 0.001,
+                         bound_outer_high = 0.999,
                          miss_replace = '--',
                          drop_leading_zero = TRUE){
 
@@ -144,25 +143,25 @@ table_pvalue <- function(x,
         lwr = 1,
         upr = 20
       ),
-      'boundary_lo' = list(
+      'bound_inner_low' = list(
         type = 'double',
         length = 1,
         lwr = 0,
         upr = 1
       ),
-      'boundary_hi' = list(
+      'bound_inner_high' = list(
         type = 'double',
         length = 1,
         lwr = 0,
         upr = 1
       ),
-      'thresh_lo' = list(
+      'bound_outer_low' = list(
         type = 'double',
         length = 1,
         lwr = 0,
         upr = 1
       ),
-      'thresh_hi' = list(
+      'bound_outer_high' = list(
         type = 'double',
         length = 1,
         lwr = 0,
@@ -185,8 +184,8 @@ table_pvalue <- function(x,
 
   # take care of the boundary cases (lowest low and highest high)
   out <- rep(miss_replace, length(x))
-  out[x < thresh_lo] <- paste0("<", thresh_lo)
-  out[x > thresh_hi] <- paste0(">", thresh_hi)
+  out[x < bound_outer_low] <- paste0("<", bound_outer_low)
+  out[x > bound_outer_high] <- paste0(">", bound_outer_high)
 
   # set up separate rounding specifications for each
   # of the three inner boundaries (lower, middle, upper)
@@ -200,42 +199,57 @@ table_pvalue <- function(x,
 
   # rounding specifications to match user specified thresholds/decimals
 
-  ## lower interval
-  rspec_lwr <- round_using_magnitude(
-    rspec = rspec,
-    digits = c(decimals_outer, decimals_inner),
-    breaks = c(boundary_lo, boundary_hi)
-  )
+  #      decimal_outer || decimal_inner || decimal_outer
+  #  outer_low --- inner_low --- inner_high --- outer_high
 
-  ## middle interval
-  rspec_mid <- round_using_magnitude(
-    rspec = rspec,
-    digits = c(decimals_outer, decimals_inner),
-    breaks = c(boundary_lo, boundary_hi)
-  )
-
-  ## upper interval
-  rspec_upr <- round_using_magnitude(
+  rspec_magnitude <- round_using_magnitude(
     rspec = rspec,
     digits = c(decimals_outer, decimals_inner, decimals_outer),
-    breaks = c(boundary_lo, boundary_hi, 1)
+    breaks = c(bound_inner_low, bound_inner_high, bound_outer_high)
   )
 
-  x_in_lower_bound <- x <  boundary_lo & x >= thresh_lo
-  x_in_middle      <- x >= boundary_lo & x <= boundary_hi
-  x_in_upper_bound <- x >  boundary_hi & x <= thresh_hi
+  out[x >= bound_outer_low & x <= bound_outer_high] <- table_value(
+    x[x >= bound_outer_low & x <= bound_outer_high],
+    rspec = rspec_magnitude
+  )
 
-  if ( any(x_in_lower_bound) )
-    out[x_in_lower_bound] <- table_value(x, rspec_lwr)[x_in_lower_bound]
-
-  if ( any(x_in_middle) )
-    out[x_in_middle] <- table_value(x, rspec_mid)[x_in_middle]
-
-  if( any(x_in_upper_bound) )
-    out[x_in_upper_bound] <- table_value(x, rspec_upr)[x_in_upper_bound]
+  # ## lower interval
+  # rspec_lwr <- round_using_magnitude(
+  #   rspec = rspec,
+  #   digits = c(decimals_outer, decimals_inner),
+  #   breaks = c(bound_inner_low, bound_inner_high)
+  # )
+  #
+  # ## middle interval
+  # rspec_mid <- round_using_magnitude(
+  #   rspec = rspec,
+  #   digits = c(decimals_outer, decimals_inner),
+  #   breaks = c(bound_inner_low, bound_inner_high)
+  # )
+  #
+  # ## upper interval
+  # rspec_upr <- round_using_magnitude(
+  #   rspec = rspec,
+  #   digits = c(decimals_outer, decimals_inner, decimals_outer),
+  #   breaks = c(bound_inner_low, bound_inner_high, 1)
+  # )
+  #
+  # x_in_lower_bound <- x <  bound_inner_low & x >= bound_outer_low
+  # x_in_middle      <- x >= bound_inner_low & x <= bound_inner_high
+  # x_in_upper_bound <- x >  bound_inner_high & x <= bound_outer_high
+  #
+  # if ( any(x_in_lower_bound) )
+  #   out[x_in_lower_bound] <- table_value(x, rspec_lwr)[x_in_lower_bound]
+  #
+  # if ( any(x_in_middle) )
+  #   out[x_in_middle] <- table_value(x, rspec_mid)[x_in_middle]
+  #
+  # if( any(x_in_upper_bound) )
+  #   out[x_in_upper_bound] <- table_value(x, rspec_upr)[x_in_upper_bound]
 
   # captures rounded outputs up to 20 figures past 0.049
   # (surely this is enough [???])
+
   zeros <- vector(mode = 'character', length = 20)
 
   for(z in seq_along(zeros))
@@ -258,7 +272,8 @@ table_pvalue <- function(x,
     if(yellow_decimals == 10){
 
       warning(
-        "Some p-values were too close to ", alpha, " for accurate rounding.\n",
+        "Some p-values were too close to ", alpha,
+        " for accurate rounding.\n",
         "Those p-values have not been rounded",
         call. = FALSE
       )

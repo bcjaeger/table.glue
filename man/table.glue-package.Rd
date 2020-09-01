@@ -4,12 +4,22 @@
 \name{table.glue-package}
 \alias{table.glue}
 \alias{table.glue-package}
-\title{table.glue: What the Package Does (One Line, Title Case)}
+\title{table.glue: Make and apply customized rounding specifications for tables}
 \description{
-What the package does (one paragraph).
+tblStrings helps translate double and integer valued data into
+    character values formatted with rules that are generally consistent with
+    the requested formats from academic journals.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/bcjaeger/table.glue}
+  \item Report bugs at \url{https://github.com/bcjaeger/table.glue/issues}
+}
+
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Byron Jaeger \email{bcjaeger@uab.edu} (\href{https://orcid.org/0000-0001-7399-2299}{ORCID})
 
 }
 \keyword{internal}

@@ -1,13 +1,15 @@
 Package: table.glue
-Title: What the Package Does (One Line, Title Case)
+Title: Make and apply customized rounding specifications for tables
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    c(person(given = "Byron",
+             family = "Jaeger",
+             role = c("aut", "cre"),
+             email = "bcjaeger@uab.edu",
+             comment = c(ORCID = "0000-0001-7399-2299")))
+Description: tblStrings helps translate double and integer valued data into
+    character values formatted with rules that are generally consistent with
+    the requested formats from academic journals. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -18,7 +20,6 @@ Suggests:
     covr
 Imports: 
     glue,
-    rlang,
     stringi
 URL: https://github.com/bcjaeger/table.glue
 BugReports: https://github.com/bcjaeger/table.glue/issues

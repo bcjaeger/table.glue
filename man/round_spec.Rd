@@ -2,7 +2,7 @@
 % Please edit documentation in R/round_spec.R
 \name{round_spec}
 \alias{round_spec}
-\title{Rounding specification}
+\title{Make a rounding specification}
 \usage{
 round_spec()
 }

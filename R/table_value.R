@@ -2,7 +2,7 @@
 
 
 
-#' Table values
+#' General rounding for tables
 #'
 #' `table_value()` casts numeric vectors into character vectors.
 #'   The main purpose of `table_value()` is to round and format
@@ -30,15 +30,15 @@
 #'
 table_value <- function(x, rspec = NULL){
 
+  # find the most immediate rounding specification.
+  .rspec <- if(!is.null(rspec)) rspec else round_spec()
+
   # integer types need not be rounded to a decimal place,
   # but can still be formatted nicely.
   if(is.integer(x)){
-    rspec$digits <- 0L
-    return(fr_dispatch(x, rspec, r_fun = function(x, ...) x))
+    .rspec$digits <- 0L
+    return(fr_dispatch(x, .rspec, r_fun = function(x, ...) x))
   }
-
-  # find the most immediate rounding specification.
-  .rspec <- if(!is.null(rspec)) rspec else round_spec()
 
   check_input(arg_name  = 'rspec',
               arg_value = .rspec,
@@ -136,6 +136,7 @@ fr_magnitude <- function(x, .rspec){
   # in general the formula for bump down value is (1/2) / 10^decimals
 
   bump_down <- 0.5 / (10^decimals)
+  #bump_down <- 0.5 / (10^(find_rounding_digit(breaks) + 1))
 
   x_brks <- c(0, breaks - bump_down)
 

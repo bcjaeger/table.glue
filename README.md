@@ -132,7 +132,7 @@ all of the `table_` functions, including `table_glue`:
 ``` r
 
 # save your rounding specification, making it the default for table_glue
-make_default_rounder(rspec)
+default_rounder_set(rspec)
 
 # now you don't have to write rspec = rspec in table_glue()
 

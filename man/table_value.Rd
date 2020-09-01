@@ -2,7 +2,7 @@
 % Please edit documentation in R/table_value.R
 \name{table_value}
 \alias{table_value}
-\title{Table values}
+\title{General rounding for tables}
 \usage{
 table_value(x, rspec = NULL)
 }
