@@ -34,24 +34,18 @@ test_that("boundary p-values are not made insignificant", {
 
 })
 
-# test_that("boundaries can be moved", {
-#
-# pvals_boundary <- c(0.095, 0.96)
-#
-# expect_equal(
-#   table_pvalue(pvals_boundary,
-#                bound_inner_low = 0.10,
-#                bound_inner_high = 0.98,
-#                decimals_outer = 4,
-#                decimals_inner = 1),
-#
-# )
-#
-# expect_equal(
-#   table_pvalue(pvals_boundary,
-#                bound_inner_low = 0.09,
-#                decimals_inner = 1),
-#   "0.1"
-# )
-#
-# })
+test_that("boundaries can be moved", {
+
+  pvals_boundary <- c(0.095, 0.96)
+
+  expect_equal(
+    table_pvalue(pvals_boundary,
+                 bound_inner_low = 0.10,
+                 bound_inner_high = 0.97,
+                 decimals_outer = 4,
+                 decimals_inner = 2),
+    c('.0950', '.96'),
+
+  )
+
+})

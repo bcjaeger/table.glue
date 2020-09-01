@@ -476,6 +476,8 @@ round_using_decimal <- function(rspec, digits = 1){
 #' # unless you specify otherwise.
 #' table_value(rnorm(5))
 #'
+#' # don't forget to reset when you're done
+#' default_rounder_reset()
 #'
 default_rounder_set <- function(rspec){
   names(rspec) <- paste('table.glue', names(rspec), sep = '.')

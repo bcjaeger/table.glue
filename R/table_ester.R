@@ -285,16 +285,16 @@ find_rounding_digit <- function(x){
 
     .xx <- .x[i]
 
-    repeat{
+    if(.xx < Inf) repeat {
       .xx <- .x[i] %% 10 ^ (power)
       if(.xx < .x[i]) break
       power <- power - 1
       if(power == -128) stop("error is too small", call. = FALSE)
+    } else {
+      power <- 0
     }
 
     out[i] <- power * (-1)
-
-
 
   }
 

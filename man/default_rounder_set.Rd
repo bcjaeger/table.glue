@@ -46,5 +46,7 @@ default_rounder_set(your_rspec)
 # unless you specify otherwise.
 table_value(rnorm(5))
 
+# don't forget to reset when you're done
+default_rounder_reset()
 
 }

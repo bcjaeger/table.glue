@@ -55,3 +55,16 @@ test_that("rounding specifications match intent", {
 
 
 })
+
+test_that("rounding on boundaries matches specification", {
+
+  rspec_mag_up <- round_spec() %>%
+    round_using_magnitude(digits = c(2, 1, 0, 0),
+                          breaks = c(1, 10, 100, Inf)) %>%
+    round_half_up()
+
+  x <- c(0.995, 9.95)
+
+  expect_equal(table_value(x, rspec_mag_up), c('1.0', '10'))
+
+})
