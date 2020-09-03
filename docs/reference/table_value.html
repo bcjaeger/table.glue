@@ -150,15 +150,10 @@ based on the magnitude of the values.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>table_value</span>(<span class='fl'>0.123</span>)</div><div class='output co'>#&gt; [1] "0.12300--00000"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>1.23</span>)</div><div class='output co'>#&gt; [1] "1.23000--00000"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>12.3</span>)</div><div class='output co'>#&gt; [1] "12.30000--00000"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>mtcars</span>, <span class='fu'>table_value</span>(<span class='no'>disp</span>))</div><div class='output co'>#&gt;  [1] "160.00000--00000" "160.00000--00000" "108.00000--00000" "258.00000--00000"
-#&gt;  [5] "360.00000--00000" "225.00000--00000" "360.00000--00000" "146.70000--00000"
-#&gt;  [9] "140.80000--00000" "167.60000--00000" "167.60000--00000" "275.80000--00000"
-#&gt; [13] "275.80000--00000" "275.80000--00000" "472.00000--00000" "460.00000--00000"
-#&gt; [17] "440.00000--00000" "78.70000--00000"  "75.70000--00000"  "71.10000--00000" 
-#&gt; [21] "120.10000--00000" "318.00000--00000" "304.00000--00000" "350.00000--00000"
-#&gt; [25] "400.00000--00000" "79.00000--00000"  "120.30000--00000" "95.10000--00000" 
-#&gt; [29] "351.00000--00000" "145.00000--00000" "301.00000--00000" "121.00000--00000"</div><div class='input'>
+<span class='fu'>table_value</span>(<span class='fl'>0.123</span>)</div><div class='output co'>#&gt; [1] "0.12"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>1.23</span>)</div><div class='output co'>#&gt; [1] "1.2"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>12.3</span>)</div><div class='output co'>#&gt; [1] "12"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>mtcars</span>, <span class='fu'>table_value</span>(<span class='no'>disp</span>))</div><div class='output co'>#&gt;  [1] "160" "160" "108" "258" "360" "225" "360" "147" "141" "168" "168" "276"
+#&gt; [13] "276" "276" "472" "460" "440" "79"  "76"  "71"  "120" "318" "304" "350"
+#&gt; [25] "400" "79"  "120" "95"  "351" "145" "301" "121"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

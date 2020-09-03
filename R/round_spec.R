@@ -310,29 +310,6 @@ round_half_even <- function(rspec){
               arg_value = rspec,
               expected  = list(class = 'rounding_specification'))
 
-  if(!is.null(breaks))
-    check_input(
-      arg_name  = 'breaks',
-      arg_value = breaks,
-      expected  = list(
-        type = 'numeric',
-        length = c(1, 3, length(digits)),
-        lwr = 0,
-        upr = NULL
-      )
-    )
-
-  check_input(
-    arg_name  = 'digits',
-    arg_value = digits,
-    expected  = list(
-      type = 'numeric',
-      length = c(1, 3, length(breaks)),
-      lwr = -20,
-      upr = 20
-    )
-  )
-
   rspec$round_using <- set_to
 
   rspec$digits <- digits
@@ -420,13 +397,49 @@ round_half_even <- function(rspec){
 round_using_magnitude <- function(rspec,
                                   digits = c(2, 1, 0),
                                   breaks = c(1, 10, Inf)){
+
+  check_input(
+    arg_name  = 'breaks',
+    arg_value = breaks,
+    expected  = list(
+      type = 'numeric',
+      length = c(length(digits)),
+      lwr = 0,
+      upr = NULL
+    )
+  )
+
+  check_input(
+    arg_name  = 'digits',
+    arg_value = digits,
+    expected  = list(
+      type = 'numeric',
+      length = c(1, length(breaks)),
+      lwr = -20,
+      upr = 20
+    )
+  )
+
   .round_using(rspec, 'magnitude', digits = digits, breaks = breaks)
+
 }
 
 #' @rdname round_using_magnitude
 #' @export
 
 round_using_signif <- function(rspec, digits = 2){
+
+  check_input(
+    arg_name  = 'digits',
+    arg_value = digits,
+    expected  = list(
+      type = 'numeric',
+      length = 1,
+      lwr = -20,
+      upr = 20
+    )
+  )
+
   .round_using(rspec, 'signif', digits = digits, breaks = NULL)
 }
 
@@ -434,7 +447,20 @@ round_using_signif <- function(rspec, digits = 2){
 #' @export
 
 round_using_decimal <- function(rspec, digits = 1){
+
+  check_input(
+    arg_name  = 'digits',
+    arg_value = digits,
+    expected  = list(
+      type = 'numeric',
+      length = 1,
+      lwr = -20,
+      upr = 20
+    )
+  )
+
   .round_using(rspec, 'decimal', digits = digits, breaks = NULL)
+
 }
 
 
@@ -505,9 +531,7 @@ default_rounder_reset <- function() {
     table.glue.zero_print = NULL
   )
 
-  toset <- !(names(op.table.glue) %in% names(op))
-
-  if(any(toset)) options(op.table.glue[toset])
+  options(op.table.glue)
 
   invisible()
 

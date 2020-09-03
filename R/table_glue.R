@@ -30,7 +30,7 @@
 #' df = data.frame(x = 1:10, y=1:10)
 #'
 #' table_glue("{x} / {y} = {as.integer(x/y)}", .envir = df)
-#' table_glue("{x} / {y} = {as.integer(x/y)}", .envir = NULL)
+#' table_glue("{x} / {y} = {as.integer(x/y)}")
 #'
 #' with(df, table_glue("{x} / {y} = {as.integer(x/y)}"))
 #'
