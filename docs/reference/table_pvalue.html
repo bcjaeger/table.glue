@@ -141,19 +141,19 @@ on p-value usage are included in the "Interpreting p-values" section
 below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>table_pvalue</span>(
-  <span class='kw'>x</span>,
-  round_half_to = <span class='st'>"even"</span>,
-  decimals_outer = <span class='fl'>3L</span>,
-  decimals_inner = <span class='fl'>2L</span>,
-  alpha = <span class='fl'>0.05</span>,
-  bound_inner_low = <span class='fl'>0.01</span>,
-  bound_inner_high = <span class='fl'>0.99</span>,
-  bound_outer_low = <span class='fl'>0.001</span>,
-  bound_outer_high = <span class='fl'>0.999</span>,
-  miss_replace = <span class='st'>"--"</span>,
-  drop_leading_zero = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>table_pvalue</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  round_half_to <span class='op'>=</span> <span class='st'>"even"</span>,
+  decimals_outer <span class='op'>=</span> <span class='fl'>3L</span>,
+  decimals_inner <span class='op'>=</span> <span class='fl'>2L</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  bound_inner_low <span class='op'>=</span> <span class='fl'>0.01</span>,
+  bound_inner_high <span class='op'>=</span> <span class='fl'>0.99</span>,
+  bound_outer_low <span class='op'>=</span> <span class='fl'>0.001</span>,
+  bound_outer_high <span class='op'>=</span> <span class='fl'>0.999</span>,
+  miss_replace <span class='op'>=</span> <span class='st'>"--"</span>,
+  drop_leading_zero <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -265,17 +265,17 @@ DOI: https://doi.org/10.1080/00031305.2016.1154108</p>
 <span class='co'># recommendations if you submit papers to journals associated with</span>
 <span class='co'># the American Medical Association.</span>
 
-<span class='kw'>pvals_ama</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.157</span>, <span class='fl'>0.037</span>, <span class='fl'>0.047</span>, <span class='fl'>0.003</span>, <span class='fl'>0.0003</span>, <span class='fl'>0.00003</span>, <span class='fl'>0.000003</span>)
+<span class='va'>pvals_ama</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.157</span>, <span class='fl'>0.037</span>, <span class='fl'>0.047</span>, <span class='fl'>0.003</span>, <span class='fl'>0.0003</span>, <span class='fl'>0.00003</span>, <span class='fl'>0.000003</span><span class='op'>)</span>
 
-<span class='fu'>table_pvalue</span>(<span class='kw'>pvals_ama</span>)
+<span class='fu'>table_pvalue</span><span class='op'>(</span><span class='va'>pvals_ama</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] ".16"   ".04"   ".047"  ".003"  "&lt;.001" "&lt;.001" "&lt;.001"</div><div class='input'><span class='co'># &gt; [1] ".16"   ".04"   ".047"  ".003"  "&lt;.001" "&lt;.001" "&lt;.001"</span>
 
 <span class='co'># `table_pvalue()` will fight valiantly to keep your p-value &lt; alpha if</span>
 <span class='co'># it is &lt; alpha. If it's &gt;= alpha, `table_pvalue()` treats it normally.</span>
 
-<span class='kw'>pvals_close</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.04998</span>, <span class='fl'>0.05</span>, <span class='fl'>0.050002</span>)
+<span class='va'>pvals_close</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.04998</span>, <span class='fl'>0.05</span>, <span class='fl'>0.050002</span><span class='op'>)</span>
 
-<span class='fu'>table_pvalue</span>(<span class='kw'>pvals_close</span>)
+<span class='fu'>table_pvalue</span><span class='op'>(</span><span class='va'>pvals_close</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] ".04998" ".05"    ".05"   </div><div class='input'><span class='co'># &gt; [1] ".04998" ".05"    ".05"</span>
 
 </div></pre>

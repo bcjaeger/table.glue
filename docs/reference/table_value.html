@@ -133,7 +133,7 @@ The main purpose of <code>table_value()</code> is to round and format
 numeric data for presentation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>table_value</span>(<span class='kw'>x</span>, rspec = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>table_value</span><span class='op'>(</span><span class='va'>x</span>, rspec <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,11 +162,11 @@ based on the magnitude of the values.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>table_value</span>(<span class='fl'>0.123</span>)
-</div><div class='output co'>#&gt; [1] "0.12"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>1.23</span>)
-</div><div class='output co'>#&gt; [1] "1.2"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>12.3</span>)
+<span class='fu'>table_value</span><span class='op'>(</span><span class='fl'>0.123</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "0.12"</div><div class='input'><span class='fu'>table_value</span><span class='op'>(</span><span class='fl'>1.23</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "1.2"</div><div class='input'><span class='fu'>table_value</span><span class='op'>(</span><span class='fl'>12.3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "12"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>mtcars</span>, <span class='fu'>table_value</span>(<span class='kw'>disp</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>table_value</span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "160" "160" "108" "258" "360" "225" "360" "147" "141" "168" "168" "276"
 #&gt; [13] "276" "276" "472" "460" "440" "79"  "76"  "71"  "120" "318" "304" "350"
 #&gt; [25] "400" "79"  "120" "95"  "351" "145" "301" "121"</div><div class='input'>

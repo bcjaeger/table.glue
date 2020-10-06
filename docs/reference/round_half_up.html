@@ -143,9 +143,9 @@ The <code>round_half_even()</code> function breaks ties by rounding to the neare
 even unit.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>round_half_up</span>(<span class='kw'>rspec</span>)
+    <pre class="usage"><span class='fu'>round_half_up</span><span class='op'>(</span><span class='va'>rspec</span><span class='op'>)</span>
 
-<span class='fu'>round_half_even</span>(<span class='kw'>rspec</span>)</pre>
+<span class='fu'>round_half_even</span><span class='op'>(</span><span class='va'>rspec</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,27 +167,27 @@ even unit.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># note base R behavior rounds to even:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fl'>0.5</span>) <span class='co'># --&gt; 0</span>
-</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fl'>1.5</span>) <span class='co'># --&gt; 2</span>
-</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fl'>2.5</span>) <span class='co'># --&gt; 2</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='co'># --&gt; 0</span>
+</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span> <span class='co'># --&gt; 2</span>
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>2.5</span><span class='op'>)</span> <span class='co'># --&gt; 2</span>
 </div><div class='output co'>#&gt; [1] 2</div><div class='input'>
 <span class='co'># make rspec that rounds up</span>
-<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>round_half_up</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>())
-<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span>(<span class='kw'>rspec</span>, digits = <span class='fl'>0</span>)
+<span class='va'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>round_half_up</span><span class='op'>(</span><span class='fu'><a href='round_spec.html'>round_spec</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span><span class='op'>(</span><span class='va'>rspec</span>, digits <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 
 <span class='co'># check</span>
-<span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='fl'>0.5</span>, <span class='kw'>rspec</span>) <span class='co'># --&gt; 1</span>
-</div><div class='output co'>#&gt; [1] "1"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='fl'>1.5</span>, <span class='kw'>rspec</span>) <span class='co'># --&gt; 2</span>
-</div><div class='output co'>#&gt; [1] "2"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='fl'>2.5</span>, <span class='kw'>rspec</span>) <span class='co'># --&gt; 3</span>
+<span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>rspec</span><span class='op'>)</span> <span class='co'># --&gt; 1</span>
+</div><div class='output co'>#&gt; [1] "1"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span><span class='fl'>1.5</span>, <span class='va'>rspec</span><span class='op'>)</span> <span class='co'># --&gt; 2</span>
+</div><div class='output co'>#&gt; [1] "2"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span><span class='fl'>2.5</span>, <span class='va'>rspec</span><span class='op'>)</span> <span class='co'># --&gt; 3</span>
 </div><div class='output co'>#&gt; [1] "3"</div><div class='input'>
 <span class='co'># make rspec that rounds even</span>
-<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>round_half_even</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>())
-<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span>(<span class='kw'>rspec</span>, digits = <span class='fl'>0</span>)
+<span class='va'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>round_half_even</span><span class='op'>(</span><span class='fu'><a href='round_spec.html'>round_spec</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span><span class='op'>(</span><span class='va'>rspec</span>, digits <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 
 <span class='co'># check</span>
-<span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='fl'>0.5</span>, <span class='kw'>rspec</span>) <span class='co'># --&gt; 0</span>
-</div><div class='output co'>#&gt; [1] "0"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='fl'>1.5</span>, <span class='kw'>rspec</span>) <span class='co'># --&gt; 2</span>
-</div><div class='output co'>#&gt; [1] "2"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='fl'>2.5</span>, <span class='kw'>rspec</span>) <span class='co'># --&gt; 2</span>
+<span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>rspec</span><span class='op'>)</span> <span class='co'># --&gt; 0</span>
+</div><div class='output co'>#&gt; [1] "0"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span><span class='fl'>1.5</span>, <span class='va'>rspec</span><span class='op'>)</span> <span class='co'># --&gt; 2</span>
+</div><div class='output co'>#&gt; [1] "2"</div><div class='input'><span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span><span class='fl'>2.5</span>, <span class='va'>rspec</span><span class='op'>)</span> <span class='co'># --&gt; 2</span>
 </div><div class='output co'>#&gt; [1] "2"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

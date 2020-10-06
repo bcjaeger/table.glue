@@ -139,7 +139,7 @@ and <a href='round_using_magnitude.html'>round_using_magnitude</a>) and <code>fo
 <a href='format_big.html'>format_big</a>, <a href='format_small.html'>format_small</a>, and <a href='format_decimal.html'>format_decimal</a>) families.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>round_spec</span>(force_default = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>round_spec</span><span class='op'>(</span>force_default <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,9 +169,9 @@ the pipe (<code>%&gt;%</code>) operator.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>round_spec</span>()
+<span class='va'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>round_spec</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='table_value.html'>table_value</a></span>(x = <span class='kw'>pi</span>, <span class='kw'>rspec</span>)
+<span class='fu'><a href='table_value.html'>table_value</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pi</span>, <span class='va'>rspec</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "3.1"</div><div class='input'>
 </div></pre>
   </div>

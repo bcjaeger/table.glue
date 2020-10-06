@@ -95,8 +95,7 @@
 <a href="#options-hierarchy" class="anchor"></a>Options hierarchy</h2>
 <p>When you call a function like <code><a href="../reference/table_glue.html">table_glue()</a></code> or <code><a href="../reference/table_value.html">table_value()</a></code>, you may supply your own rounding specification or use a default rounding specification. The default rounding specification is based on the global options of your current R session. So to make a particular rounding specification the default specification, all you need to do is set your global options using the specification of your choice.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/bcjaeger/table.glue">table.glue</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/table.glue">table.glue</a></span><span class="op">)</span></pre></div>
 </div>
 <div id="step-1---make-your-rounding-specification" class="section level2">
 <h2 class="hasAnchor">
@@ -104,9 +103,8 @@
 <p>Any rounding specification will do.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 
-<span class="kw">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_spec.html">round_spec</a></span>() 
-<span class="kw">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_using_magnitude.html">round_using_decimal</a></span>(<span class="kw">rspec</span>, digits = <span class="fl">5</span>)
-</pre></div>
+<span class="va">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_spec.html">round_spec</a></span><span class="op">(</span><span class="op">)</span> 
+<span class="va">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_using_magnitude.html">round_using_decimal</a></span><span class="op">(</span><span class="va">rspec</span>, digits <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></pre></div>
 </div>
 <div id="step-2---modify-specification-names" class="section level2">
 <h2 class="hasAnchor">
@@ -114,8 +112,7 @@
 <p>Modify each name so that it starts with ‘table.glue’. This protects you from mistakenly changing other package options.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">rspec</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'table.glue'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">rspec</span>), sep = <span class="st">'.'</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'table.glue'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'.'</span><span class="op">)</span></pre></div>
 </div>
 <div id="step-3---pass-to-options-" class="section level2">
 <h2 class="hasAnchor">
@@ -123,11 +120,10 @@
 <p>All you need to do now is use the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">rspec</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/table_value.html">table_value</a></span>(<span class="kw">pi</span>)
-<span class="co">#&gt; [1] "3.14159"</span>
-</pre></div>
+<span class="fu"><a href="../reference/table_value.html">table_value</a></span><span class="op">(</span><span class="va">pi</span><span class="op">)</span>
+<span class="co">#&gt; [1] "3.14159"</span></pre></div>
 </div>
 <div id="step-4---revert" class="section level2">
 <h2 class="hasAnchor">
@@ -135,15 +131,14 @@
 <p>Did you make a mistake? We all do. You can revert the options back to normal by setting <code>force_default = TRUE</code> in a new <code><a href="../reference/round_spec.html">round_spec()</a></code> function, and then repeating steps 2 and 3.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 
-<span class="kw">back_to_normal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_spec.html">round_spec</a></span>(force_default = <span class="fl">TRUE</span>)
+<span class="va">back_to_normal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_spec.html">round_spec</a></span><span class="op">(</span>force_default <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">back_to_normal</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'table.glue'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">back_to_normal</span>), sep = <span class="st">'.'</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">back_to_normal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'table.glue'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">back_to_normal</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'.'</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">back_to_normal</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">back_to_normal</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/table_value.html">table_value</a></span>(<span class="kw">pi</span>)
-<span class="co">#&gt; [1] "3.1"</span>
-</pre></div>
+<span class="fu"><a href="../reference/table_value.html">table_value</a></span><span class="op">(</span><span class="va">pi</span><span class="op">)</span>
+<span class="co">#&gt; [1] "3.1"</span></pre></div>
 </div>
   </div>
 
