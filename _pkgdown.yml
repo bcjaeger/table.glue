@@ -11,7 +11,3 @@ reference:
   desc:  Produce table-ready rounded data
 - contents:
   - starts_with("table_")
-- title: Update global options
-  desc:  Make your rounding specification the local default
-- contents:
-  - contains("default")

@@ -88,7 +88,25 @@ fr_decimal_up <- function(x , .rspec){
 }
 
 r_decimal_even <- function(x, digits = 0, breaks = NULL){
-  round(x, digits = digits)
+
+  # posneg = sign(x)
+  # z = abs(x)*10^digits
+  # z_stay = trunc(z)
+  # z_plus = trunc(z + 0.5)
+  # # move towards nearest even
+  # z = ifelse(z_plus %% 2 == 0, z_plus, z_stay)
+  # z = z/10^digits
+  # z*posneg
+
+  posneg <- sign(x)
+  x_pow <- abs(x) * 10^digits
+
+  bump <- ifelse(ceiling(x_pow) %% 2 == 0,
+                 yes = .Machine$double.eps,
+                 no = -.Machine$double.eps)
+
+  round(x_pow + bump, digits = 0) * 10^(-digits) * posneg
+
 }
 
 fr_decimal_even <- function(x , .rspec){
@@ -96,15 +114,19 @@ fr_decimal_even <- function(x , .rspec){
 }
 
 r_signif_up <- function(x, digits = 6, breaks = NULL){
-  signif(x + 1*10^(-digits-1), digits = digits)
+  signif(x + .Machine$double.eps, digits = digits)
 }
+
+# epsilon used to be 1*10^(-digits-1)
 
 fr_signif_up <- function(x , .rspec){
   fr_dispatch(x, .rspec, r_signif_up)
 }
 
 r_signif_even <- function(x, digits = 6, breaks = NULL){
+
   signif(x, digits = digits)
+
 }
 
 fr_signif_even <- function(x , .rspec){

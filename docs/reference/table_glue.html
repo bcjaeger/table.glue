@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -86,6 +86,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/default_rounder.html">Setting a default rounding specification</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -117,7 +129,7 @@
     <p>Expressive rounding for table values</p>
     </div>
 
-    <pre class="usage"><span class='fu'>table_glue</span>(<span class='no'>...</span>, <span class='kw'>rspec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
+    <pre class="usage"><span class='fu'>table_glue</span>(<span class='kw'>...</span>, rspec = <span class='kw'>NULL</span>, .sep = <span class='st'>""</span>, .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,40 +167,47 @@ based on the magnitude of the values.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)
 
-<span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {x/y}"</span>)</div><div class='output co'>#&gt;  [1] "0.87 / 0.29 = 3.0"  "0.17 / 0.68 = 0.26" "0.03 / 0.74 = 0.05"
-#&gt;  [4] "0.32 / 0.20 = 1.6"  "0.40 / 0.98 = 0.41" "0.20 / 0.74 = 0.26"
-#&gt;  [7] "0.40 / 0.05 = 7.8"  "0.06 / 0.53 = 0.12" "0.39 / 0.70 = 0.56"
-#&gt; [10] "0.98 / 0.69 = 1.4" </div><div class='input'>
-<span class='fu'>table_glue</span>(<span class='st'>"{x}"</span>, <span class='st'>"({100 * y}%)"</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>' '</span>)</div><div class='output co'>#&gt;  [1] "0.87 (29%)"  "0.17 (68%)"  "0.03 (74%)"  "0.32 (20%)"  "0.40 (98%)" 
-#&gt;  [6] "0.20 (74%)"  "0.40 (5.1%)" "0.06 (53%)"  "0.39 (70%)"  "0.98 (69%)" </div><div class='input'>
-<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>)
+<span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {x/y}"</span>)
+</div><div class='output co'>#&gt;  [1] "0.08 / 0.87 = 0.09" "0.83 / 0.17 = 4.8"  "0.60 / 0.03 = 18"  
+#&gt;  [4] "0.16 / 0.32 = 0.49" "0.01 / 0.40 = 0.02" "0.47 / 0.20 = 2.4" 
+#&gt;  [7] "0.50 / 0.40 = 1.2"  "0.29 / 0.06 = 4.6"  "0.73 / 0.39 = 1.9" 
+#&gt; [10] "0.77 / 0.98 = 0.79"</div><div class='input'>
+<span class='fu'>table_glue</span>(<span class='st'>"{x}"</span>, <span class='st'>"({100 * y}%)"</span>, .sep = <span class='st'>' '</span>)
+</div><div class='output co'>#&gt;  [1] "0.08 (87%)"  "0.83 (17%)"  "0.60 (3.4%)" "0.16 (32%)"  "0.01 (40%)" 
+#&gt;  [6] "0.47 (20%)"  "0.50 (40%)"  "0.29 (6.4%)" "0.73 (39%)"  "0.77 (98%)" </div><div class='input'>
+<span class='kw'>df</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
 
-<span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {as.integer(x/y)}"</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='no'>df</span>)</div><div class='output co'>#&gt;  [1] "1 / 1 = 1"   "2 / 2 = 1"   "3 / 3 = 1"   "4 / 4 = 1"   "5 / 5 = 1"  
-#&gt;  [6] "6 / 6 = 1"   "7 / 7 = 1"   "8 / 8 = 1"   "9 / 9 = 1"   "10 / 10 = 1"</div><div class='input'><span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {as.integer(x/y)}"</span>)</div><div class='output co'>#&gt;  [1] "0.87 / 0.29 = 3" "0.17 / 0.68 = 0" "0.03 / 0.74 = 0" "0.32 / 0.20 = 1"
-#&gt;  [5] "0.40 / 0.98 = 0" "0.20 / 0.74 = 0" "0.40 / 0.05 = 7" "0.06 / 0.53 = 0"
-#&gt;  [9] "0.39 / 0.70 = 0" "0.98 / 0.69 = 1"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>df</span>, <span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {as.integer(x/y)}"</span>))</div><div class='output co'>#&gt;  [1] "1 / 1 = 1"   "2 / 2 = 1"   "3 / 3 = 1"   "4 / 4 = 1"   "5 / 5 = 1"  
+<span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {as.integer(x/y)}"</span>, .envir = <span class='kw'>df</span>)
+</div><div class='output co'>#&gt;  [1] "1 / 1 = 1"   "2 / 2 = 1"   "3 / 3 = 1"   "4 / 4 = 1"   "5 / 5 = 1"  
+#&gt;  [6] "6 / 6 = 1"   "7 / 7 = 1"   "8 / 8 = 1"   "9 / 9 = 1"   "10 / 10 = 1"</div><div class='input'><span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {as.integer(x/y)}"</span>)
+</div><div class='output co'>#&gt;  [1] "0.08 / 0.87 = 0"  "0.83 / 0.17 = 4"  "0.60 / 0.03 = 17" "0.16 / 0.32 = 0" 
+#&gt;  [5] "0.01 / 0.40 = 0"  "0.47 / 0.20 = 2"  "0.50 / 0.40 = 1"  "0.29 / 0.06 = 4" 
+#&gt;  [9] "0.73 / 0.39 = 1"  "0.77 / 0.98 = 0" </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>df</span>, <span class='fu'>table_glue</span>(<span class='st'>"{x} / {y} = {as.integer(x/y)}"</span>))
+</div><div class='output co'>#&gt;  [1] "1 / 1 = 1"   "2 / 2 = 1"   "3 / 3 = 1"   "4 / 4 = 1"   "5 / 5 = 1"  
 #&gt;  [6] "6 / 6 = 1"   "7 / 7 = 1"   "8 / 8 = 1"   "9 / 9 = 1"   "10 / 10 = 1"</div><div class='input'>
-<span class='no'>mtcars</span>$<span class='no'>car</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>mtcars</span>)
+<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>car</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>mtcars</span>)
 <span class='co'># use the default rounding specification</span>
 <span class='fu'>table_glue</span>(
   <span class='st'>"the {car} gets ~{mpg} miles/gallon and weighs ~{wt} thousand lbs"</span>,
-  <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]
-)</div><div class='output co'>#&gt; [1] "the Mazda RX4 gets ~21 miles/gallon and weighs ~2.6 thousand lbs"    
+  .envir = <span class='kw'>mtcars</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, ]
+)
+</div><div class='output co'>#&gt; [1] "the Mazda RX4 gets ~21 miles/gallon and weighs ~2.6 thousand lbs"    
 #&gt; [2] "the Mazda RX4 Wag gets ~21 miles/gallon and weighs ~2.9 thousand lbs"
 #&gt; [3] "the Datsun 710 gets ~23 miles/gallon and weighs ~2.3 thousand lbs"   </div><div class='input'>
 <span class='co'># use your own rounding specification</span>
-<span class='no'>rspec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='round_spec.html'>round_spec</a></span>()
-<span class='no'>rspec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span>(<span class='no'>rspec</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_spec.html'>round_spec</a></span>()
+<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span>(<span class='kw'>rspec</span>, digits = <span class='fl'>1</span>)
 
 <span class='fu'>table_glue</span>(
   <span class='st'>"the {car} gets ~{mpg} miles/gallon and weighs ~{wt} thousand lbs"</span>,
-  <span class='kw'>rspec</span> <span class='kw'>=</span> <span class='no'>rspec</span>,
-  <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]
-)</div><div class='output co'>#&gt; [1] "the Mazda RX4 gets ~21.0 miles/gallon and weighs ~2.6 thousand lbs"    
+  rspec = <span class='kw'>rspec</span>,
+  .envir = <span class='kw'>mtcars</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, ]
+)
+</div><div class='output co'>#&gt; [1] "the Mazda RX4 gets ~21.0 miles/gallon and weighs ~2.6 thousand lbs"    
 #&gt; [2] "the Mazda RX4 Wag gets ~21.0 miles/gallon and weighs ~2.9 thousand lbs"
 #&gt; [3] "the Datsun 710 gets ~22.8 miles/gallon and weighs ~2.3 thousand lbs"   </div></pre>
   </div>
@@ -206,7 +225,7 @@ based on the magnitude of the values.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

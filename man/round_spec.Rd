@@ -4,7 +4,13 @@
 \alias{round_spec}
 \title{Make a rounding specification}
 \usage{
-round_spec()
+round_spec(force_default = FALSE)
+}
+\arguments{
+\item{force_default}{a logical value. If \code{TRUE}, then \code{round_spec()}
+ignores global options and uses its factory default values.
+If \code{FALSE}, \code{round_spec()} will access global options to determine
+its settings.}
 }
 \value{
 an object of class \code{rounding_specification}.

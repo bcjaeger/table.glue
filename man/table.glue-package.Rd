@@ -4,11 +4,11 @@
 \name{table.glue-package}
 \alias{table.glue}
 \alias{table.glue-package}
-\title{table.glue: Make and apply customized rounding specifications for tables}
+\title{table.glue: Make and Apply Customized Rounding Specifications for Tables}
 \description{
-tblStrings helps translate double and integer valued data into
-    character values formatted with rules that are generally consistent with
-    the requested formats from academic journals.
+Translate double and integer valued data into
+    character values formatted for tabulation in manuscripts
+    or other types of academic reports.
 }
 \seealso{
 Useful links:

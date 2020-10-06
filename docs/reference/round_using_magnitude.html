@@ -80,7 +80,7 @@ round to a specific decimal place (round_using_decimal())
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -94,6 +94,18 @@ round to a specific decimal place (round_using_decimal())
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/default_rounder.html">Setting a default rounding specification</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -133,11 +145,11 @@ digits (<code>round_using_signif()</code>)</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>round_using_magnitude</span>(<span class='no'>rspec</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>Inf</span>))
+    <pre class="usage"><span class='fu'>round_using_magnitude</span>(<span class='kw'>rspec</span>, digits = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>), breaks = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>Inf</span>))
 
-<span class='fu'>round_using_signif</span>(<span class='no'>rspec</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'>round_using_signif</span>(<span class='kw'>rspec</span>, digits = <span class='fl'>2</span>)
 
-<span class='fu'>round_using_decimal</span>(<span class='no'>rspec</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>round_using_decimal</span>(<span class='kw'>rspec</span>, digits = <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,14 +201,14 @@ number of significant digits but not entirely the same (see examples).</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>pi</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span>, <span class='no'>x</span>*<span class='fl'>10</span>, <span class='no'>x</span>*<span class='fl'>100</span>, <span class='no'>x</span>*<span class='fl'>1000</span>)
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>pi</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>x</span>, <span class='kw'>x</span><span class='op'>*</span><span class='fl'>10</span>, <span class='kw'>x</span><span class='op'>*</span><span class='fl'>100</span>, <span class='kw'>x</span><span class='op'>*</span><span class='fl'>1000</span>)
 
 <span class='co'># make one specification using each rounding approach</span>
-<span class='no'>specs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  <span class='kw'>magnitude</span> <span class='kw'>=</span> <span class='fu'>round_using_magnitude</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>()),
-  <span class='kw'>decimal</span> <span class='kw'>=</span> <span class='fu'>round_using_decimal</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>()),
-  <span class='kw'>signif</span> <span class='kw'>=</span> <span class='fu'>round_using_signif</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>())
+<span class='kw'>specs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+  magnitude = <span class='fu'>round_using_magnitude</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>()),
+  decimal = <span class='fu'>round_using_decimal</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>()),
+  signif = <span class='fu'>round_using_signif</span>(<span class='fu'><a href='round_spec.html'>round_spec</a></span>())
 )
 
 <span class='co'># apply all three rounding specifications to x</span>
@@ -204,7 +216,8 @@ number of significant digits but not entirely the same (see examples).</p></li>
 <span class='co'># for smaller values of x but their answers are different</span>
 <span class='co'># for larger values of x.</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>specs</span>, <span class='kw'>function</span>(<span class='no'>rspec</span>) <span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='no'>x</span>, <span class='no'>rspec</span>))</div><div class='output co'>#&gt;      magnitude decimal   signif   
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>specs</span>, <span class='fu'>function</span>(<span class='kw'>rspec</span>) <span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='kw'>x</span>, <span class='kw'>rspec</span>))
+</div><div class='output co'>#&gt;      magnitude decimal   signif   
 #&gt; [1,] "3.1"     "3.1"     "3.1"    
 #&gt; [2,] "2.7"     "2.7"     "2.7"    
 #&gt; [3,] "31"      "31.4"    "31.0"   
@@ -213,16 +226,16 @@ number of significant digits but not entirely the same (see examples).</p></li>
 #&gt; [6,] "272"     "271.8"   "270.0"  
 #&gt; [7,] "3,142"   "3,141.6" "3,100.0"
 #&gt; [8,] "2,718"   "2,718.3" "2,700.0"</div><div class='input'>
-# output:
-#  magnitude   decimal    signif
-# [1,] "3.1"     "3.1"     "3.1"
-# [2,] "2.7"     "2.7"     "2.7"
-# [3,] "31"      "31.4"    "31.0"
-# [4,] "27"      "27.2"    "27.0"
-# [5,] "314"     "314.2"   "310.0"
-# [6,] "272"     "271.8"   "270.0"
-# [7,] "3,142"   "3,141.6" "3,100.0"
-# [8,] "2,718"   "2,718.3" "2,700.0"
+<span class='co'># output:</span>
+<span class='co'>#  magnitude   decimal    signif</span>
+<span class='co'># [1,] "3.1"     "3.1"     "3.1"</span>
+<span class='co'># [2,] "2.7"     "2.7"     "2.7"</span>
+<span class='co'># [3,] "31"      "31.4"    "31.0"</span>
+<span class='co'># [4,] "27"      "27.2"    "27.0"</span>
+<span class='co'># [5,] "314"     "314.2"   "310.0"</span>
+<span class='co'># [6,] "272"     "271.8"   "270.0"</span>
+<span class='co'># [7,] "3,142"   "3,141.6" "3,100.0"</span>
+<span class='co'># [8,] "2,718"   "2,718.3" "2,700.0"</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -239,7 +252,7 @@ number of significant digits but not entirely the same (see examples).</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

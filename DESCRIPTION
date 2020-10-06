@@ -1,15 +1,15 @@
 Package: table.glue
-Title: Make and apply customized rounding specifications for tables
-Version: 0.0.0.9000
+Title: Make and Apply Customized Rounding Specifications for Tables
+Version: 0.0.1
 Authors@R: 
     c(person(given = "Byron",
              family = "Jaeger",
              role = c("aut", "cre"),
              email = "bcjaeger@uab.edu",
              comment = c(ORCID = "0000-0001-7399-2299")))
-Description: tblStrings helps translate double and integer valued data into
-    character values formatted with rules that are generally consistent with
-    the requested formats from academic journals. 
+Description: Translate double and integer valued data into
+    character values formatted for tabulation in manuscripts
+    or other types of academic reports. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,9 +17,12 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
     testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Imports: 
     glue,
     stringi
 URL: https://github.com/bcjaeger/table.glue
 BugReports: https://github.com/bcjaeger/table.glue/issues
+VignetteBuilder: knitr

@@ -32,3 +32,13 @@ test_that("examples are correct", {
   expect_equal(example_two, "70,000 (24,000)")
 
 })
+
+test_that("estimate intervals example is correct",{
+
+  # should be rounded to 10's place b/c conf interval width is 5
+  expect_equal(
+    table_estin(estimate = 72.345, lower = 62.345, upper = 82.345),
+    "72 (62, 82)"
+  )
+
+})

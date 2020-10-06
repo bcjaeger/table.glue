@@ -58,7 +58,7 @@ a character vector
 \description{
 When presenting p-values, journals tend to request a lot of finessing.
 \code{table_pvalue()} is meant to do almost all of the finessing for you.
-the part it does not do is \emph{interpret} the p-value. For that,
+The part it does not do is \emph{interpret} the p-value. For that,
 please see the guideline on interpretation of p-values by the American
 Statistical Association (Wasserstein, 2016). The six main statements
 on p-value usage are included in the "Interpreting p-values" section

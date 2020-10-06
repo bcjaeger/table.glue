@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General rounding for tables — table_value • table.glue</title>
+<title>Articles • table.glue</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,7 @@
 
 
 
-<meta property="og:title" content="General rounding for tables — table_value" />
-<meta property="og:description" content="table_value() casts numeric vectors into character vectors.
-The main purpose of table_value() is to round and format
-numeric data for presentation." />
+<meta property="og:title" content="Articles" />
 
 
 
@@ -61,7 +58,7 @@ numeric data for presentation." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -122,60 +119,18 @@ numeric data for presentation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General rounding for tables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/bcjaeger/table.glue/blob/master/R/table_value.R'><code>R/table_value.R</code></a></small>
-    <div class="hidden name"><code>table_value.Rd</code></div>
+      <h1>Articles</h1>
     </div>
 
-    <div class="ref-description">
-    <p><code>table_value()</code> casts numeric vectors into character vectors.
-The main purpose of <code>table_value()</code> is to round and format
-numeric data for presentation.</p>
+    <div class="section ">
+      <h3>All vignettes</h3>
+      <p class="section-desc"></p>
+
+      <dl>
+        <dt><a href="default_rounder.html">Setting a default rounding specification</a></dt>
+        <dd></dt>
+      </dl>
     </div>
-
-    <pre class="usage"><span class='fu'>table_value</span>(<span class='kw'>x</span>, rspec = <span class='kw'>NULL</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>a vector of numeric values.</p></td>
-    </tr>
-    <tr>
-      <th>rspec</th>
-      <td><p>a <code>rounding_specification</code> object. If no <code>rspec</code>
-is given, a default setting will round values to decimal places
-based on the magnitude of the values.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a vector of character values (rounded numbers).</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other table helpers: 
-<code><a href='table_ester.html'>table_ester</a>()</code>,
-<code><a href='table_glue.html'>table_glue</a>()</code>,
-<code><a href='table_pvalue.html'>table_pvalue</a>()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>table_value</span>(<span class='fl'>0.123</span>)
-</div><div class='output co'>#&gt; [1] "0.12"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>1.23</span>)
-</div><div class='output co'>#&gt; [1] "1.2"</div><div class='input'><span class='fu'>table_value</span>(<span class='fl'>12.3</span>)
-</div><div class='output co'>#&gt; [1] "12"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>mtcars</span>, <span class='fu'>table_value</span>(<span class='kw'>disp</span>))
-</div><div class='output co'>#&gt;  [1] "160" "160" "108" "258" "360" "225" "360" "147" "141" "168" "168" "276"
-#&gt; [13] "276" "276" "472" "460" "440" "79"  "76"  "71"  "120" "318" "304" "350"
-#&gt; [25] "400" "79"  "120" "95"  "351" "145" "301" "121"</div><div class='input'>
-</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
   </div>
 </div>
 

@@ -59,7 +59,7 @@ authors are usually asked to present means plus or minus standard
 deviations in published research, or regression coefficients plus
 or minus the standard error. The convention applied here is to
 \enumerate{
-\item find place of the first significant digit of the error
+\item find the place of the first significant digit of the error
 \item round the estimate to that place
 \item round the error to 1 additional place
 \item present the combination in a form such as estimate (error) or estimate +/- error

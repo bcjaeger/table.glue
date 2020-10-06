@@ -76,7 +76,7 @@ with a specific format (see examples)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -90,6 +90,18 @@ with a specific format (see examples)." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/default_rounder.html">Setting a default rounding specification</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -125,7 +137,7 @@ lets you update the settings of a <code>rounding_specification</code> object
 with a specific format (see examples).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_small</span>(<span class='no'>rspec</span>, <span class='kw'>mark</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</pre>
+    <pre class="usage"><span class='fu'>format_small</span>(<span class='kw'>rspec</span>, mark = <span class='st'>""</span>, interval = <span class='fl'>5L</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,13 +169,14 @@ for numbers left of the decimal.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>small_x</span> <span class='kw'>&lt;-</span> <span class='fl'>0.1234567</span>
+<span class='kw'>small_x</span> <span class='op'>&lt;-</span> <span class='fl'>0.1234567</span>
 
-<span class='no'>rspec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='round_spec.html'>round_spec</a></span>()
-<span class='no'>rspec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span>(<span class='no'>rspec</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>7</span>)
-<span class='no'>rspec</span> <span class='kw'>&lt;-</span> <span class='fu'>format_small</span>(<span class='no'>rspec</span>, <span class='kw'>mark</span> <span class='kw'>=</span> <span class='st'>'*'</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_spec.html'>round_spec</a></span>()
+<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='round_using_magnitude.html'>round_using_decimal</a></span>(<span class='kw'>rspec</span>, digits = <span class='fl'>7</span>)
+<span class='kw'>rspec</span> <span class='op'>&lt;-</span> <span class='fu'>format_small</span>(<span class='kw'>rspec</span>, mark = <span class='st'>'*'</span>, interval = <span class='fl'>1</span>)
 
-<span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='no'>small_x</span>, <span class='no'>rspec</span>)</div><div class='output co'>#&gt; [1] "0.1*2*3*4*5*6*7"</div><div class='input'>
+<span class='fu'><a href='table_value.html'>table_value</a></span>(<span class='kw'>small_x</span>, <span class='kw'>rspec</span>)
+</div><div class='output co'>#&gt; [1] "0.1*2*3*4*5*6*7"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -180,7 +193,7 @@ for numbers left of the decimal.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

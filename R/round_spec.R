@@ -20,6 +20,11 @@
 #'   using the `round_` and `format_` families in conjunction with
 #'   the pipe (`%>%`) operator.
 #'
+#' @param force_default a logical value. If `TRUE`, then `round_spec()`
+#'   ignores global options and uses its factory default values.
+#'   If `FALSE`, `round_spec()` will access global options to determine
+#'   its settings.
+#'
 #' @return an object of class `rounding_specification`.
 #' @export
 #'
@@ -29,21 +34,43 @@
 #'
 #' table_value(x = pi, rspec)
 #'
-round_spec <- function() {
+round_spec <- function(force_default = FALSE) {
 
-  rspec <- list(
-    round_half   = getOption("table.glue.round_half", default = 'even'),
-    round_using  = getOption("table.glue.round_using", default = 'magnitude'),
-    digits       = getOption("table.glue.digits", default = c(2,1,0)),
-    breaks       = getOption("table.glue.breaks", default = c(1,10,Inf)),
-    miss_replace = getOption("table.glue.miss_replace", default = '--'),
-    big_mark     = getOption("table.glue.big_mark", default = ','),
-    big_interval = getOption("table.glue.big_interval", default = 3L),
-    small_mark   = getOption("table.glue.small_mark", default = ''),
-    small_interval = getOption("table.glue.small_interval", default = 5L),
-    decimal_mark = getOption("table.glue.decimal_mark", default = '.'),
-    zero_print   = getOption("table.glue.zero_print", default = NULL)
-  )
+  check_input(arg_name = 'force_default',
+              arg_value = force_default,
+              expected = list(type = 'logical', length = 1))
+
+  if(force_default) {
+    rspec <- list(
+      round_half = 'even',
+      round_using = 'magnitude',
+      digits = c(2, 1, 0),
+      breaks = c(1, 10, Inf),
+      miss_replace = '--',
+      big_mark = ',',
+      big_interval = 3L,
+      small_mark = '',
+      small_interval = 5L,
+      decimal_mark = '.',
+      zero_print = NULL
+    )
+  }
+
+  if(!force_default) {
+    rspec <- list(
+      round_half     = getOption("table.glue.round_half",       default = 'even'),
+      round_using    = getOption("table.glue.round_using",      default = 'magnitude'),
+      digits         = getOption("table.glue.digits",           default = c(2, 1, 0)),
+      breaks         = getOption("table.glue.breaks",           default = c(1, 10, Inf)),
+      miss_replace   = getOption("table.glue.miss_replace",     default = '--'),
+      big_mark       = getOption("table.glue.big_mark",         default = ','),
+      big_interval   = getOption("table.glue.big_interval",     default = 3L),
+      small_mark     = getOption("table.glue.small_mark",       default = ''),
+      small_interval = getOption("table.glue.small_interval",   default = 5L),
+      decimal_mark   = getOption("table.glue.decimal_mark",     default = '.'),
+      zero_print     = getOption("table.glue.zero_print",       default = NULL)
+    )
+  }
 
   class(rspec) <- 'rounding_specification'
 
@@ -463,76 +490,3 @@ round_using_decimal <- function(rspec, digits = 1){
 
 }
 
-
-
-#' Set the default rounding specification
-#'
-#' If you ever get tired of having to write
-#'   `table_glue(..., rspec = your_rspec)` and would rather just write
-#'   `table_glue(...)`, you can use the `default_rounder_set()` function
-#'   on `your_rspec` to temporarily update `options` in your current R
-#'   session and update the default rounding specification to match
-#'   whatever your current rounding specification is.
-#'   Naturally, mistakes will be made when `default_rounder_set()` is used.
-#'   To reset the rounding specifications to factory defaults,
-#'   use `default_rounder_reset()`.
-#'
-#' @inheritParams format_missing
-#'
-#' @return `default_rounder_set()` changes global options and does
-#'   not return a value.
-#'
-#' @details Setting a default rounding specification will impact
-#'   all functions in the `table helpers` family. Use with caution! Also,
-#'   please make all use of `default_rounder_set()` __explicit__
-#'   in your code so that it can be reproduced. It is highly recommended
-#'   that you __do not__ use `default_rounder_set()` in your .Rprofile.
-#'
-#' @export
-#'
-#' @examples
-#'
-#' your_rspec <- round_using_decimal(round_spec(), digits = 10)
-#' your_rspec <- format_small(your_rspec, mark = '--')
-#'
-#' # now your_rspec is the default.
-#' default_rounder_set(your_rspec)
-#'
-#' # so it is applied whenever you use table_value(),
-#' # unless you specify otherwise.
-#' table_value(rnorm(5))
-#'
-#' # don't forget to reset when you're done
-#' default_rounder_reset()
-#'
-default_rounder_set <- function(rspec){
-  names(rspec) <- paste('table.glue', names(rspec), sep = '.')
-  options(rspec)
-  invisible()
-}
-
-#' @rdname default_rounder_set
-#' @export
-default_rounder_reset <- function() {
-
-  op <- options()
-
-  op.table.glue <- list(
-    table.glue.round_half = 'even',
-    table.glue.round_using = 'magnitude',
-    table.glue.digits = c(2, 1, 0),
-    table.glue.breaks = c(1, 10, Inf),
-    table.glue.miss_replace = '--',
-    table.glue.big_mark = ',',
-    table.glue.big_interval = 3L,
-    table.glue.small_mark = '',
-    table.glue.small_interval = 5L,
-    table.glue.decimal_mark = getOption('OutDec'),
-    table.glue.zero_print = NULL
-  )
-
-  options(op.table.glue)
-
-  invisible()
-
-}

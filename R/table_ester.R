@@ -8,7 +8,7 @@
 #'   authors are usually asked to present means plus or minus standard
 #'   deviations in published research, or regression coefficients plus
 #'   or minus the standard error. The convention applied here is to
-#'    1. find place of the first significant digit of the error
+#'    1. find the place of the first significant digit of the error
 #'    2. round the estimate to that place
 #'    3. round the error to 1 additional place
 #'    4. present the combination in a form such as estimate (error) or estimate +/- error

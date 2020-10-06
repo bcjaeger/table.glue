@@ -1,0 +1,75 @@
+---
+title: "Setting a default rounding specification"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Setting a default rounding specification}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+If you ever get tired of having to write `table_glue(..., rspec = your_rspec)` and would rather just write  `table_glue(...)`, you should find this vignette helpful.
+
+## Options hierarchy
+
+When you call a function like `table_glue()` or `table_value()`, you may supply your own rounding specification or use a default rounding specification. The default rounding specification is based on the global options of your current R session. So to make a particular rounding specification the default specification, all you need to do is set your global options using the specification of your choice. 
+
+```{r setup}
+library(table.glue)
+```
+
+## Step 1 - Make your rounding specification
+
+Any rounding specification will do.
+
+```{r}
+
+rspec <- round_spec() 
+rspec <- round_using_decimal(rspec, digits = 5)
+
+```
+
+## Step 2 - Modify specification names
+
+Modify each name so that it starts with 'table.glue'. This protects you from mistakenly changing other package options.
+
+```{r}
+
+names(rspec) <- paste('table.glue', names(rspec), sep = '.')
+
+```
+
+## Step 3 - Pass to options.
+
+All you need to do now is use the `options()` function. 
+
+```{r}
+
+options(rspec)
+
+table_value(pi)
+
+```
+
+## Step 4 - Revert!
+
+Did you make a mistake? We all do. You can revert the options back to normal by setting `force_default = TRUE` in a new `round_spec()` function, and then repeating steps 2 and 3.
+
+```{r}
+
+back_to_normal <- round_spec(force_default = TRUE)
+
+names(back_to_normal) <- paste('table.glue', names(back_to_normal), sep = '.')
+
+options(back_to_normal)
+
+table_value(pi)
+
+```
+
