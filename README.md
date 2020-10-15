@@ -123,19 +123,8 @@ table_glue("the mean (SD) of {col_name} is {col_mean} ({col_sd})",
 #> [1] "the mean (SD) of mpg is 20 (6)"
 ```
 
-More details on the different rounding specification rules are given in
-the package vignette: “Rounding specifications” (not written yet; in
-progress). One final nice feature of `table.glue` is the ability to make
-any rounding specification the default rounding specification used by
-all of the `table_` functions, including `table_glue`:
-
-``` r
-
-# save your rounding specification, making it the default for table_glue
-default_rounder_set(rspec)
-
-# now you don't have to write rspec = rspec in table_glue()
-
-table_glue("the mean (SD) of {col_name} is {col_mean} ({col_sd})")
-#> [1] "the mean (SD) of mpg is 20 (6)"
-```
+rounding specifications can also be passed into global options so that
+`table_glue()` and `table_value()` will use the specification
+automatically (see the [Setting a default rounding
+specification](https://bcjaeger.github.io/table.glue/articles/default_rounder.html)
+vignette)
