@@ -164,16 +164,7 @@
 <span class="fu"><a href="reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean} ({col_sd})"</span>, 
            rspec <span class="op">=</span> <span class="va">rspec</span><span class="op">)</span>
 <span class="co">#&gt; [1] "the mean (SD) of mpg is 20 (6)"</span></pre></div>
-<p>More details on the different rounding specification rules are given in the package vignette: “Rounding specifications” (not written yet; in progress). One final nice feature of <code>table.glue</code> is the ability to make any rounding specification the default rounding specification used by all of the <code>table_</code> functions, including <code>table_glue</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-
-<span class="co"># save your rounding specification, making it the default for table_glue</span>
-<span class="fu">default_rounder_set</span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span>
-
-<span class="co"># now you don't have to write rspec = rspec in table_glue()</span>
-
-<span class="fu"><a href="reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean} ({col_sd})"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "the mean (SD) of mpg is 20 (6)"</span></pre></div>
+<p>rounding specifications can also be passed into global options so that <code><a href="reference/table_glue.html">table_glue()</a></code> and <code><a href="reference/table_value.html">table_value()</a></code> will use the specification automatically (see the <a href="https://bcjaeger.github.io/table.glue/articles/default_rounder.html">Setting a default rounding specification</a> vignette)</p>
 </div>
 </div>
 </div>
