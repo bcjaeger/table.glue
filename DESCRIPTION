@@ -25,7 +25,6 @@ Suggests:
     tidyr,
     gt,
     flextable,
-    knitr,
     kableExtra
 Imports: 
     glue,
