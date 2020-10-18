@@ -3,8 +3,11 @@
 test_that("construction works", {
 
   empty_spec <- round_spec()
-
   expect_is(empty_spec, 'rounding_specification')
+
+  empty_spec <- round_spec(force_default = TRUE)
+  expect_is(empty_spec, 'rounding_specification')
+
 
 })
 

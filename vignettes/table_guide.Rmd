@@ -1,0 +1,95 @@
+---
+title: "Guide to table making"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Guide to table making}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r setup}
+
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
+library(table.glue)
+
+```
+
+# Why this guide?
+
+I have made a lot of tables and, if I'm being honest, they are not much fun. The primary reason I wrote `table.glue` was to help abstract away some of the really tedious aspects of dealing with tables, but there is also a basic system that `table.glue` fits into to make tables far less painful. I have boiled that system down into three main ideas
+
+- Structuring data for a table
+
+- Making table values
+
+- Making an inline object
+
+If you find yourself working on a manuscript with lots of tables, I think you will find this framework to be extremely helpful. 
+
+# Format data for tables
+
+```{r}
+
+starwars_smry <- na.omit(starwars) %>% 
+  filter(eye_color %in% c('blue', 'brown', 'hazel')) %>% 
+  group_by(sex, eye_color) %>% 
+  summarize(
+    across(
+      c(height, mass),
+      .fns = list(
+        lwr = ~quantile(.x, probs = 0.25),
+        est = ~quantile(.x, probs = 0.50),
+        upr = ~quantile(.x, probs = 0.75)
+      )
+    )
+  )
+
+```
+
+# Make the table values
+
+Tabulated data should provide both a point estimate and a measure of uncertainty that goes along with the estimate, e.g. a 95% confidence interval. `table_glue()` is a nice function for putting together a point estimate and confidence interval. I use a magnitude based rounding specification to keep presentations consistent between height and mass. 
+
+```{r}
+
+rspec <- round_spec() %>% 
+  round_half_even() %>% 
+  round_using_magnitude(breaks = c(1, 10, 100, Inf),
+                        digits = c(2, 1,  1, 0))
+
+names(rspec) <- paste('table.glue', names(rspec), sep = '.')
+
+options(rspec)
+
+starwars_tbl <- starwars_smry %>% 
+  transmute(
+    sex, 
+    eye_color, 
+    tbv_height = table_glue("{height_est} ({height_lwr} - {height_upr})"),
+    tbv_mass = table_glue("{mass_est} ({mass_lwr} - {mass_upr})")
+  )
+
+```
+
+# Make an inline object
+
+```{r}
+
+inline <- starwars_tbl %>% 
+  pivot_longer(cols = starts_with('tbv_'),
+               names_to = 'tbl_column',
+               names_prefix = 'tbv_') %>% 
+  split(f = with(., list(sex, eye_color, tbl_column))) %>% 
+  lapply(pull, value)
+
+```
+

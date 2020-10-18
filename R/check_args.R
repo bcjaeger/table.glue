@@ -4,11 +4,16 @@
 
 check_arg_type <- function(arg_value, arg_name, expected_type){
 
-  if(expected_type == 'numeric') expected_type <- c('double', 'integer')
+  if('numeric' %in% expected_type)
+    expected_type <- c(setdiff(expected_type, 'numeric'),
+                       'double', 'integer')
+
+  #if(expected_type == 'numeric') expected_type <- c('double', 'integer')
 
   arg_type <- typeof(arg_value)
 
-  type_match <- arg_type %in% expected_type
+  type_match <-
+    arg_type %in% expected_type | inherits(arg_value, expected_type)
 
   if (!type_match) {
 
