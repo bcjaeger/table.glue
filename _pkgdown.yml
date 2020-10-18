@@ -11,3 +11,8 @@ reference:
   desc:  Produce table-ready rounded data
 - contents:
   - starts_with("table_")
+- title: Inline reporting
+  desc:  Write table data in markdown documents
+- contents:
+  - matches('inline')
+

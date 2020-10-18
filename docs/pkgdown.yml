@@ -3,5 +3,6 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   default_rounder: default_rounder.html
-last_built: 2020-10-15T22:41Z
+  table_guide: table_guide.html
+last_built: 2020-10-18T17:08Z
 

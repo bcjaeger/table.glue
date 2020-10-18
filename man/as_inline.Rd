@@ -4,23 +4,23 @@
 \alias{as_inline}
 \title{Convert table data to inline list}
 \usage{
-as_inline(data, table_names, table_value)
+as_inline(data, tbl_variables, tbl_value = NULL)
 }
 \arguments{
 \item{data}{a data frame.}
 
-\item{table_names}{column names that will be used to form groups in the table}
+\item{tbl_variables}{column names that will be used to form groups in the table}
 
-\item{table_value}{column name that contains table values.}
+\item{tbl_value}{column name that contains table values.}
 }
 \value{
-a list of \code{table_value} values for each permutation of \code{table_names}
+a list of \code{tbl_value} values for each permutation of \code{tbl_variables}
 }
 \description{
 Convert table data to inline list
 }
 \note{
-variables in \code{table_names} that have missing values will be
+variables in \code{tbl_variables} that have missing values will be
 have their missing values converted into an explicit category named
 variable_missing, where 'variable' is the name of the variable.
 }
@@ -31,10 +31,10 @@ example_data <- data.frame(
   height = c("158 (154 - 161)", "178 (175 - 188)")
 )
 
-as_inline(example_data, table_names = 'sex', table_value = 'height')
+as_inline(example_data, tbl_variables = 'sex', tbl_value = 'height')
 
 car_data <- mtcars
 car_data$car_name <- rownames(mtcars)
-as_inline(car_data, table_names = 'car_name', table_value = 'mpg')
+as_inline(car_data, tbl_variables = 'car_name', tbl_value = 'mpg')
 
 }

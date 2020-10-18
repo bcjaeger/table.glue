@@ -22,7 +22,11 @@ Suggests:
     rmarkdown,
     magrittr,
     dplyr,
-    tidyr
+    tidyr,
+    gt,
+    flextable,
+    knitr,
+    kableExtra
 Imports: 
     glue,
     stringi

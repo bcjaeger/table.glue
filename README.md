@@ -5,13 +5,24 @@
 
 <!-- badges: start -->
 
+[![CRAN
+checks](https://cranchecks.info/badges/summary/table.glue)](https://cran.r-project.org/web/checks/check_results_table.glue.html)
+[![](http://cranlogs.r-pkg.org/badges/last-month/table.glue?color=green)](https://cran.r-project.org/package=table.glue)
+[![Dependencies](https://tinyverse.netlify.com/badge/table.glue)](https://cran.r-project.org/package=table.glue)
+[![](https://codecov.io/gh/bcjaeger/table.glue/branch/master/graph/badge.svg)](https://codecov.io/gh/bcjaeger/table.glue)
 <!-- badges: end -->
 
-The goal of table.glue is to give you more control over the presentation
-of your data and also simplify the process of rounding and formatting
-data. The main idea is to create rounding specifications (starting with
-`round_spec()`) that can be plugged in, directly or through global
-options, to the `table_glue()` and `table_value()` functions.
+<!-- Note: 
+for code coverage, go to
+https://www.r-bloggers.com/2017/06/how-to-add-code-coverage-codecov-to-your-r-package/ and follow instructions
+-->
+
+The goal of `table.glue` is to give you more control over the
+presentation of your data and also simplify the process of rounding,
+formatting, and presenting your data. The main idea is to create
+rounding specifications (starting with `round_spec()`) that can be
+plugged in, directly or through global options, to the `table_glue()`
+and `table_value()` functions.
 
 ## Installation
 

@@ -16,9 +16,18 @@ knitr::opts_chunk$set(
 # table.glue
 
 <!-- badges: start -->
+`r badger::badge_cran_checks("table.glue")`
+`r badger::badge_cran_download("table.glue", "last-month", "green")`
+`r badger::badge_dependencies("table.glue")`
+`r badger::badge_codecov("bcjaeger/table.glue")`
 <!-- badges: end -->
 
-The goal of table.glue is to give you more control over the presentation of your data and also simplify the process of rounding and formatting data. The main idea is to create rounding specifications (starting with `round_spec()`) that can be plugged in, directly or through global options, to the `table_glue()` and `table_value()` functions. 
+<!-- Note: 
+for code coverage, go to
+https://www.r-bloggers.com/2017/06/how-to-add-code-coverage-codecov-to-your-r-package/ and follow instructions
+-->
+
+The goal of `table.glue` is to give you more control over the presentation of your data and also simplify the process of rounding, formatting, and presenting your data. The main idea is to create rounding specifications (starting with `round_spec()`) that can be plugged in, directly or through global options, to the `table_glue()` and `table_value()` functions. 
 
 ## Installation
 
