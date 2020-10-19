@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 `r badger::badge_cran_checks("table.glue")`
 `r badger::badge_cran_download("table.glue", "last-month", "green")`
+[![DOI](https://zenodo.org/badge/291551786.svg)](https://zenodo.org/badge/latestdoi/291551786)
 `r badger::badge_dependencies("table.glue")`
 `r badger::badge_codecov("bcjaeger/table.glue")`
 <!-- badges: end -->
@@ -73,11 +74,11 @@ paste0("The mean (SD) of ", col_name, " is ",
 
 ```
 
-This gets the job done! Still, the code may be a little hard to read for a user who isn't a grizzled `paste()` veteran. This is where the `glue` package really shines. 
+This gets the job done! Still, the code may be a little hard to read for a user who isn't a grizzled `paste()` veteran. This is where the `glue` package is really useful. 
 
 ### Use `glue()`
 
-Instead of using `paste()`, `glue()` lets us write everything in one string, surrounding R object with curly brackets ( { } ) tells R that the `glue()` function should print the value of that R object rather than the raw string. For instance,  
+Instead of using `paste()`, `glue()` lets us write everything in one string, surrounding R object with curly brackets (i.e., "look at this {`R object`}" ) tells R that the `glue()` function should print the value of that R object rather than the raw string. For instance,  
 
 ```{r}
 

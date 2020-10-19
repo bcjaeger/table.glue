@@ -8,6 +8,7 @@
 [![CRAN
 checks](https://cranchecks.info/badges/summary/table.glue)](https://cran.r-project.org/web/checks/check_results_table.glue.html)
 [![](http://cranlogs.r-pkg.org/badges/last-month/table.glue?color=green)](https://cran.r-project.org/package=table.glue)
+[![DOI](https://zenodo.org/badge/291551786.svg)](https://zenodo.org/badge/latestdoi/291551786)
 [![Dependencies](https://tinyverse.netlify.com/badge/table.glue)](https://cran.r-project.org/package=table.glue)
 [![](https://codecov.io/gh/bcjaeger/table.glue/branch/master/graph/badge.svg)](https://codecov.io/gh/bcjaeger/table.glue)
 <!-- badges: end -->
@@ -76,14 +77,14 @@ paste0("The mean (SD) of ", col_name, " is ",
 
 This gets the job done\! Still, the code may be a little hard to read
 for a user who isn’t a grizzled `paste()` veteran. This is where the
-`glue` package really shines.
+`glue` package is really useful.
 
 ### Use `glue()`
 
 Instead of using `paste()`, `glue()` lets us write everything in one
-string, surrounding R object with curly brackets ( { } ) tells R that
-the `glue()` function should print the value of that R object rather
-than the raw string. For instance,
+string, surrounding R object with curly brackets (i.e., “look at this
+{`R object`}” ) tells R that the `glue()` function should print the
+value of that R object rather than the raw string. For instance,
 
 ``` r
 
