@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -87,8 +87,12 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tableglue" class="anchor"></a>table.glue</h1></div>
 <!-- badges: start -->
-<!-- badges: end -->
-<p>The goal of table.glue is to give you more control over the presentation of your data and also simplify the process of rounding and formatting data. The main idea is to create rounding specifications (starting with <code><a href="reference/round_spec.html">round_spec()</a></code>) that can be plugged in, directly or through global options, to the <code><a href="reference/table_glue.html">table_glue()</a></code> and <code><a href="reference/table_value.html">table_value()</a></code> functions.</p>
+
+<!-- Note: 
+for code coverage, go to
+https://www.r-bloggers.com/2017/06/how-to-add-code-coverage-codecov-to-your-r-package/ and follow instructions
+-->
+<p>The goal of <code>table.glue</code> is to give you more control over the presentation of your data and also simplify the process of rounding, formatting, and presenting your data. The main idea is to create rounding specifications (starting with <code><a href="reference/round_spec.html">round_spec()</a></code>) that can be plugged in, directly or through global options, to the <code><a href="reference/table_glue.html">table_glue()</a></code> and <code><a href="reference/table_value.html">table_value()</a></code> functions.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -126,13 +130,13 @@
 <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"The mean (SD) of "</span>, <span class="va">col_name</span>, <span class="st">" is "</span>, 
        <span class="va">col_mean_pretty</span>, <span class="st">" ("</span>, <span class="va">col_sd_pretty</span>, <span class="st">") "</span><span class="op">)</span>
 <span class="co">#&gt; [1] "The mean (SD) of mpg is 20.1 (6.03) "</span></pre></div>
-<p>This gets the job done! Still, the code may be a little hard to read for a user who isn’t a grizzled <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> veteran. This is where the <code>glue</code> package really shines.</p>
+<p>This gets the job done! Still, the code may be a little hard to read for a user who isn’t a grizzled <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> veteran. This is where the <code>glue</code> package is really useful.</p>
 </div>
 <div id="use-glue" class="section level3">
 <h3 class="hasAnchor">
 <a href="#use-glue" class="anchor"></a>Use <code>glue()</code>
 </h3>
-<p>Instead of using <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code>, <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> lets us write everything in one string, surrounding R object with curly brackets ( { } ) tells R that the <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> function should print the value of that R object rather than the raw string. For instance,</p>
+<p>Instead of using <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code>, <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> lets us write everything in one string, surrounding R object with curly brackets (i.e., “look at this {<code>R object</code>}” ) tells R that the <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> function should print the value of that R object rather than the raw string. For instance,</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 
 <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean_pretty} ({col_sd_pretty})"</span><span class="op">)</span>
@@ -199,7 +203,17 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/web/checks/check_results_table.glue.html"><img src="https://cranchecks.info/badges/summary/table.glue" alt="CRAN checks"></a></li>
+<li><a href="https://cran.r-project.org/package=table.glue"><img src="http://cranlogs.r-pkg.org/badges/last-month/table.glue?color=green"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/291551786"><img src="https://zenodo.org/badge/291551786.svg" alt="DOI"></a></li>
+<li><a href="https://cran.r-project.org/package=table.glue"><img src="https://tinyverse.netlify.com/badge/table.glue" alt="Dependencies"></a></li>
+<li><a href="https://codecov.io/gh/bcjaeger/table.glue"><img src="https://codecov.io/gh/bcjaeger/table.glue/branch/master/graph/badge.svg"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

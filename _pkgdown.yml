@@ -14,5 +14,6 @@ reference:
 - title: Inline reporting
   desc:  Write table data in markdown documents
 - contents:
-  - matches('inline')
+  - matches('_inline')
+  - starts_with("ci_")
 

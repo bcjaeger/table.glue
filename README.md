@@ -27,13 +27,12 @@ and `table_value()` functions.
 
 ## Installation
 
-<!-- You can install the released version of table.glue from [CRAN](https://CRAN.R-project.org) with: -->
+You can install the released version of table.glue from
+[CRAN](https://CRAN.R-project.org) with:
 
-<!-- ``` r -->
-
-<!-- install.packages("table.glue") -->
-
-<!-- ``` -->
+``` r
+install.packages("table.glue")
+```
 
 You can install the development version from
 [GitHub](https://github.com/) with:

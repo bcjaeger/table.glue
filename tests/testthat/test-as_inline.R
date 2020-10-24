@@ -1,6 +1,5 @@
 
 
-
 test_data <-
   data.frame(
     sex = c("female",
@@ -30,7 +29,8 @@ test_data <-
       "84.0 (79.0 - 112)",
       "79.5 (78.8 - 81.0)",
       "77.0 (77.0 - 77.0)"
-    )
+    ),
+    stringsAsFactors = FALSE
   )
 
 test_data_with_na <- test_data
@@ -90,7 +90,7 @@ test_that(
   code = {
     test_data$eye_color <- factor(test_data$eye_color,
                                   levels = c('hazel', 'brown', 'blue'))
-    expect_equal(
+    expect_equivalent(
       as_inline(data = test_data,
                 tbl_variables = c('sex', 'eye_color'),
                 tbl_value = 'tbv_height'),
