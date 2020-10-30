@@ -30,7 +30,7 @@ This vignette shows how to go from data to table using `table.glue` and friends.
 
 NHANES was designed to assess the health and nutritional status of the non-institutionalized US population and was conducted by the National Center for Health Statistics of the Centers for Disease Control and Prevention. Since 1999-2000, NHANES has been conducted in two-year cycles using a multistage probability sampling design to select participants. Each cycle is independent with different participants recruited.
 
-## NHANES Blood pressure measurements
+# NHANES Blood pressure measurements
 
 The same protocol was followed to measure systolic and diastolic blood pressure (SBP and DBP) in each NHANES cycle. After survey participants had rested 5 minutes, their BP was measured by a trained physician using a mercury sphygmomanometer and an appropriately sized cuff. Three BP measurements were obtained at 30 second intervals.
 
@@ -42,7 +42,7 @@ glimpse(nhanes)
 
 ```
 
-## Making the analysis data
+# Making the analysis data
 
 We will make a table showing SBP and DBP for subgroups based on sex and race over the three NHANES cycles in `nhanes`. But first need to filter to include rows where the survey participant
 
@@ -70,7 +70,7 @@ nhanes_analysis
 
 ```
 
-## Making the summary data
+# Making the summary data
 
 For each NHANES exam and sex/race/ethnicity group, we would like to compute the mean and standard deviation of BP. We'll use `dplyr` for this.
 
@@ -92,7 +92,7 @@ nhanes_bp_summary
 
 ```
 
-## Making the summary strings
+# Making the summary strings
 
 With our summary data, we can now create the data that will be passed to our table. This is where `table.glue` comes into the picture.
 
@@ -116,7 +116,7 @@ nhanes_bp_strings <- ungroup(nhanes_bp_summary) %>%
 
 ```
 
-## Making the table object
+# Making the table object
 
 Making a table out of `nhanes_tbl_strings` is fairly straightforward, but does require a fair bit of code to recode variables and label things. 
 
@@ -158,20 +158,24 @@ nhanes_bp_table <- nhanes_bp_strings %>%
   ) %>% 
   cols_align('center') %>% 
   tab_stubhead(label = 'Race / ethnicity') %>% 
-  tab_spanner(label = 'Systolic blood pressure, mm Hg',
+  tab_spanner(label = 'Systolic BP, mm Hg',
               columns = c("sbp_2013-2014",
                           "sbp_2015-2016",
                           "sbp_2017-2018")) %>% 
-  tab_spanner(label = 'Diastolic blood pressure, mm Hg',
+  tab_spanner(label = 'Diastolic BP, mm Hg',
               columns = c("dbp_2013-2014",
                           "dbp_2015-2016",
-                          "dbp_2017-2018"))
+                          "dbp_2017-2018")) %>% 
+  tab_header(
+    title = "Systolic and diastolic blood pressure for female and male participants in the US National Health and Nutrition Examination Survey from 2013 - 2018", 
+    subtitle = "Table values are mean (standard deviation)"
+  )
 
 nhanes_bp_table
 
 ```
 
-## Making the inline object
+# Making the inline object
 
 Now we just need to summarize the table, which can be done using an inline table object. Just like the table, our inline object is created using `nhanes_bp_strings`
 
@@ -187,7 +191,7 @@ nhanes_bp_inline$exam_2017_2018$male$black$sbp
 
 ```
 
-## Using the inline object
+# Using the inline object
 
 This part is easy: "Among survey participants who were black and female, the mean (standard deviation) of systolic blood pressure increased from `r nhanes_bp_inline$exam_2013_2014$female$black$sbp` in 2013-2014 to `r nhanes_bp_inline$exam_2017_2018$female$black$sbp` in 2017-2018."
 

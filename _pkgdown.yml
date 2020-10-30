@@ -15,5 +15,8 @@ reference:
   desc:  Write table data in markdown documents
 - contents:
   - matches('_inline')
-  - starts_with("ci_")
-
+  - starts_with("bracket_")
+- title: blood pressure data
+  desc:  data from the last three NHANES cycles
+- contents:
+  - matches('^nhanes$')

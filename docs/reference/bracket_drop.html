@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General rounding for tables — table_value • table.glue</title>
+<title>Bracket helpers — bracket_drop • table.glue</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,10 @@
 
 
 
-<meta property="og:title" content="General rounding for tables — table_value" />
-<meta property="og:description" content="table_value() casts numeric vectors into character vectors.
-The main purpose of table_value() is to round and format
-numeric data for presentation." />
+<meta property="og:title" content="Bracket helpers — bracket_drop" />
+<meta property="og:description" content="If you have table values that take the form
+point estimate (uncertainty estimate), you can use these
+functions to access specific parts of the table value." />
 
 
 
@@ -128,54 +128,87 @@ numeric data for presentation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General rounding for tables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/bcjaeger/table.glue/blob/master/R/table_value.R'><code>R/table_value.R</code></a></small>
-    <div class="hidden name"><code>table_value.Rd</code></div>
+    <h1>Bracket helpers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/bcjaeger/table.glue/blob/master/R/bracket_helpers.R'><code>R/bracket_helpers.R</code></a></small>
+    <div class="hidden name"><code>bracket_drop.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>table_value()</code> casts numeric vectors into character vectors.
-The main purpose of <code>table_value()</code> is to round and format
-numeric data for presentation.</p>
+    <p>If you have table values that take the form
+<em>point estimate (uncertainty estimate)</em>, you can use these
+functions to access specific parts of the table value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>table_value</span><span class='op'>(</span><span class='va'>x</span>, rspec <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>bracket_drop</span><span class='op'>(</span><span class='va'>x</span>, bracket_left <span class='op'>=</span> <span class='st'>"("</span>, bracket_right <span class='op'>=</span> <span class='st'>")"</span><span class='op'>)</span>
+
+<span class='fu'>bracket_extract</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  bracket_left <span class='op'>=</span> <span class='st'>"("</span>,
+  bracket_right <span class='op'>=</span> <span class='st'>")"</span>,
+  drop_bracket <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>bracket_point_estimate</span><span class='op'>(</span><span class='va'>x</span>, bracket_left <span class='op'>=</span> <span class='st'>"("</span>, bracket_right <span class='op'>=</span> <span class='st'>")"</span><span class='op'>)</span>
+
+<span class='fu'>bracket_lower_bound</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  bracket_left <span class='op'>=</span> <span class='st'>"("</span>,
+  separator <span class='op'>=</span> <span class='st'>","</span>,
+  bracket_right <span class='op'>=</span> <span class='st'>")"</span>
+<span class='op'>)</span>
+
+<span class='fu'>bracket_upper_bound</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  bracket_left <span class='op'>=</span> <span class='st'>"("</span>,
+  separator <span class='op'>=</span> <span class='st'>","</span>,
+  bracket_right <span class='op'>=</span> <span class='st'>")"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a vector of numeric values.</p></td>
+      <td><p>a character vector where each value contains a point
+estimate and confidence limits.</p></td>
     </tr>
     <tr>
-      <th>rspec</th>
-      <td><p>a <code>rounding_specification</code> object. If no <code>rspec</code>
-is given, a default setting will round values to decimal places
-based on the magnitude of the values.</p></td>
+      <th>bracket_left</th>
+      <td><p>a character value specifying what symbol is
+used to bracket the left hand side of the confidence interval</p></td>
+    </tr>
+    <tr>
+      <th>bracket_right</th>
+      <td><p>a character value specifying what symbol is
+used to bracket the right hand side of the confidence interval</p></td>
+    </tr>
+    <tr>
+      <th>drop_bracket</th>
+      <td><p>a logical value (<code>TRUE</code> or <code>FALSE</code>). If <code>TRUE</code>,
+then the symbols on the left and right hand side of the interval
+will not be included in the returned value. If <code>FALSE</code>, these symbols
+will be included.</p></td>
+    </tr>
+    <tr>
+      <th>separator</th>
+      <td><p>a character value specifying what symbol is used
+to separate the lower and upper bounds of the interval.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector of character values (rounded numbers).</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other table helpers: 
-<code><a href='table_ester.html'>table_ester</a>()</code>,
-<code><a href='table_glue.html'>table_glue</a>()</code>,
-<code><a href='table_pvalue.html'>table_pvalue</a>()</code></p></div>
+    <p>a character value with length equal to the length of <code>x</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>table_value</span><span class='op'>(</span><span class='fl'>0.123</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "0.12"</div><div class='input'><span class='fu'>table_value</span><span class='op'>(</span><span class='fl'>1.23</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1.2"</div><div class='input'><span class='fu'>table_value</span><span class='op'>(</span><span class='fl'>12.3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "12"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>table_value</span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "160" "160" "108" "258" "360" "225" "360" "147" "141" "168" "168" "276"
-#&gt; [13] "276" "276" "472" "460" "440" "79"  "76"  "71"  "120" "318" "304" "350"
-#&gt; [25] "400" "79"  "120" "95"  "351" "145" "301" "121"</div><div class='input'>
+<span class='va'>tbl_value</span> <span class='op'>&lt;-</span> <span class='st'>"12.1 (95% CI: 9.1, 15.1)"</span>
+<span class='fu'>bracket_drop</span><span class='op'>(</span><span class='va'>tbl_value</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "12.1"</div><div class='input'><span class='fu'>bracket_point_estimate</span><span class='op'>(</span><span class='va'>tbl_value</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "12.1"</div><div class='input'><span class='fu'>bracket_extract</span><span class='op'>(</span><span class='va'>tbl_value</span>, drop_bracket <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "95% CI: 9.1, 15.1"</div><div class='input'><span class='fu'>bracket_lower_bound</span><span class='op'>(</span><span class='va'>tbl_value</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "9.1"</div><div class='input'><span class='fu'>bracket_upper_bound</span><span class='op'>(</span><span class='va'>tbl_value</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "15.1"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

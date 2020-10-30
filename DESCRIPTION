@@ -24,6 +24,7 @@ Suggests:
     dplyr,
     tidyr,
     gt,
+    utf8,
     tibble,
     flextable,
     kableExtra
