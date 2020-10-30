@@ -1,22 +1,28 @@
 ## Test environments
-* local R installation, R 4.0.2
-* ubuntu 16.04 (on travis-ci), R 4.0.2
-* win-builder (devel)
+
+- local R installation, R 4.0.2
+
+- ubuntu 16.04 (on travis-ci), R 4.0.2
+
+- win-builder (devel)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+There were no ERRORs or WARNINGs.
 
-* This is a new release.
 
-## First submission notes
+There were some NOTEs.
 
-The description field should not start with 'this package'. This has been fixed in the resubmission.
+- This is a new release.
 
-## Second submission notes
+- Possibly mis-spelled words in DESCRIPTION:
+  
+    + Atherosclerotic (2:44)
+  
+    + antihypertensive (14:25)
+  
+    + atherosclerotic (13:3, 16:3)
 
-Please make sure that you do not change the user's options, par or working directory.
+I have reviewed these words and am comfortable with their spelling.
 
-## Second submission changes
 
-I have removed functions that change user options. 

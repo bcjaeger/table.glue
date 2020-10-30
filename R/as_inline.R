@@ -29,15 +29,17 @@
 #'
 as_inline <- function(data,
                       tbl_variables,
-                      tbl_value = NULL){
+                      tbl_value){
 
 
   check_call(
     match.call(),
     expected = list(
       'data' = list(type = 'data.frame'),
-      'tbl_variables' = list(type = 'character'),
-      'tbl_value' = list(type = 'character', length = 1)
+      'tbl_variables' = list(type = 'character',
+                             expected = names(data)),
+      'tbl_value' = list(type = 'character',
+                         expected = names(data))
     )
   )
 
@@ -47,9 +49,7 @@ as_inline <- function(data,
     output <- split_by(output, variable = variable)
   }
 
-  if(!is.null(tbl_value)){
-    lapply(output, get_element, tbl_value)
-  }
+  lapply(output, get_element, tbl_value)
 
 }
 
@@ -96,7 +96,13 @@ split_by <- function(data, variable){
 get_element <- function(data, variable){
 
   if(inherits(data, 'data.frame')){
-    return(getElement(object = data, name = variable))
+
+    if(length(variable) == 1){
+      return(getElement(object = data, name = variable))
+    }
+
+    return(as.list(data[, variable]))
+
   }
 
   lapply(data, get_element, variable = variable)

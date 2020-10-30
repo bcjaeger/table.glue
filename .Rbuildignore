@@ -8,3 +8,5 @@
 ^README\.Rmd$
 ^CRAN-RELEASE$
 ^cran-comments\.md$
+^cran-comments\.html$
+^data-raw$

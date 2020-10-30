@@ -24,6 +24,7 @@ Suggests:
     dplyr,
     tidyr,
     gt,
+    tibble,
     flextable,
     kableExtra
 Imports: 
@@ -32,3 +33,5 @@ Imports:
 URL: https://github.com/bcjaeger/table.glue
 BugReports: https://github.com/bcjaeger/table.glue/issues
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

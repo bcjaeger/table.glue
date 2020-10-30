@@ -1,10 +1,10 @@
 
 
 
-#' @title Confidence interval helpers
+#' @title Bracket helpers
 #'
 #' @description If you have table values that take the form
-#'   _estimate (lower bound, upper bound)_, you can use these
+#'   _point estimate (uncertainty estimate)_, you can use these
 #'   functions to access specific parts of the table value.
 #'
 #' @param x a character vector where each value contains a point
@@ -27,31 +27,31 @@
 #' @examples
 #'
 #' tbl_value <- "12.1 (95% CI: 9.1, 15.1)"
-#' ci_drop(tbl_value)
-#' ci_point_estimate(tbl_value)
-#' ci_extract(tbl_value, drop_bracket = TRUE)
-#' ci_lower_bound(tbl_value)
-#' ci_upper_bound(tbl_value)
+#' bracket_drop(tbl_value)
+#' bracket_point_estimate(tbl_value)
+#' bracket_extract(tbl_value, drop_bracket = TRUE)
+#' bracket_lower_bound(tbl_value)
+#' bracket_upper_bound(tbl_value)
 #'
-ci_drop <- function(x,
+bracket_drop <- function(x,
                     bracket_left = '(',
                     bracket_right = ')'){
 
-  ci_dissect(x = x,
+  bracket_dissect(x = x,
              return = 'point',
              bracket_left = bracket_left,
              bracket_right = bracket_right)
 
 }
 
-#' @rdname ci_drop
+#' @rdname bracket_drop
 #' @export
-ci_extract <- function(x,
+bracket_extract <- function(x,
                        bracket_left = '(',
                        bracket_right = ')',
                        drop_bracket = FALSE){
 
-  ci_dissect(x = x,
+  bracket_dissect(x = x,
              return = 'interval',
              bracket_left = bracket_left,
              bracket_right = bracket_right,
@@ -59,26 +59,26 @@ ci_extract <- function(x,
 
 }
 
-#' @rdname ci_drop
+#' @rdname bracket_drop
 #' @export
-ci_point_estimate <- function(x,
+bracket_point_estimate <- function(x,
                      bracket_left = '(',
                      bracket_right = ')'){
 
-  ci_drop(x = x,
+  bracket_drop(x = x,
           bracket_left = bracket_left,
           bracket_right = bracket_right)
 
 }
 
-#' @rdname ci_drop
+#' @rdname bracket_drop
 #' @export
-ci_lower_bound <- function(x,
+bracket_lower_bound <- function(x,
                            bracket_left = '(',
                            separator = ',',
                            bracket_right = ')'){
 
-  ci_dissect(x = x,
+  bracket_dissect(x = x,
              return = 'lower_bound',
              bracket_left = bracket_left,
              separator = separator,
@@ -86,14 +86,14 @@ ci_lower_bound <- function(x,
 
 }
 
-#' @rdname ci_drop
+#' @rdname bracket_drop
 #' @export
-ci_upper_bound <- function(x,
+bracket_upper_bound <- function(x,
                            bracket_left = '(',
                            separator = ',',
                            bracket_right = ')'){
 
-  ci_dissect(x = x,
+  bracket_dissect(x = x,
              return = 'upper_bound',
              bracket_left = bracket_left,
              separator = separator,
@@ -101,7 +101,7 @@ ci_upper_bound <- function(x,
 
 }
 
-ci_dissect <- function(x,
+bracket_dissect <- function(x,
                        return,
                        bracket_left = '(',
                        separator = ',',

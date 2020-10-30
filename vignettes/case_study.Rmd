@@ -1,0 +1,219 @@
+---
+title: "NHANES case study"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NHANES case study}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+
+library(table.glue)
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
+library(tibble)
+library(gt, warn.conflicts = FALSE)
+
+```
+
+# Overview
+
+This vignette shows how to go from data to table using `table.glue` and friends. For this vignette, we will analyze data from The US National Health and Nutrition Examination Survey (NHANES), 2013-2018. 
+
+NHANES was designed to assess the health and nutritional status of the non-institutionalized US population and was conducted by the National Center for Health Statistics of the Centers for Disease Control and Prevention. Since 1999-2000, NHANES has been conducted in two-year cycles using a multistage probability sampling design to select participants. Each cycle is independent with different participants recruited.
+
+## NHANES Blood pressure measurements
+
+The same protocol was followed to measure systolic and diastolic blood pressure (SBP and DBP) in each NHANES cycle. After survey participants had rested 5 minutes, their BP was measured by a trained physician using a mercury sphygmomanometer and an appropriately sized cuff. Three BP measurements were obtained at 30 second intervals.
+
+```{r}
+
+# see ?table.glue::nhanes for description of all columns
+
+glimpse(nhanes)
+
+```
+
+## Making the analysis data
+
+We will make a table showing SBP and DBP for subgroups based on sex and race over the three NHANES cycles in `nhanes`. But first need to filter to include rows where the survey participant
+
+- completed both the NHANES interview and exam
+
+- is 20 years or older
+
+- is not pregnant
+
+- is currently using medication to lower their BP
+
+- does not have missing data for SBP or DBP
+
+```{r}
+
+nhanes_analysis <- nhanes %>% 
+  filter(exam_status == 'interview and exam', 
+         age >= 20, 
+         pregnant == 'no' | is.na(pregnant),
+         meds_bp == 'yes') %>% 
+  select(exam, sex, race_ethnicity, bp_sys_mmhg, bp_dia_mmhg) %>% 
+  na.omit()
+
+nhanes_analysis
+
+```
+
+## Making the summary data
+
+For each NHANES exam and sex/race/ethnicity group, we would like to compute the mean and standard deviation of BP. We'll use `dplyr` for this.
+
+```{r}
+
+nhanes_bp_summary <- nhanes_analysis %>% 
+  group_by(exam, sex, race_ethnicity) %>% 
+  summarize(
+    across(
+      .cols = c(bp_sys_mmhg, bp_dia_mmhg),
+      .fns = list(
+        mean = ~ mean(.x),
+        sd = ~ sd(.x)
+      )
+    )
+  )
+
+nhanes_bp_summary
+
+```
+
+## Making the summary strings
+
+With our summary data, we can now create the data that will be passed to our table. This is where `table.glue` comes into the picture.
+
+```{r}
+
+rspec <- round_spec() %>% 
+  round_half_even() %>% 
+  round_using_magnitude(
+    digits = c(2, 1,  1,   0),
+    breaks = c(1, 10, 100, Inf)
+  )
+
+nhanes_bp_strings <- ungroup(nhanes_bp_summary) %>% 
+  transmute(
+    exam,
+    sex, 
+    race_ethnicity,
+    sbp = table_glue("{bp_sys_mmhg_mean} ({bp_sys_mmhg_sd})", rspec=rspec),
+    dbp = table_glue("{bp_dia_mmhg_mean} ({bp_dia_mmhg_sd})", rspec=rspec)
+  )
+
+```
+
+## Making the table object
+
+Making a table out of `nhanes_tbl_strings` is fairly straightforward, but does require a fair bit of code to recode variables and label things. 
+
+```{r}
+
+nhanes_bp_table <- nhanes_bp_strings %>% 
+  mutate(
+    race_ethnicity = recode(
+      race_ethnicity,
+      'hispanic' = "Mexican American",
+      'asian' = "Non-Hispanic Asian",
+      'black' = "Non-Hispanic Black",
+      'white' = "Non-Hispanic White",
+      'other' = "Other Race - Including Multi-Racial"
+    ),
+    sex = recode(
+      sex, 
+      'female' = 'Female survey participants', 
+      'male' = 'Male survey participants'
+    ),
+    exam = recode(
+      exam,
+      'exam_2013_2014' = '2013-2014',
+      'exam_2015_2016' = '2015-2016',
+      'exam_2017_2018' = '2017-2018'
+    )
+  ) %>%
+  pivot_wider(names_from = 'exam',
+              values_from = c('sbp', 'dbp')) %>% 
+  gt(rowname_col = 'race_ethnicity', 
+     groupname_col = 'sex') %>% 
+  cols_label(
+    "sbp_2013-2014" = "2013-2014",
+    "sbp_2015-2016" = "2015-2016",
+    "sbp_2017-2018" = "2017-2018",
+    "dbp_2013-2014" = "2013-2014",
+    "dbp_2015-2016" = "2015-2016",
+    "dbp_2017-2018" = "2017-2018"
+  ) %>% 
+  cols_align('center') %>% 
+  tab_stubhead(label = 'Race / ethnicity') %>% 
+  tab_spanner(label = 'Systolic blood pressure, mm Hg',
+              columns = c("sbp_2013-2014",
+                          "sbp_2015-2016",
+                          "sbp_2017-2018")) %>% 
+  tab_spanner(label = 'Diastolic blood pressure, mm Hg',
+              columns = c("dbp_2013-2014",
+                          "dbp_2015-2016",
+                          "dbp_2017-2018"))
+
+nhanes_bp_table
+
+```
+
+## Making the inline object
+
+Now we just need to summarize the table, which can be done using an inline table object. Just like the table, our inline object is created using `nhanes_bp_strings`
+
+```{r}
+
+nhanes_bp_inline <- nhanes_bp_strings %>% 
+  as_inline(tbl_variables = c('exam', 'sex', 'race_ethnicity'),
+            tbl_value = c('sbp', 'dbp'))
+
+# Now you can freely access any cell in the table
+nhanes_bp_inline$exam_2013_2014$male$black$sbp
+nhanes_bp_inline$exam_2017_2018$male$black$sbp 
+
+```
+
+## Using the inline object
+
+This part is easy: "Among survey participants who were black and female, the mean (standard deviation) of systolic blood pressure increased from `r nhanes_bp_inline$exam_2013_2014$female$black$sbp` in 2013-2014 to `r nhanes_bp_inline$exam_2017_2018$female$black$sbp` in 2017-2018."
+
+But what if you don't want to report the standard deviations? These are helpful in the table but less so in the text. To get rid of these, you can use the bracket helper functions, e.g., `bracket_drop()` and `bracket_extract()`. 
+
+
+```{r}
+
+# Drop the bracket
+bracket_drop(nhanes_bp_inline$exam_2013_2014$male$black$sbp)
+# Get the bracket
+bracket_extract(nhanes_bp_inline$exam_2017_2018$male$black$sbp)
+
+```
+
+Let's re-write our sentence more directly: "Among survey participants who were black and female, the mean systolic blood pressure increased from `r bracket_drop(nhanes_bp_inline$exam_2013_2014$female$black$sbp)` mm Hg in 2013-2014 to `r bracket_drop(nhanes_bp_inline$exam_2017_2018$female$black$sbp)` mm Hg in 2017-2018."
+
+
+# Summary
+
+This case study has covered three big ideas: 
+
+1. Making summary data
+
+1. Making summary strings 
+
+1. Making the table and inline object
+
+The workflow covered here is designed to fit almost any table and work with any package that creates tables. Happy tabulating!

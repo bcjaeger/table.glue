@@ -4,7 +4,7 @@
 \alias{as_inline}
 \title{Convert table data to inline list}
 \usage{
-as_inline(data, tbl_variables, tbl_value = NULL)
+as_inline(data, tbl_variables, tbl_value)
 }
 \arguments{
 \item{data}{a data frame.}
