@@ -4,17 +4,17 @@
 \alias{as_inline}
 \title{Convert table data to inline list}
 \usage{
-as_inline(data, tbl_variables, tbl_value)
+as_inline(data, tbl_variables, tbl_values)
 }
 \arguments{
 \item{data}{a data frame.}
 
 \item{tbl_variables}{column names that will be used to form groups in the table}
 
-\item{tbl_value}{column name that contains table values.}
+\item{tbl_values}{column name that contains table values.}
 }
 \value{
-a list of \code{tbl_value} values for each permutation of \code{tbl_variables}
+a list of \code{tbl_values} values for each permutation of \code{tbl_variables}
 }
 \description{
 Convert table data to inline list
@@ -31,10 +31,10 @@ example_data <- data.frame(
   height = c("158 (154 - 161)", "178 (175 - 188)")
 )
 
-as_inline(example_data, tbl_variables = 'sex', tbl_value = 'height')
+as_inline(example_data, tbl_variables = 'sex', tbl_values = 'height')
 
 car_data <- mtcars
 car_data$car_name <- rownames(mtcars)
-as_inline(car_data, tbl_variables = 'car_name', tbl_value = 'mpg')
+as_inline(car_data, tbl_variables = 'car_name', tbl_values = 'mpg')
 
 }

@@ -18,9 +18,9 @@ knitr::opts_chunk$set(
 
 library(table.glue)
 library(dplyr, warn.conflicts = FALSE)
-library(tidyr, warn.conflicts = FALSE)
-library(tibble)
+library(tibble, warn.conflicts = FALSE)
 library(gt, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
 
 ```
 
@@ -59,12 +59,13 @@ We will make a table showing SBP and DBP for subgroups based on sex and race ove
 ```{r}
 
 nhanes_analysis <- nhanes %>% 
+  as_tibble() %>% 
   filter(exam_status == 'interview and exam', 
          age >= 20, 
          pregnant == 'no' | is.na(pregnant),
          meds_bp == 'yes') %>% 
   select(exam, sex, race_ethnicity, bp_sys_mmhg, bp_dia_mmhg) %>% 
-  na.omit()
+  drop_na()
 
 nhanes_analysis
 
@@ -88,7 +89,7 @@ nhanes_bp_summary <- nhanes_analysis %>%
     )
   )
 
-nhanes_bp_summary
+nhanes_bp_summary[1:10, ]
 
 ```
 
@@ -113,6 +114,8 @@ nhanes_bp_strings <- ungroup(nhanes_bp_summary) %>%
     sbp = table_glue("{bp_sys_mmhg_mean} ({bp_sys_mmhg_sd})", rspec=rspec),
     dbp = table_glue("{bp_dia_mmhg_mean} ({bp_dia_mmhg_sd})", rspec=rspec)
   )
+
+nhanes_bp_strings[1:10, ]
 
 ```
 

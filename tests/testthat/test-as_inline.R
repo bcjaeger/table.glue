@@ -43,7 +43,7 @@ test_that(
     expect_equal(
       as_inline(data = test_data,
                 tbl_variables = c('sex', 'eye_color'),
-                tbl_value = 'tbv_height'),
+                tbl_values = 'tbv_height'),
       list(
         female = list(
           blue = "166 (166 - 168)",
@@ -67,7 +67,7 @@ test_that(
       as_inline(
         data = test_data_with_na,
         tbl_variables = c('sex', 'eye_color'),
-        tbl_value = 'tbv_height'
+        tbl_values = 'tbv_height'
       ),
       list(
         female = list(hazel = "178 (178 - 178)"),
@@ -93,7 +93,7 @@ test_that(
     expect_equivalent(
       as_inline(data = test_data,
                 tbl_variables = c('sex', 'eye_color'),
-                tbl_value = 'tbv_height'),
+                tbl_values = 'tbv_height'),
       list(
         female = list(
           hazel = "178 (178 - 178)",

@@ -23,11 +23,8 @@ Suggests:
     magrittr,
     dplyr,
     tidyr,
-    gt,
-    utf8,
     tibble,
-    flextable,
-    kableExtra
+    gt
 Imports: 
     glue,
     stringi

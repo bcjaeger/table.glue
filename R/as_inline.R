@@ -4,9 +4,9 @@
 #'
 #' @param data a data frame.
 #' @param tbl_variables column names that will be used to form groups in the table
-#' @param tbl_value column name that contains table values.
+#' @param tbl_values column name that contains table values.
 #'
-#' @return a list of `tbl_value` values for each permutation of `tbl_variables`
+#' @return a list of `tbl_values` values for each permutation of `tbl_variables`
 #'
 #' @note variables in `tbl_variables` that have missing values will be
 #'   have their missing values converted into an explicit category named
@@ -21,15 +21,15 @@
 #'   height = c("158 (154 - 161)", "178 (175 - 188)")
 #' )
 #'
-#' as_inline(example_data, tbl_variables = 'sex', tbl_value = 'height')
+#' as_inline(example_data, tbl_variables = 'sex', tbl_values = 'height')
 #'
 #' car_data <- mtcars
 #' car_data$car_name <- rownames(mtcars)
-#' as_inline(car_data, tbl_variables = 'car_name', tbl_value = 'mpg')
+#' as_inline(car_data, tbl_variables = 'car_name', tbl_values = 'mpg')
 #'
 as_inline <- function(data,
                       tbl_variables,
-                      tbl_value){
+                      tbl_values){
 
 
   check_call(
@@ -38,7 +38,7 @@ as_inline <- function(data,
       'data' = list(type = 'data.frame'),
       'tbl_variables' = list(type = 'character',
                              expected = names(data)),
-      'tbl_value' = list(type = 'character',
+      'tbl_values' = list(type = 'character',
                          expected = names(data))
     )
   )
@@ -49,7 +49,7 @@ as_inline <- function(data,
     output <- split_by(output, variable = variable)
   }
 
-  lapply(output, get_element, tbl_value)
+  lapply(output, get_element, tbl_values)
 
 }
 

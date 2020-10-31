@@ -10,19 +10,3 @@
 
 There were no ERRORs or WARNINGs.
 
-
-There were some NOTEs.
-
-- This is a new release.
-
-- Possibly mis-spelled words in DESCRIPTION:
-  
-    + Atherosclerotic (2:44)
-  
-    + antihypertensive (14:25)
-  
-    + atherosclerotic (13:3, 16:3)
-
-I have reviewed these words and am comfortable with their spelling.
-
-

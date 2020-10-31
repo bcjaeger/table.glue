@@ -10,3 +10,4 @@
 ^cran-comments\.md$
 ^cran-comments\.html$
 ^data-raw$
+^vignettes_that_break_cran$

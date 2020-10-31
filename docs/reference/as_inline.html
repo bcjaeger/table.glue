@@ -95,9 +95,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/case_study.html">NHANES case study</a>
-    </li>
-    <li>
       <a href="../articles/default_rounder.html">Setting a default rounding specification</a>
     </li>
     <li>
@@ -135,7 +132,7 @@
     <p>Convert table data to inline list</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_inline</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>tbl_variables</span>, <span class='va'>tbl_value</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>as_inline</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>tbl_variables</span>, <span class='va'>tbl_values</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,14 +146,14 @@
       <td><p>column names that will be used to form groups in the table</p></td>
     </tr>
     <tr>
-      <th>tbl_value</th>
+      <th>tbl_values</th>
       <td><p>column name that contains table values.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of <code>tbl_value</code> values for each permutation of <code>tbl_variables</code></p>
+    <p>a list of <code>tbl_values</code> values for each permutation of <code>tbl_variables</code></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>variables in <code>tbl_variables</code> that have missing values will be
@@ -170,7 +167,7 @@ variable_missing, where 'variable' is the name of the variable.</p>
   height <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"158 (154 - 161)"</span>, <span class='st'>"178 (175 - 188)"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='fu'>as_inline</span><span class='op'>(</span><span class='va'>example_data</span>, tbl_variables <span class='op'>=</span> <span class='st'>'sex'</span>, tbl_value <span class='op'>=</span> <span class='st'>'height'</span><span class='op'>)</span>
+<span class='fu'>as_inline</span><span class='op'>(</span><span class='va'>example_data</span>, tbl_variables <span class='op'>=</span> <span class='st'>'sex'</span>, tbl_values <span class='op'>=</span> <span class='st'>'height'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $female
 #&gt; [1] "158 (154 - 161)"
 #&gt; 
@@ -179,7 +176,7 @@ variable_missing, where 'variable' is the name of the variable.</p>
 #&gt; </div><div class='input'>
 <span class='va'>car_data</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span>
 <span class='va'>car_data</span><span class='op'>$</span><span class='va'>car_name</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
-<span class='fu'>as_inline</span><span class='op'>(</span><span class='va'>car_data</span>, tbl_variables <span class='op'>=</span> <span class='st'>'car_name'</span>, tbl_value <span class='op'>=</span> <span class='st'>'mpg'</span><span class='op'>)</span>
+<span class='fu'>as_inline</span><span class='op'>(</span><span class='va'>car_data</span>, tbl_variables <span class='op'>=</span> <span class='st'>'car_name'</span>, tbl_values <span class='op'>=</span> <span class='st'>'mpg'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $`AMC Javelin`
 #&gt; [1] 15.2
 #&gt; 

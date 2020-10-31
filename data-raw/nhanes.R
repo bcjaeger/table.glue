@@ -48,7 +48,8 @@ nhanes = reduce(
       "High school/some college" = 'highschool_or_some_college',
       "College graduate" = 'college_graduate'
     )
-  )
+  ) %>%
+  as.data.frame()
 
 
 
