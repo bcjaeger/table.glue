@@ -11,7 +11,7 @@ as_inline(data, tbl_variables, tbl_values)
 
 \item{tbl_variables}{column names that will be used to form groups in the table}
 
-\item{tbl_values}{column name that contains table values.}
+\item{tbl_values}{column names that contains table values.}
 }
 \value{
 a list of \code{tbl_values} values for each permutation of \code{tbl_variables}

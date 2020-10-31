@@ -4,7 +4,7 @@
 #'
 #' @param data a data frame.
 #' @param tbl_variables column names that will be used to form groups in the table
-#' @param tbl_values column name that contains table values.
+#' @param tbl_values column names that contains table values.
 #'
 #' @return a list of `tbl_values` values for each permutation of `tbl_variables`
 #'
@@ -36,12 +36,28 @@ as_inline <- function(data,
     match.call(),
     expected = list(
       'data' = list(type = 'data.frame'),
-      'tbl_variables' = list(type = 'character',
-                             expected = names(data)),
-      'tbl_values' = list(type = 'character',
-                         expected = names(data))
+      'tbl_variables' = list(type = 'character'),
+      'tbl_values' = list(type = 'character')
     )
   )
+
+  if(!all(tbl_variables %in% names(data))){
+
+    vars_to_print <- setdiff( tbl_variables, names(data) )
+    stop("the following tbl_variables are not present in data: ",
+         glue::glue_collapse(vars_to_print, sep = ', ', last = ' and '),
+         call. = FALSE)
+
+  }
+
+  if(!all(tbl_values %in% names(data))){
+
+    vars_to_print <- setdiff( tbl_values, names(data) )
+    stop("the following tbl_values are not present in data: ",
+         glue::glue_collapse(vars_to_print, sep = ', ', last = ' and '),
+         call. = FALSE)
+
+  }
 
   output <- fill_na_levels(data, cols = tbl_variables)
 

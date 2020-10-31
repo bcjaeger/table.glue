@@ -34,79 +34,79 @@
 #' bracket_upper_bound(tbl_value)
 #'
 bracket_drop <- function(x,
-                    bracket_left = '(',
-                    bracket_right = ')'){
+                         bracket_left = '(',
+                         bracket_right = ')'){
 
   bracket_dissect(x = x,
-             return = 'point',
-             bracket_left = bracket_left,
-             bracket_right = bracket_right)
+                  return = 'point',
+                  bracket_left = bracket_left,
+                  bracket_right = bracket_right)
 
 }
 
 #' @rdname bracket_drop
 #' @export
 bracket_extract <- function(x,
-                       bracket_left = '(',
-                       bracket_right = ')',
-                       drop_bracket = FALSE){
+                            bracket_left = '(',
+                            bracket_right = ')',
+                            drop_bracket = FALSE){
 
   bracket_dissect(x = x,
-             return = 'interval',
-             bracket_left = bracket_left,
-             bracket_right = bracket_right,
-             drop_bracket = drop_bracket)
+                  return = 'interval',
+                  bracket_left = bracket_left,
+                  bracket_right = bracket_right,
+                  drop_bracket = drop_bracket)
 
 }
 
 #' @rdname bracket_drop
 #' @export
 bracket_point_estimate <- function(x,
-                     bracket_left = '(',
-                     bracket_right = ')'){
+                                   bracket_left = '(',
+                                   bracket_right = ')'){
 
   bracket_drop(x = x,
-          bracket_left = bracket_left,
-          bracket_right = bracket_right)
+               bracket_left = bracket_left,
+               bracket_right = bracket_right)
 
 }
 
 #' @rdname bracket_drop
 #' @export
 bracket_lower_bound <- function(x,
-                           bracket_left = '(',
-                           separator = ',',
-                           bracket_right = ')'){
+                                bracket_left = '(',
+                                separator = ',',
+                                bracket_right = ')'){
 
   bracket_dissect(x = x,
-             return = 'lower_bound',
-             bracket_left = bracket_left,
-             separator = separator,
-             bracket_right = bracket_right)
+                  return = 'lower_bound',
+                  bracket_left = bracket_left,
+                  separator = separator,
+                  bracket_right = bracket_right)
 
 }
 
 #' @rdname bracket_drop
 #' @export
 bracket_upper_bound <- function(x,
-                           bracket_left = '(',
-                           separator = ',',
-                           bracket_right = ')'){
+                                bracket_left = '(',
+                                separator = ',',
+                                bracket_right = ')'){
 
   bracket_dissect(x = x,
-             return = 'upper_bound',
-             bracket_left = bracket_left,
-             separator = separator,
-             bracket_right = bracket_right)
+                  return = 'upper_bound',
+                  bracket_left = bracket_left,
+                  separator = separator,
+                  bracket_right = bracket_right)
 
 }
 
 bracket_dissect <- function(x,
-                       return,
-                       bracket_left = '(',
-                       separator = ',',
-                       bracket_right = ')',
-                       drop_bracket = FALSE){
+                            return,
+                            bracket_left = '(',
+                            separator = ',',
+                            bracket_right = ')',
+                            drop_bracket = FALSE){
 
   check_call(
     match.call(),
@@ -179,10 +179,10 @@ bracket_dissect <- function(x,
 
   if(return == 'upper_bound') return(interval_bounds[2])
 
-  stop("unable to find the component you were looking for.",
-       "\nPlease file an issue on Github with a reproducible example:",
-       "\nhttps://github.com/bcjaeger/table.glue/issues",
-       call. = FALSE)
+  # stop("unable to find the component you were looking for.",
+  #      "\nPlease file an issue on Github with a reproducible example:",
+  #      "\nhttps://github.com/bcjaeger/table.glue/issues",
+  #      call. = FALSE)
 
 }
 

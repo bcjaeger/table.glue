@@ -9,6 +9,9 @@ test_that("examples work", {
   expect_equal(bracket_lower_bound(tbl_value), "9.1")
   expect_equal(bracket_upper_bound(tbl_value), "15.1")
 
+  expect_equal(bracket_drop(tbl_value),
+               bracket_point_estimate(tbl_value))
+
 })
 
 test_that("weird brackets are okay", {

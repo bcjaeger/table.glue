@@ -110,4 +110,25 @@ test_that(
   }
 )
 
+test_that(
+  "invalid names are returned in error message",
+  code = {
+
+    expect_error(
+      as_inline(data = test_data,
+              tbl_variables = c('sef', 'eye_color'),
+              tbl_values = 'tbv_height'),
+      "tbl_variables are not present in data: sef"
+    )
+
+    expect_error(
+      as_inline(data = test_data,
+                tbl_variables = c('sex', 'eye_color'),
+                tbl_values = c('tbv_heighth', 'sommin')),
+      "tbl_values are not present in data: tbv_heighth and sommin"
+    )
+
+  }
+)
+
 

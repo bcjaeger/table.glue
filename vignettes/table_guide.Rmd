@@ -160,11 +160,8 @@ Keeping your table data in a nested list will solve almost all of the limitation
 ```{r}
 
 starwars_inline <- starwars_tbl %>% 
-  pivot_longer(cols = starts_with('tbv_'),
-               names_to = 'tbl_column',
-               names_prefix = 'tbv_') %>% 
-  as_inline(tbl_variables = c("sex", "eye_color", "tbl_column"),
-            tbl_value = "value")
+  as_inline(tbl_variables = c("sex", "eye_color"),
+            tbl_values = c("tbv_height", "tbv_mass"))
 
 print(starwars_inline)
 
@@ -194,8 +191,8 @@ inline = list(starwars = starwars_inline,
               other = other_inline)
 
 # now you can access all your table data in one place. Happy writing!
-inline$starwars$female$blue$height
-inline$other$male$blue$height
+inline$starwars$female$blue$tbv_height
+inline$other$male$blue$tbv_height
 
 ```
 
