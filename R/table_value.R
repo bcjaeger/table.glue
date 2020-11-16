@@ -59,7 +59,7 @@ fr_dispatch <- function(x, .rspec, r_fun){
 
   nsmall <- if(.rspec$round_using == 'signif') 0 else .rspec$digits
 
-  format(
+  output <- format(
     x = r_fun(x, digits = .rspec$digits, breaks = .rspec$breaks),
     nsmall = safe_nsmall(nsmall),
     big.mark = .rspec$big_mark,
@@ -70,6 +70,13 @@ fr_dispatch <- function(x, .rspec, r_fun){
     zero.print = .rspec$zero_print,
     trim = TRUE
   )
+
+  if(any(is.na(x))){
+    output[is.na(x)] <- .rspec$miss_replace
+  }
+
+  output
+
 }
 
 r_decimal_up <- function(x, digits = 0, breaks = NULL){
