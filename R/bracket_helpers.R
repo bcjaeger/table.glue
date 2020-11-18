@@ -9,6 +9,8 @@
 #'
 #' @param x a character vector where each value contains a point
 #'   estimate and confidence limits.
+#' @param string a character value of a string that will be inserted
+#'   into the left or right side of the bracket.
 #' @param bracket_left a character value specifying what symbol is
 #'   used to bracket the left hand side of the confidence interval
 #' @param separator a character value specifying what symbol is used
@@ -58,6 +60,82 @@ bracket_extract <- function(x,
                   drop_bracket = drop_bracket)
 
 }
+
+#' @rdname bracket_drop
+#' @export
+bracket_insert_left <- function(x,
+                                string,
+                                bracket_left = '(',
+                                bracket_right = ')'){
+
+  bracket_insert(
+    x = x,
+    string = string,
+    where = 'left',
+    bracket_left = bracket_left,
+    bracket_right = bracket_right
+  )
+
+
+}
+
+#' @rdname bracket_drop
+#' @export
+bracket_insert_right <- function(x,
+                                string,
+                                bracket_left = '(',
+                                bracket_right = ')'){
+
+  bracket_insert(
+    x = x,
+    string = string,
+    where = 'right',
+    bracket_left = bracket_left,
+    bracket_right = bracket_right
+  )
+
+
+}
+
+bracket_insert <- function(x,
+                           string,
+                           where,
+                           bracket_left,
+                           bracket_right){
+
+  check_call(
+    match.call(),
+    expected = list(
+      'x' = list(type = 'character'),
+      'where' = list(
+        type = 'character',
+        length = 1,
+        expected_options = c(
+          'left',
+          'right'
+        )
+      ),
+      'bracket_left' = list(type = 'character', length = 1),
+      'bracket_right' = list(type = 'character', length = 1)
+    )
+  )
+
+  if(where == 'left'){
+    pattern = bracket_left
+    replacement = paste0(bracket_left, string)
+  }
+
+  if(where == 'right'){
+    pattern = bracket_right
+    replacement = paste0(string, bracket_right)
+  }
+
+  stringi::stri_replace_all_fixed(str = x,
+                                  pattern = pattern,
+                                  replacement = replacement)
+
+}
+
 
 #' @rdname bracket_drop
 #' @export

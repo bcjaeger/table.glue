@@ -85,3 +85,28 @@ test_that("% symbols are okay", {
                expected = "15.1")
 
 })
+
+test_that("bracket inserts are okay", {
+
+  tbl_value <- "12.1% {9.1%, 15.1%]"
+
+  expect_equal(
+    bracket_insert_left(tbl_value, string = '95% CI: ', bracket_left = '{'),
+    "12.1% {95% CI: 9.1%, 15.1%]"
+  )
+
+  expect_equal(
+    bracket_insert_right(tbl_value, string = ' units', bracket_right = ']'),
+    "12.1% {9.1%, 15.1% units]"
+  )
+
+  expect_equal(
+    tbl_value %>%
+      bracket_insert_left(string = '95% CI: ', bracket_left = '{') %>%
+      bracket_insert_right(string = ' units', bracket_right = ']'),
+    "12.1% {95% CI: 9.1%, 15.1% units]"
+  )
+
+
+
+})

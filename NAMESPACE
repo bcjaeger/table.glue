@@ -3,6 +3,8 @@
 export(as_inline)
 export(bracket_drop)
 export(bracket_extract)
+export(bracket_insert_left)
+export(bracket_insert_right)
 export(bracket_lower_bound)
 export(bracket_point_estimate)
 export(bracket_upper_bound)

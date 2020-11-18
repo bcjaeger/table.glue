@@ -74,7 +74,7 @@ functions to access specific parts of the table value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9000</span>
       </span>
     </div>
 
@@ -148,6 +148,10 @@ functions to access specific parts of the table value.</p>
   drop_bracket <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
+<span class='fu'>bracket_insert_left</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>string</span>, bracket_left <span class='op'>=</span> <span class='st'>"("</span>, bracket_right <span class='op'>=</span> <span class='st'>")"</span><span class='op'>)</span>
+
+<span class='fu'>bracket_insert_right</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>string</span>, bracket_left <span class='op'>=</span> <span class='st'>"("</span>, bracket_right <span class='op'>=</span> <span class='st'>")"</span><span class='op'>)</span>
+
 <span class='fu'>bracket_point_estimate</span><span class='op'>(</span><span class='va'>x</span>, bracket_left <span class='op'>=</span> <span class='st'>"("</span>, bracket_right <span class='op'>=</span> <span class='st'>")"</span><span class='op'>)</span>
 
 <span class='fu'>bracket_lower_bound</span><span class='op'>(</span>
@@ -188,6 +192,11 @@ used to bracket the right hand side of the confidence interval</p></td>
 then the symbols on the left and right hand side of the interval
 will not be included in the returned value. If <code>FALSE</code>, these symbols
 will be included.</p></td>
+    </tr>
+    <tr>
+      <th>string</th>
+      <td><p>a character value of a string that will be inserted
+into the left or right side of the bracket.</p></td>
     </tr>
     <tr>
       <th>separator</th>

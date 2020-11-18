@@ -3,6 +3,8 @@
 \name{bracket_drop}
 \alias{bracket_drop}
 \alias{bracket_extract}
+\alias{bracket_insert_left}
+\alias{bracket_insert_right}
 \alias{bracket_point_estimate}
 \alias{bracket_lower_bound}
 \alias{bracket_upper_bound}
@@ -16,6 +18,10 @@ bracket_extract(
   bracket_right = ")",
   drop_bracket = FALSE
 )
+
+bracket_insert_left(x, string, bracket_left = "(", bracket_right = ")")
+
+bracket_insert_right(x, string, bracket_left = "(", bracket_right = ")")
 
 bracket_point_estimate(x, bracket_left = "(", bracket_right = ")")
 
@@ -47,6 +53,9 @@ used to bracket the right hand side of the confidence interval}
 then the symbols on the left and right hand side of the interval
 will not be included in the returned value. If \code{FALSE}, these symbols
 will be included.}
+
+\item{string}{a character value of a string that will be inserted
+into the left or right side of the bracket.}
 
 \item{separator}{a character value specifying what symbol is used
 to separate the lower and upper bounds of the interval.}
