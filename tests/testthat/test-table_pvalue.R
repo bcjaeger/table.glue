@@ -1,5 +1,27 @@
 
 pvals_ama <- c(0.157, 0.037, 0.047, 0.003, 0.0003, 0.00003, 0.000003)
+pvals_missing <- c(NA_real_, pvals_ama, NA_real_)
+
+test_that("missings are handled correctly", {
+
+  expect_equal(
+    table_pvalue(pvals_missing),
+    c(
+      "--",
+      ".16",
+      ".04",
+      ".047",
+      ".003",
+      "<.001",
+      "<.001",
+      "<.001",
+      "--"
+    )
+  )
+
+
+
+})
 
 test_that("example values are correct", {
 

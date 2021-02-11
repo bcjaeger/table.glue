@@ -184,8 +184,12 @@ table_pvalue <- function(x,
 
   # take care of the boundary cases (lowest low and highest high)
   out <- rep(miss_replace, length(x))
-  out[x < bound_outer_low] <- paste0("<", bound_outer_low)
-  out[x > bound_outer_high] <- paste0(">", bound_outer_high)
+
+  out[x < bound_outer_low & !is.na(x)] <-
+    paste0("<", bound_outer_low)
+
+  out[x > bound_outer_high & !is.na(x)] <-
+    paste0(">", bound_outer_high)
 
   # set up separate rounding specifications for each
   # of the three inner boundaries (lower, middle, upper)
@@ -208,10 +212,11 @@ table_pvalue <- function(x,
     breaks = c(bound_inner_low, bound_inner_high, bound_outer_high)
   )
 
-  out[x >= bound_outer_low & x <= bound_outer_high] <- table_value(
-    x[x >= bound_outer_low & x <= bound_outer_high],
-    rspec = rspec_magnitude
-  )
+  out[x >= bound_outer_low & x <= bound_outer_high & !is.na(x)] <-
+    table_value(
+      x[x >= bound_outer_low & x <= bound_outer_high & !is.na(x)],
+      rspec = rspec_magnitude
+    )
 
   # ## lower interval
   # rspec_lwr <- round_using_magnitude(
