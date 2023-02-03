@@ -5,7 +5,7 @@ Authors@R:
     c(person(given = "Byron",
              family = "Jaeger",
              role = c("aut", "cre"),
-             email = "bcjaeger@uab.edu",
+             email = "bjaeger@wakehealth.edu",
              comment = c(ORCID = "0000-0001-7399-2299")))
 Description: Translate double and integer valued data into
     character values formatted for tabulation in manuscripts
