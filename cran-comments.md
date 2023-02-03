@@ -1,12 +1,22 @@
-## Test environments
-
-- local R installation, R 4.0.2
-
-- ubuntu 16.04 (on travis-ci), R 4.0.2
-
-- win-builder (devel)
-
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+Duration: 37.9s
 
+0 errors v | 0 warnings v | 0 notes v
+
+R CMD check succeeded
+
+## Downstream dependencies
+
+I have also run R CMD check on downstream dependencies of `table.glue`: 
+
+- glue
+- stringi
+
+All packages passed.
+
+## Version 0.0.3, submitted 2023-02-03
+
+## Version 0.0.2, 2020-10-31
+
+## Version 0.0.1, 2020-09-30
