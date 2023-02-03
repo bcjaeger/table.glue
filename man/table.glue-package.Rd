@@ -6,9 +6,7 @@
 \alias{table.glue-package}
 \title{table.glue: Make and Apply Customized Rounding Specifications for Tables}
 \description{
-Translate double and integer valued data into
-    character values formatted for tabulation in manuscripts
-    or other types of academic reports.
+Translate double and integer valued data into character values formatted for tabulation in manuscripts or other types of academic reports.
 }
 \seealso{
 Useful links:
