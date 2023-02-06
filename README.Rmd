@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 `r badger::badge_cran_download("table.glue", "last-month", "green")`
 [![DOI](https://zenodo.org/badge/291551786.svg)](https://zenodo.org/badge/latestdoi/291551786)
 `r badger::badge_dependencies("table.glue")`
-`r badger::badge_codecov("bcjaeger/table.glue")`
 <!-- badges: end -->
 
 <!-- Note: 

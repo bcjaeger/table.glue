@@ -6,11 +6,10 @@
 <!-- badges: start -->
 
 [![CRAN
-checks](https://cranchecks.info/badges/summary/table.glue)](https://cran.r-project.org/web/checks/check_results_table.glue.html)
+checks](https://badges.cranchecks.info/summary/table.glue.svg)](https://cran.r-project.org/web/checks/check_results_table.glue.html)
 [![](http://cranlogs.r-pkg.org/badges/last-month/table.glue?color=green)](https://cran.r-project.org/package=table.glue)
 [![DOI](https://zenodo.org/badge/291551786.svg)](https://zenodo.org/badge/latestdoi/291551786)
 [![Dependencies](https://tinyverse.netlify.com/badge/table.glue)](https://cran.r-project.org/package=table.glue)
-[![](https://codecov.io/gh/bcjaeger/table.glue/branch/master/graph/badge.svg)](https://codecov.io/gh/bcjaeger/table.glue)
 <!-- badges: end -->
 
 <!-- Note: 
@@ -74,9 +73,9 @@ paste0("The mean (SD) of ", col_name, " is ",
 #> [1] "The mean (SD) of mpg is 20.1 (6.03) "
 ```
 
-This gets the job done\! Still, the code may be a little hard to read
-for a user who isn’t a grizzled `paste()` veteran. This is where the
-`glue` package is really useful.
+This gets the job done! Still, the code may be a little hard to read for
+a user who isn’t a grizzled `paste()` veteran. This is where the `glue`
+package is really useful.
 
 ### Use `glue()`
 
@@ -92,8 +91,8 @@ glue("the mean (SD) of {col_name} is {col_mean_pretty} ({col_sd_pretty})")
 ```
 
 This is certainly more readable and clean. The only thing `glue()`
-doesn’t do is make the pretty versions of `col_mean` and `col_sd`.
-This is where `table.glue` comes in.
+doesn’t do is make the pretty versions of `col_mean` and `col_sd`. This
+is where `table.glue` comes in.
 
 ### Use `table_glue()`
 
@@ -112,16 +111,16 @@ table_glue("the mean (SD) of {col_name} is {col_mean} ({col_sd})")
 
 ### Summary
 
-  - `table_glue` applies a general rounding convention to all numeric
-    data that are supplied in the input string.
+- `table_glue` applies a general rounding convention to all numeric data
+  that are supplied in the input string.
 
-  - The goal is to combine the clean syntax of `glue()` with a
-    convenient and generally acceptable rounding specification.
+- The goal is to combine the clean syntax of `glue()` with a convenient
+  and generally acceptable rounding specification.
 
 Hopefully, most of your rounding needs will be met without going any
 further than this. However, the rabbit hole does go deeper. Let’s say
 you don’t like the default rounding specification and you want to make
-your own. You can do that\!
+your own. You can do that!
 
 ``` r
 
