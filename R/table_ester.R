@@ -161,7 +161,7 @@ table_ester <- function(estimate,
   .envir <- list(estimate = .estimate, error = .error)
 
   as.character(
-    do.call(glue::glue, args = list(form, .envir = .envir))
+    do.call(glue::glue_data, args = list(form, .x = .envir))
   )
 
 }
@@ -267,7 +267,7 @@ table_estin <- function(estimate,
   .envir <- list(estimate = .estimate, lower = .lower, upper = .upper)
 
   as.character(
-    do.call(glue::glue, args = list(form, .envir = .envir))
+    do.call(glue::glue_data, args = list(form, .x = .envir))
   )
 
 }
