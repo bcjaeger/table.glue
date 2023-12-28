@@ -1,5 +1,8 @@
+# table.glue 0.0.4
 
-# table.glue 0.0.2.9000
+* internally, prefer `glue_data` over `glue` when data source is a list (Thanks to @jennybc for the [PR](https://github.com/bcjaeger/table.glue/pull/1)!).
+
+# table.glue 0.0.3
 
 * updated `table_value()` to allow formatting of missing values.
 
