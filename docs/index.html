@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,23 +35,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -69,8 +65,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/bcjaeger/table.glue/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/bcjaeger/table.glue/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,9 +82,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="tableglue" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#tableglue" class="anchor"></a>table.glue</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="tableglue">table.glue<a class="anchor" aria-label="anchor" href="#tableglue"></a>
+</h1></div>
 <!-- badges: start -->
 
 <!-- Note: 
@@ -96,84 +92,84 @@ for code coverage, go to
 https://www.r-bloggers.com/2017/06/how-to-add-code-coverage-codecov-to-your-r-package/ and follow instructions
 -->
 <p>The goal of <code>table.glue</code> is to give you more control over the presentation of your data and also simplify the process of rounding, formatting, and presenting your data. The main idea is to create rounding specifications (starting with <code><a href="reference/round_spec.html">round_spec()</a></code>) that can be plugged in, directly or through global options, to the <code><a href="reference/table_glue.html">table_glue()</a></code> and <code><a href="reference/table_value.html">table_value()</a></code> functions.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of table.glue from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"table.glue"</span><span class="op">)</span></pre></div>
-<p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"bcjaeger/table.glue"</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the released version of table.glue from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"table.glue"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"bcjaeger/table.glue"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>Suppose we want to write a summary statement about the mean and standard deviation (SD) of a column in the <code>mtcars</code> data. We’ll start by loading the <code>glue</code>, <code>table.glue</code>, and <code>magrittr</code> packages.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>       <span class="co"># for comparisons with table_glue</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/table.glue">table.glue</a></span><span class="op">)</span> <span class="co"># similar to glue but with built in rounding</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">magrittr</span><span class="op">)</span>   <span class="co"># make rounding specifications using %&gt;%</span></pre></div>
-<div id="use-base-r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#use-base-r" class="anchor"></a>Use base R</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue" class="external-link">glue</a></span><span class="op">)</span>       <span class="co"># for comparisons with table_glue</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/table.glue" class="external-link">table.glue</a></span><span class="op">)</span> <span class="co"># similar to glue but with built in rounding</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>   <span class="co"># make rounding specifications using %&gt;%</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="use-base-r">Use base R<a class="anchor" aria-label="anchor" href="#use-base-r"></a>
+</h3>
 <p>The classic approach is to use base R functions <code>format</code>, <code>round</code>, and <code>paste</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
-<span class="va">col_name</span> <span class="op">&lt;-</span> <span class="st">"mpg"</span>
-<span class="va">col_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[[</span><span class="va">col_name</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="va">col_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[[</span><span class="va">col_name</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-
-<span class="va">col_mean_pretty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">col_mean</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, nsmall <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">col_sd_pretty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">col_sd</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, nsmall <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"The mean (SD) of "</span>, <span class="va">col_name</span>, <span class="st">" is "</span>, 
-       <span class="va">col_mean_pretty</span>, <span class="st">" ("</span>, <span class="va">col_sd_pretty</span>, <span class="st">") "</span><span class="op">)</span>
-<span class="co">#&gt; [1] "The mean (SD) of mpg is 20.1 (6.03) "</span></pre></div>
-<p>This gets the job done! Still, the code may be a little hard to read for a user who isn’t a grizzled <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> veteran. This is where the <code>glue</code> package is really useful.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">col_name</span> <span class="op">&lt;-</span> <span class="st">"mpg"</span></span>
+<span><span class="va">col_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[[</span><span class="va">col_name</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">col_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[[</span><span class="va">col_name</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">col_mean_pretty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif</a></span><span class="op">(</span><span class="va">col_mean</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, nsmall <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">col_sd_pretty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif</a></span><span class="op">(</span><span class="va">col_sd</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, nsmall <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"The mean (SD) of "</span>, <span class="va">col_name</span>, <span class="st">" is "</span>, </span>
+<span>       <span class="va">col_mean_pretty</span>, <span class="st">" ("</span>, <span class="va">col_sd_pretty</span>, <span class="st">") "</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "The mean (SD) of mpg is 20.1 (6.03) "</span></span></code></pre></div>
+<p>This gets the job done! Still, the code may be a little hard to read for a user who isn’t a grizzled <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code> veteran. This is where the <code>glue</code> package is really useful.</p>
 </div>
-<div id="use-glue" class="section level3">
-<h3 class="hasAnchor">
-<a href="#use-glue" class="anchor"></a>Use <code>glue()</code>
+<div class="section level3">
+<h3 id="use-glue">Use <code>glue()</code>
+<a class="anchor" aria-label="anchor" href="#use-glue"></a>
 </h3>
-<p>Instead of using <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code>, <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> lets us write everything in one string, surrounding R object with curly brackets (i.e., “look at this {<code>R object</code>}” ) tells R that the <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> function should print the value of that R object rather than the raw string. For instance,</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-
-<span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean_pretty} ({col_sd_pretty})"</span><span class="op">)</span>
-<span class="co">#&gt; the mean (SD) of mpg is 20.1 (6.03)</span></pre></div>
-<p>This is certainly more readable and clean. The only thing <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> doesn’t do is make the pretty versions of <code>col_mean</code> and <code>col_sd</code>. This is where <code>table.glue</code> comes in.</p>
+<p>Instead of using <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code>, <code><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue()</a></code> lets us write everything in one string, surrounding R object with curly brackets (i.e., “look at this {<code>R object</code>}” ) tells R that the <code><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue()</a></code> function should print the value of that R object rather than the raw string. For instance,</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean_pretty} ({col_sd_pretty})"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; the mean (SD) of mpg is 20.1 (6.03)</span></span></code></pre></div>
+<p>This is certainly more readable and clean. The only thing <code><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue()</a></code> doesn’t do is make the pretty versions of <code>col_mean</code> and <code>col_sd</code>. This is where <code>table.glue</code> comes in.</p>
 </div>
-<div id="use-table_glue" class="section level3">
-<h3 class="hasAnchor">
-<a href="#use-table_glue" class="anchor"></a>Use <code>table_glue()</code>
+<div class="section level3">
+<h3 id="use-table_glue">Use <code>table_glue()</code>
+<a class="anchor" aria-label="anchor" href="#use-table_glue"></a>
 </h3>
-<p>The <code>table.glue</code> package lets you use <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> without having to make numbers pretty beforehand. For example, the code below uses <code><a href="reference/table_glue.html">table_glue()</a></code>, one of the main functions in <code>table.glue</code>, to replicate the results we got from <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> but without using the pretty versions of <code>col_mean</code> and <code>col_sd</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-
-<span class="co"># notice that we are not using 'pretty' versions of col_mean and col_sd</span>
-<span class="fu"><a href="reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean} ({col_sd})"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "the mean (SD) of mpg is 20 (6.0)"</span></pre></div>
+<p>The <code>table.glue</code> package lets you use <code><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue()</a></code> without having to make numbers pretty beforehand. For example, the code below uses <code><a href="reference/table_glue.html">table_glue()</a></code>, one of the main functions in <code>table.glue</code>, to replicate the results we got from <code><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue()</a></code> but without using the pretty versions of <code>col_mean</code> and <code>col_sd</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># notice that we are not using 'pretty' versions of col_mean and col_sd</span></span>
+<span><span class="fu"><a href="reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean} ({col_sd})"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "the mean (SD) of mpg is 20 (6.0)"</span></span></code></pre></div>
 </div>
-<div id="summary" class="section level3">
-<h3 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h3>
+<div class="section level3">
+<h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h3>
 <ul>
 <li><p><code>table_glue</code> applies a general rounding convention to all numeric data that are supplied in the input string.</p></li>
-<li><p>The goal is to combine the clean syntax of <code><a href="https://glue.tidyverse.org/reference/glue.html">glue()</a></code> with a convenient and generally acceptable rounding specification.</p></li>
+<li><p>The goal is to combine the clean syntax of <code><a href="https://rdrr.io/pkg/glue/man/glue.html" class="external-link">glue()</a></code> with a convenient and generally acceptable rounding specification.</p></li>
 </ul>
 <p>Hopefully, most of your rounding needs will be met without going any further than this. However, the rabbit hole does go deeper. Let’s say you don’t like the default rounding specification and you want to make your own. You can do that!</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-
-<span class="va">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/round_spec.html">round_spec</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># make your own rounding specification</span>
-  <span class="fu"><a href="reference/round_using_magnitude.html">round_using_signif</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># round to 2 significant digits</span>
-
-<span class="co"># table glue adopts all the rules given by your specification</span>
-<span class="fu"><a href="reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean} ({col_sd})"</span>, 
-           rspec <span class="op">=</span> <span class="va">rspec</span><span class="op">)</span>
-<span class="co">#&gt; [1] "the mean (SD) of mpg is 20 (6)"</span></pre></div>
-<p>rounding specifications can also be passed into global options so that <code><a href="reference/table_glue.html">table_glue()</a></code> and <code><a href="reference/table_value.html">table_value()</a></code> will use the specification automatically (see the <a href="https://bcjaeger.github.io/table.glue/articles/default_rounder.html">Setting a default rounding specification</a> vignette)</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/round_spec.html">round_spec</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># make your own rounding specification</span></span>
+<span>  <span class="fu"><a href="reference/round_using_magnitude.html">round_using_signif</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># round to 2 significant digits</span></span>
+<span></span>
+<span><span class="co"># table glue adopts all the rules given by your specification</span></span>
+<span><span class="fu"><a href="reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"the mean (SD) of {col_name} is {col_mean} ({col_sd})"</span>, </span>
+<span>           rspec <span class="op">=</span> <span class="va">rspec</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "the mean (SD) of mpg is 20 (6)"</span></span></code></pre></div>
+<p>rounding specifications can also be passed into global options so that <code><a href="reference/table_glue.html">table_glue()</a></code> and <code><a href="reference/table_value.html">table_value()</a></code> will use the specification automatically (see the <a href="https://bcjaeger.github.io/table.glue/articles/default_rounder.html" class="external-link">Setting a default rounding specification</a> vignette)</p>
 </div>
 </div>
 </div>
@@ -181,50 +177,59 @@ https://www.r-bloggers.com/2017/06/how-to-add-code-coverage-codecov-to-your-r-pa
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=table.glue">https://​cloud.r-project.org/​package=table.glue</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/bcjaeger/table.glue/">https://​github.com/​bcjaeger/​table.glue/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/bcjaeger/table.glue/issues">https://​github.com/​bcjaeger/​table.glue/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Byron Jaeger <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7399-2299" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://cloud.r-project.org/package=table.glue" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/bcjaeger/table.glue/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/bcjaeger/table.glue/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/web/checks/check_results_table.glue.html"><img src="https://cranchecks.info/badges/summary/table.glue" alt="CRAN checks"></a></li>
-<li><a href="https://cran.r-project.org/package=table.glue"><img src="http://cranlogs.r-pkg.org/badges/last-month/table.glue?color=green"></a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/291551786"><img src="https://zenodo.org/badge/291551786.svg" alt="DOI"></a></li>
-<li><a href="https://cran.r-project.org/package=table.glue"><img src="https://tinyverse.netlify.com/badge/table.glue" alt="Dependencies"></a></li>
-<li><a href="https://codecov.io/gh/bcjaeger/table.glue"><img src="https://codecov.io/gh/bcjaeger/table.glue/branch/master/graph/badge.svg"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing table.glue</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Byron Jaeger <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7399-2299" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/web/checks/check_results_table.glue.html" class="external-link"><img src="https://badges.cranchecks.info/summary/table.glue.svg" alt="CRAN checks"></a></li>
+<li><a href="https://cran.r-project.org/package=table.glue" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/last-month/table.glue?color=green"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/291551786" class="external-link"><img src="https://zenodo.org/badge/291551786.svg" alt="DOI"></a></li>
+<li><a href="https://cran.r-project.org/package=table.glue" class="external-link"><img src="https://tinyverse.netlify.com/badge/table.glue" alt="Dependencies"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Byron Jaeger.</p>
+  <p></p>
+<p>Developed by Byron Jaeger.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -232,6 +237,8 @@ https://www.r-bloggers.com/2017/06/how-to-add-code-coverage-codecov-to-your-r-pa
 
   
 
+
+  
 
   </body>
 </html>

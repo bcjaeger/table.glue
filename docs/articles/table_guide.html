@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">table.glue</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,8 +63,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/bcjaeger/table.glue/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/bcjaeger/table.glue/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,110 +78,137 @@
 
       
 
-      </header><script src="table_guide_files/header-attrs-2.5/header-attrs.js"></script><link href="table_guide_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="table_guide_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Guide to table making</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/bcjaeger/table.glue/blob/master/vignettes/table_guide.Rmd"><code>vignettes/table_guide.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/bcjaeger/table.glue/blob/HEAD/vignettes/table_guide.Rmd" class="external-link"><code>vignettes/table_guide.Rmd</code></a></small>
       <div class="hidden name"><code>table_guide.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/gt">gt</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/table.glue">table.glue</a></span><span class="op">)</span></pre></div>
-<div id="why-this-guide" class="section level1">
-<h1 class="hasAnchor">
-<a href="#why-this-guide" class="anchor"></a>Why this guide?</h1>
-<p>I have made a lot of tables and, if I’m being honest, they are not much fun. The primary reason I wrote <code>table.glue</code> was to help abstract away some of the really tedious aspects of dealing with tables, but there is also a basic system that <code>table.glue</code> fits into to make tables far less painful. I have boiled that system down into three main ideas</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bcjaeger/table.glue" class="external-link">table.glue</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="why-this-guide">Why this guide?<a class="anchor" aria-label="anchor" href="#why-this-guide"></a>
+</h2>
+<p>I have made a lot of tables and, if I’m being honest, they are not
+much fun. The primary reason I wrote <code>table.glue</code> was to help
+abstract away some of the really tedious aspects of dealing with tables,
+but there is also a basic system that <code>table.glue</code> fits into
+to make tables far less painful. I have boiled that system down into
+three main ideas</p>
 <ul>
 <li><p>Structuring data for a table</p></li>
 <li><p>Making table values</p></li>
 <li><p>Making an inline object</p></li>
 </ul>
-<p>If you find yourself working on a manuscript with lots of tables, I think you will find this framework to be extremely helpful.</p>
+<p>If you find yourself working on a manuscript with lots of tables, I
+think you will find this framework to be extremely helpful.</p>
 </div>
-<div id="make-the-table-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#make-the-table-data" class="anchor"></a>Make the table data</h1>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-
-<span class="va">starwars_smry</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">starwars</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">eye_color</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'brown'</span>, <span class="st">'hazel'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">eye_color</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">height</span>, <span class="va">mass</span><span class="op">)</span>,
-      .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-        lwr <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">.x</span>, probs <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,
-        est <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">.x</span>, probs <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span>,
-        upr <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">.x</span>, probs <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>
-      <span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; `summarise()` regrouping output by 'sex' (override with `.groups` argument)</span></pre></div>
+<div class="section level2">
+<h2 id="make-the-table-data">Make the table data<a class="anchor" aria-label="anchor" href="#make-the-table-data"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">starwars_smry</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">starwars</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">eye_color</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'brown'</span>, <span class="st">'hazel'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">eye_color</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html" class="external-link">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">height</span>, <span class="va">mass</span><span class="op">)</span>,</span>
+<span>      .fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        lwr <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">.x</span>, probs <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,</span>
+<span>        est <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">.x</span>, probs <span class="op">=</span> <span class="fl">0.50</span><span class="op">)</span>,</span>
+<span>        upr <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">.x</span>, probs <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; `summarise()` has grouped output by 'sex'. You can override using the `.groups`</span></span>
+<span><span class="co">#&gt; argument.</span></span></code></pre></div>
 </div>
-<div id="make-the-table-values" class="section level1">
-<h1 class="hasAnchor">
-<a href="#make-the-table-values" class="anchor"></a>Make the table values</h1>
-<p>Tabulated data should provide both a point estimate and a measure of uncertainty that goes along with the estimate, e.g. a 95% confidence interval. <code><a href="../reference/table_glue.html">table_glue()</a></code> is a nice function for putting together a point estimate and confidence interval. I use a magnitude based rounding specification to keep presentations consistent between height and mass.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
-<span class="va">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_spec.html">round_spec</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/round_half_up.html">round_half_even</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/round_using_magnitude.html">round_using_magnitude</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span>, <span class="cn">Inf</span><span class="op">)</span>,
-                        digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>,  <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'table.glue'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'.'</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span>
-
-<span class="va">starwars_tbl</span> <span class="op">&lt;-</span> <span class="va">starwars_smry</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">transmute</a></span><span class="op">(</span>
-    <span class="va">sex</span>, 
-    <span class="va">eye_color</span>, 
-    tbv_height <span class="op">=</span> <span class="fu"><a href="../reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"{height_est} ({height_lwr} - {height_upr})"</span><span class="op">)</span>,
-    tbv_mass <span class="op">=</span> <span class="fu"><a href="../reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"{mass_est} ({mass_lwr} - {mass_upr})"</span><span class="op">)</span>
-  <span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="make-the-table-values">Make the table values<a class="anchor" aria-label="anchor" href="#make-the-table-values"></a>
+</h2>
+<p>Tabulated data should provide both a point estimate and a measure of
+uncertainty that goes along with the estimate, e.g. a 95% confidence
+interval. <code><a href="../reference/table_glue.html">table_glue()</a></code> is a nice function for putting
+together a point estimate and confidence interval. I use a magnitude
+based rounding specification to keep presentations consistent between
+height and mass.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">rspec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/round_spec.html">round_spec</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/round_half_up.html">round_half_even</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/round_using_magnitude.html">round_using_magnitude</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>                        digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>,  <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'table.glue'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'.'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">rspec</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">starwars_tbl</span> <span class="op">&lt;-</span> <span class="va">starwars_smry</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/transmute.html" class="external-link">transmute</a></span><span class="op">(</span></span>
+<span>    <span class="va">sex</span>, </span>
+<span>    <span class="va">eye_color</span>, </span>
+<span>    tbv_height <span class="op">=</span> <span class="fu"><a href="../reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"{height_est} ({height_lwr} - {height_upr})"</span><span class="op">)</span>,</span>
+<span>    tbv_mass <span class="op">=</span> <span class="fu"><a href="../reference/table_glue.html">table_glue</a></span><span class="op">(</span><span class="st">"{mass_est} ({mass_lwr} - {mass_upr})"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 </div>
-<div id="make-the-table" class="section level1">
-<h1 class="hasAnchor">
-<a href="#make-the-table" class="anchor"></a>Make the table</h1>
-<p>Keeping your data in a tidy table format makes it fairly straightforward to make a publication ready <code>gt</code> table. Most of the code is spent on re-naming things and labeling, which is how it should be.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
-<span class="va">starwars_tbl</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    sex <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">sex</span>, 
-                 <span class="st">'female'</span> <span class="op">=</span> <span class="st">'Female characters'</span>, 
-                 <span class="st">'male'</span>   <span class="op">=</span> <span class="st">'Male characters'</span><span class="op">)</span>,
-    eye_color <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">eye_color</span>, 
-                       blue  <span class="op">=</span> <span class="st">'Blue'</span>,
-                       brown <span class="op">=</span> <span class="st">'Brown'</span>,
-                       hazel <span class="op">=</span> <span class="st">'Hazel'</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/gt.html">gt</a></span><span class="op">(</span>groupname_col <span class="op">=</span> <span class="st">'sex'</span>,  rowname_col <span class="op">=</span> <span class="st">'eye_color'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/cols_label.html">cols_label</a></span><span class="op">(</span>tbv_height <span class="op">=</span> <span class="st">'Height, cm'</span>, tbv_mass <span class="op">=</span> <span class="st">'Mass, kg'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/cols_align.html">cols_align</a></span><span class="op">(</span><span class="st">'center'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/tab_stubhead.html">tab_stubhead</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">'Eye color'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/tab_spanner.html">tab_spanner</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">'Median (25th, 75th percentile)'</span>,
-              columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">'tbv'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/tab_source_note.html">tab_source_note</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/gt/man/md.html">md</a></span><span class="op">(</span><span class="st">'For more on these data, see `?dplyr::starwars`'</span><span class="op">)</span><span class="op">)</span></pre></div>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div class="section level2">
+<h2 id="make-the-table">Make the table<a class="anchor" aria-label="anchor" href="#make-the-table"></a>
+</h2>
+<p>Keeping your data in a tidy table format makes it fairly
+straightforward to make a publication ready <code>gt</code> table. Most
+of the code is spent on re-naming things and labeling, which is how it
+should be.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">starwars_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">sex</span>, </span>
+<span>                 <span class="st">'female'</span> <span class="op">=</span> <span class="st">'Female characters'</span>, </span>
+<span>                 <span class="st">'male'</span>   <span class="op">=</span> <span class="st">'Male characters'</span><span class="op">)</span>,</span>
+<span>    eye_color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">eye_color</span>, </span>
+<span>                       blue  <span class="op">=</span> <span class="st">'Blue'</span>,</span>
+<span>                       brown <span class="op">=</span> <span class="st">'Brown'</span>,</span>
+<span>                       hazel <span class="op">=</span> <span class="st">'Hazel'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/gt.html" class="external-link">gt</a></span><span class="op">(</span>groupname_col <span class="op">=</span> <span class="st">'sex'</span>,  rowname_col <span class="op">=</span> <span class="st">'eye_color'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>tbv_height <span class="op">=</span> <span class="st">'Height, cm'</span>, tbv_mass <span class="op">=</span> <span class="st">'Mass, kg'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/cols_align.html" class="external-link">cols_align</a></span><span class="op">(</span><span class="st">'center'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/tab_stubhead.html" class="external-link">tab_stubhead</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">'Eye color'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">'Median (25th, 75th percentile)'</span>,</span>
+<span>              columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyselect/man/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">'tbv'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/gt/man/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/gt/man/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">'For more on these data, see `?dplyr::starwars`'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="bisgpoigdh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bisgpoigdh table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#bhthlcqpcr .gt_table {
+#bisgpoigdh thead, #bisgpoigdh tbody, #bisgpoigdh tfoot, #bisgpoigdh tr, #bisgpoigdh td, #bisgpoigdh th {
+  border-style: none;
+}
+
+#bisgpoigdh p {
+  margin: 0;
+  padding: 0;
+}
+
+#bisgpoigdh .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -208,7 +231,36 @@
   border-left-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_heading {
+#bisgpoigdh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bisgpoigdh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bisgpoigdh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bisgpoigdh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -220,33 +272,13 @@
   border-right-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#bhthlcqpcr .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#bhthlcqpcr .gt_bottom_border {
+#bisgpoigdh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_col_headings {
+#bisgpoigdh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -261,7 +293,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_col_heading {
+#bisgpoigdh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -281,7 +313,7 @@
   overflow-x: hidden;
 }
 
-#bhthlcqpcr .gt_column_spanner_outer {
+#bisgpoigdh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -293,28 +325,35 @@
   padding-right: 4px;
 }
 
-#bhthlcqpcr .gt_column_spanner_outer:first-child {
+#bisgpoigdh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bhthlcqpcr .gt_column_spanner_outer:last-child {
+#bisgpoigdh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bhthlcqpcr .gt_column_spanner {
+#bisgpoigdh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#bhthlcqpcr .gt_group_heading {
-  padding: 8px;
+#bisgpoigdh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bisgpoigdh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -333,9 +372,10 @@
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
-#bhthlcqpcr .gt_empty_group_heading {
+#bisgpoigdh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -350,15 +390,15 @@
   vertical-align: middle;
 }
 
-#bhthlcqpcr .gt_from_md > :first-child {
+#bisgpoigdh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bhthlcqpcr .gt_from_md > :last-child {
+#bisgpoigdh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bhthlcqpcr .gt_row {
+#bisgpoigdh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -377,7 +417,7 @@
   overflow-x: hidden;
 }
 
-#bhthlcqpcr .gt_stub {
+#bisgpoigdh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -386,10 +426,33 @@
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#bhthlcqpcr .gt_summary_row {
+#bisgpoigdh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bisgpoigdh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bisgpoigdh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bisgpoigdh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -399,17 +462,26 @@
   padding-right: 5px;
 }
 
-#bhthlcqpcr .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
+#bisgpoigdh .gt_first_summary_row {
   border-top-style: solid;
-  border-top-width: 2px;
   border-top-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_grand_summary_row {
+#bisgpoigdh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bisgpoigdh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bisgpoigdh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -419,7 +491,7 @@
   padding-right: 5px;
 }
 
-#bhthlcqpcr .gt_first_grand_summary_row {
+#bisgpoigdh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -429,11 +501,21 @@
   border-top-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_striped {
+#bisgpoigdh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bisgpoigdh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bhthlcqpcr .gt_table_body {
+#bisgpoigdh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -442,7 +524,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_footnotes {
+#bisgpoigdh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -456,13 +538,16 @@
   border-right-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_footnote {
+#bisgpoigdh .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#bhthlcqpcr .gt_sourcenotes {
+#bisgpoigdh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -476,226 +561,294 @@
   border-right-color: #D3D3D3;
 }
 
-#bhthlcqpcr .gt_sourcenote {
+#bisgpoigdh .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#bhthlcqpcr .gt_left {
+#bisgpoigdh .gt_left {
   text-align: left;
 }
 
-#bhthlcqpcr .gt_center {
+#bisgpoigdh .gt_center {
   text-align: center;
 }
 
-#bhthlcqpcr .gt_right {
+#bisgpoigdh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bhthlcqpcr .gt_font_normal {
+#bisgpoigdh .gt_font_normal {
   font-weight: normal;
 }
 
-#bhthlcqpcr .gt_font_bold {
+#bisgpoigdh .gt_font_bold {
   font-weight: bold;
 }
 
-#bhthlcqpcr .gt_font_italic {
+#bisgpoigdh .gt_font_italic {
   font-style: italic;
 }
 
-#bhthlcqpcr .gt_super {
+#bisgpoigdh .gt_super {
   font-size: 65%;
 }
 
-#bhthlcqpcr .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
+#bisgpoigdh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bisgpoigdh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bisgpoigdh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bisgpoigdh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bisgpoigdh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bisgpoigdh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bisgpoigdh .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<div id="bhthlcqpcr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
-<thead class="gt_col_headings">
-<tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1">Eye color</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2">
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="Eye color">Eye color</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Median (25th, 75th percentile)">
         <span class="gt_column_spanner">Median (25th, 75th percentile)</span>
       </th>
     </tr>
-<tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Height, cm</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Mass, kg</th>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Height, cm">Height, cm</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Mass, kg">Mass, kg</th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="gt_group_heading_row">
-<td colspan="3" class="gt_group_heading">Female characters</td>
+<th colspan="3" class="gt_group_heading" scope="colgroup" id="Female characters">Female characters</th>
     </tr>
+<tr class="gt_row_group_first">
+<th id="stub_1_1" scope="row" class="gt_row gt_center gt_stub">Blue</th>
+<td headers="Female characters stub_1_1 tbv_height" class="gt_row gt_center">166 (166 - 168)</td>
+<td headers="Female characters stub_1_1 tbv_mass" class="gt_row gt_center">56.2 (53.1 - 65.6)</td>
+</tr>
 <tr>
-<td class="gt_row gt_left gt_stub">Blue</td>
-      <td class="gt_row gt_center">166 (166 - 168)</td>
-      <td class="gt_row gt_center">56.2 (53.1 - 65.6)</td>
-    </tr>
+<th id="stub_1_2" scope="row" class="gt_row gt_center gt_stub">Brown</th>
+<td headers="Female characters stub_1_2 tbv_height" class="gt_row gt_center">168 (159 - 176)</td>
+<td headers="Female characters stub_1_2 tbv_mass" class="gt_row gt_center">47.0 (46.0 - 48.0)</td>
+</tr>
 <tr>
-<td class="gt_row gt_left gt_stub">Brown</td>
-      <td class="gt_row gt_center">158 (154 - 161)</td>
-      <td class="gt_row gt_center">47.0 (46.0 - 48.0)</td>
-    </tr>
-<tr>
-<td class="gt_row gt_left gt_stub">Hazel</td>
-      <td class="gt_row gt_center">178 (178 - 178)</td>
-      <td class="gt_row gt_center">55.0 (55.0 - 55.0)</td>
-    </tr>
+<th id="stub_1_3" scope="row" class="gt_row gt_center gt_stub">Hazel</th>
+<td headers="Female characters stub_1_3 tbv_height" class="gt_row gt_center">178 (178 - 178)</td>
+<td headers="Female characters stub_1_3 tbv_mass" class="gt_row gt_center">55.0 (55.0 - 55.0)</td>
+</tr>
 <tr class="gt_group_heading_row">
-<td colspan="3" class="gt_group_heading">Male characters</td>
+<th colspan="3" class="gt_group_heading" scope="colgroup" id="Male characters">Male characters</th>
     </tr>
+<tr class="gt_row_group_first">
+<th id="stub_1_4" scope="row" class="gt_row gt_center gt_stub">Blue</th>
+<td headers="Male characters stub_1_4 tbv_height" class="gt_row gt_center">178 (175 - 188)</td>
+<td headers="Male characters stub_1_4 tbv_mass" class="gt_row gt_center">84.0 (79.0 - 112)</td>
+</tr>
 <tr>
-<td class="gt_row gt_left gt_stub">Blue</td>
-      <td class="gt_row gt_center">178 (175 - 188)</td>
-      <td class="gt_row gt_center">84.0 (79.0 - 112)</td>
-    </tr>
+<th id="stub_1_5" scope="row" class="gt_row gt_center gt_stub">Brown</th>
+<td headers="Male characters stub_1_5 tbv_height" class="gt_row gt_center">183 (179 - 184)</td>
+<td headers="Male characters stub_1_5 tbv_mass" class="gt_row gt_center">79.5 (78.8 - 81.0)</td>
+</tr>
 <tr>
-<td class="gt_row gt_left gt_stub">Brown</td>
-      <td class="gt_row gt_center">183 (179 - 184)</td>
-      <td class="gt_row gt_center">79.5 (78.8 - 81.0)</td>
-    </tr>
-<tr>
-<td class="gt_row gt_left gt_stub">Hazel</td>
-      <td class="gt_row gt_center">170 (170 - 170)</td>
-      <td class="gt_row gt_center">77.0 (77.0 - 77.0)</td>
-    </tr>
+<th id="stub_1_6" scope="row" class="gt_row gt_center gt_stub">Hazel</th>
+<td headers="Male characters stub_1_6 tbv_height" class="gt_row gt_center">170 (170 - 170)</td>
+<td headers="Male characters stub_1_6 tbv_mass" class="gt_row gt_center">77.0 (77.0 - 77.0)</td>
+</tr>
 </tbody>
 <tfoot class="gt_sourcenotes"><tr>
-<td class="gt_sourcenote" colspan="3">For more on these data, see <code><a href="https://dplyr.tidyverse.org/reference/starwars.html">?dplyr::starwars</a></code>
+<td class="gt_sourcenote" colspan="3">For more on these data, see <code><a href="https://rdrr.io/pkg/dplyr/man/starwars.html" class="external-link">?dplyr::starwars</a></code>
 </td>
     </tr></tfoot>
-</table></div>
+</table>
 </div>
-<div id="make-an-inline-object" class="section level1">
-<h1 class="hasAnchor">
-<a href="#make-an-inline-object" class="anchor"></a>Make an inline object</h1>
-<p>It isn’t always enough to make the table. Sometimes (okay, probably always), you need to interpret it too. If you are writing a report in Markdown, it may feel natural to use inline code to write out your interpretation, but it may also become tedious and discouraging for a few reasons:</p>
+</div>
+<div class="section level2">
+<h2 id="make-an-inline-object">Make an inline object<a class="anchor" aria-label="anchor" href="#make-an-inline-object"></a>
+</h2>
+<p>It isn’t always enough to make the table. Sometimes (okay, probably
+always), you need to interpret it too. If you are writing a report in
+Markdown, it may feel natural to use inline code to write out your
+interpretation, but it may also become tedious and discouraging for a
+few reasons:</p>
 <ol style="list-style-type: decimal">
-<li><p>You may need to copy and paste a lot of code to get the numbers you want</p></li>
-<li><p>You may find it hard to maintain this code if you work with co-authors who suggest you report <em>different</em> numbers than the ones you wrote out in your draft.</p></li>
+<li><p>You may need to copy and paste a lot of code to get the numbers
+you want</p></li>
+<li><p>You may find it hard to maintain this code if you work with
+co-authors who suggest you report <em>different</em> numbers than the
+ones you wrote out in your draft.</p></li>
 </ol>
-<div id="access-table-data-directly" class="section level2">
-<h2 class="hasAnchor">
-<a href="#access-table-data-directly" class="anchor"></a>Access table data directly</h2>
-<p>Let’s take the approach where we access the table data directly first to highlight how this approach can get tedious. First I need to get the table values I am interested in, which is the heights of males and females</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-
-<span class="va">starwars_inline_female_brown_height</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">'female'</span>, <span class="va">eye_color</span> <span class="op">==</span> <span class="st">'brown'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">tbv_height</span><span class="op">)</span>
-
-<span class="va">starwars_inline_female_blue_height</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">'female'</span>, <span class="va">eye_color</span> <span class="op">==</span> <span class="st">'blue'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">tbv_height</span><span class="op">)</span>
-
-<span class="va">starwars_inline_female_hazel_height</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">'female'</span>, <span class="va">eye_color</span> <span class="op">==</span> <span class="st">'hazel'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">tbv_height</span><span class="op">)</span></pre></div>
+<div class="section level3">
+<h3 id="access-table-data-directly">Access table data directly<a class="anchor" aria-label="anchor" href="#access-table-data-directly"></a>
+</h3>
+<p>Let’s take the approach where we access the table data directly first
+to highlight how this approach can get tedious. First I need to get the
+table values I am interested in, which is the heights of males and
+females</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">starwars_inline_female_brown_height</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">'female'</span>, <span class="va">eye_color</span> <span class="op">==</span> <span class="st">'brown'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">tbv_height</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">starwars_inline_female_blue_height</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">'female'</span>, <span class="va">eye_color</span> <span class="op">==</span> <span class="st">'blue'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">tbv_height</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">starwars_inline_female_hazel_height</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">'female'</span>, <span class="va">eye_color</span> <span class="op">==</span> <span class="st">'hazel'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">tbv_height</span><span class="op">)</span></span></code></pre></div>
 <p>Now I have all I need to write my sentence:</p>
-<p>“Female characters in Starwars with hazel eye color were, on average, taller than their counterparts with blue or brown eyes. The median (25<sup>th</sup>, 75<sup>th</sup> percentile) heights of these groups were 178 (178 - 178) for hazel, 166 (166 - 168) for blue, and 158 (154 - 161) for brown eyed female characters.”</p>
-<p>The great thing about writing results inline is that it drastically reduces the chance of a copy/paste error, which can get your paper rejected before it even goes out to reviewers. However, this approach also has limitations:</p>
+<p>“Female characters in Starwars with hazel eye color were, on average,
+taller than their counterparts with blue or brown eyes. The median
+(25<sup>th</sup>, 75<sup>th</sup> percentile) heights of these groups
+were 178 (178 - 178) for hazel, 166 (166 - 168) for blue, and 168 (159 -
+176) for brown eyed female characters.”</p>
+<p>The great thing about writing results inline is that it drastically
+reduces the chance of a copy/paste error, which can get your paper
+rejected before it even goes out to reviewers. However, this approach
+also has limitations:</p>
 <ol style="list-style-type: decimal">
-<li><p>It still relies pretty heavily on copying and pasting your code, and you could make a mistake there (I often do).</p></li>
-<li><p>When you send this draft to your colleagues, one of them might suggest it would be more interesting to compare heights of male versus female characters with the same eye color, which means you will have to go back and create new inline objects.</p></li>
-<li><p>Naming the inline objects will get <em>extremely</em> tedious in complicated tables. For the relatively simple table above, you can see we have to use quite a lot of text to name things clearly.</p></li>
+<li><p>It still relies pretty heavily on copying and pasting your code,
+and you could make a mistake there (I often do).</p></li>
+<li><p>When you send this draft to your colleagues, one of them might
+suggest it would be more interesting to compare heights of male versus
+female characters with the same eye color, which means you will have to
+go back and create new inline objects.</p></li>
+<li><p>Naming the inline objects will get <em>extremely</em> tedious in
+complicated tables. For the relatively simple table above, you can see
+we have to use quite a lot of text to name things clearly.</p></li>
 </ol>
 </div>
-<div id="convert-table-data-into-a-hierarchical-list-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#convert-table-data-into-a-hierarchical-list-" class="anchor"></a>convert table data into a hierarchical list.</h2>
-<p>Keeping your table data in a nested list will solve almost all of the limitations above (nothing will solve colleagues who like to change your paper, sorry).</p>
+<div class="section level3">
+<h3 id="convert-table-data-into-a-hierarchical-list-">convert table data into a hierarchical list.<a class="anchor" aria-label="anchor" href="#convert-table-data-into-a-hierarchical-list-"></a>
+</h3>
+<p>Keeping your table data in a nested list will solve almost all of the
+limitations above (nothing will solve colleagues who like to change your
+paper, sorry).</p>
 <ol style="list-style-type: decimal">
-<li><p>A list can store all of your table data programmatically, so you never to copy/paste code.</p></li>
-<li><p>Hierarchical lists support names for each nested list, so your inline object will actually name itself!</p></li>
+<li><p>A list can store all of your table data programmatically, so you
+never to copy/paste code.</p></li>
+<li><p>Hierarchical lists support names for each nested list, so your
+inline object will actually name itself!</p></li>
 </ol>
-<p><code>table.glue</code> provides a function to make your inline object. Assuming you have put your data into a tidy table format, this is all you need.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-
-<span class="va">starwars_inline</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/as_inline.html">as_inline</a></span><span class="op">(</span>tbl_variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"eye_color"</span><span class="op">)</span>,
-            tbl_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tbv_height"</span>, <span class="st">"tbv_mass"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">starwars_inline</span><span class="op">)</span>
-<span class="co">#&gt; $female</span>
-<span class="co">#&gt; $female$blue</span>
-<span class="co">#&gt; $female$blue$tbv_height</span>
-<span class="co">#&gt; [1] "166 (166 - 168)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $female$blue$tbv_mass</span>
-<span class="co">#&gt; [1] "56.2 (53.1 - 65.6)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $female$brown</span>
-<span class="co">#&gt; $female$brown$tbv_height</span>
-<span class="co">#&gt; [1] "158 (154 - 161)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $female$brown$tbv_mass</span>
-<span class="co">#&gt; [1] "47.0 (46.0 - 48.0)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $female$hazel</span>
-<span class="co">#&gt; $female$hazel$tbv_height</span>
-<span class="co">#&gt; [1] "178 (178 - 178)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $female$hazel$tbv_mass</span>
-<span class="co">#&gt; [1] "55.0 (55.0 - 55.0)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $male</span>
-<span class="co">#&gt; $male$blue</span>
-<span class="co">#&gt; $male$blue$tbv_height</span>
-<span class="co">#&gt; [1] "178 (175 - 188)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $male$blue$tbv_mass</span>
-<span class="co">#&gt; [1] "84.0 (79.0 - 112)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $male$brown</span>
-<span class="co">#&gt; $male$brown$tbv_height</span>
-<span class="co">#&gt; [1] "183 (179 - 184)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $male$brown$tbv_mass</span>
-<span class="co">#&gt; [1] "79.5 (78.8 - 81.0)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $male$hazel</span>
-<span class="co">#&gt; $male$hazel$tbv_height</span>
-<span class="co">#&gt; [1] "170 (170 - 170)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $male$hazel$tbv_mass</span>
-<span class="co">#&gt; [1] "77.0 (77.0 - 77.0)"</span></pre></div>
+<p><code>table.glue</code> provides a function to make your inline
+object. Assuming you have put your data into a tidy table format, this
+is all you need.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">starwars_inline</span> <span class="op">&lt;-</span> <span class="va">starwars_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/as_inline.html">as_inline</a></span><span class="op">(</span>tbl_variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"eye_color"</span><span class="op">)</span>,</span>
+<span>            tbl_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tbv_height"</span>, <span class="st">"tbv_mass"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">starwars_inline</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $female</span></span>
+<span><span class="co">#&gt; $female$blue</span></span>
+<span><span class="co">#&gt; $female$blue$tbv_height</span></span>
+<span><span class="co">#&gt; [1] "166 (166 - 168)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $female$blue$tbv_mass</span></span>
+<span><span class="co">#&gt; [1] "56.2 (53.1 - 65.6)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $female$brown</span></span>
+<span><span class="co">#&gt; $female$brown$tbv_height</span></span>
+<span><span class="co">#&gt; [1] "168 (159 - 176)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $female$brown$tbv_mass</span></span>
+<span><span class="co">#&gt; [1] "47.0 (46.0 - 48.0)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $female$hazel</span></span>
+<span><span class="co">#&gt; $female$hazel$tbv_height</span></span>
+<span><span class="co">#&gt; [1] "178 (178 - 178)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $female$hazel$tbv_mass</span></span>
+<span><span class="co">#&gt; [1] "55.0 (55.0 - 55.0)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $male</span></span>
+<span><span class="co">#&gt; $male$blue</span></span>
+<span><span class="co">#&gt; $male$blue$tbv_height</span></span>
+<span><span class="co">#&gt; [1] "178 (175 - 188)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $male$blue$tbv_mass</span></span>
+<span><span class="co">#&gt; [1] "84.0 (79.0 - 112)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $male$brown</span></span>
+<span><span class="co">#&gt; $male$brown$tbv_height</span></span>
+<span><span class="co">#&gt; [1] "183 (179 - 184)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $male$brown$tbv_mass</span></span>
+<span><span class="co">#&gt; [1] "79.5 (78.8 - 81.0)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $male$hazel</span></span>
+<span><span class="co">#&gt; $male$hazel$tbv_height</span></span>
+<span><span class="co">#&gt; [1] "170 (170 - 170)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $male$hazel$tbv_mass</span></span>
+<span><span class="co">#&gt; [1] "77.0 (77.0 - 77.0)"</span></span></code></pre></div>
 <p>Some nice things about this:</p>
 <ol style="list-style-type: decimal">
-<li><p>We have <em>all</em> the table data in one place, so updating our text will <em>only</em> require updating the text and won’t require any changes to the code.</p></li>
-<li><p>The names of the list are generated using categories of table variables, so the inline object is clear and easy to navigate (especially if you are using tab-completion of names in Rstudio!)</p></li>
-<li><p>Lists can easily be concatenated, so you could take two or more tables and make them into one inline object. (see below)</p></li>
+<li><p>We have <em>all</em> the table data in one place, so updating our
+text will <em>only</em> require updating the text and won’t require any
+changes to the code.</p></li>
+<li><p>The names of the list are generated using categories of table
+variables, so the inline object is clear and easy to navigate
+(especially if you are using tab-completion of names in
+Rstudio!)</p></li>
+<li><p>Lists can easily be concatenated, so you could take two or more
+tables and make them into one inline object. (see below)</p></li>
 </ol>
 </div>
 </div>
-<div id="concatenate-inline-objects" class="section level1">
-<h1 class="hasAnchor">
-<a href="#concatenate-inline-objects" class="anchor"></a>Concatenate inline objects</h1>
-<p>If you have twenty tables, you may prefer to keep their data in one (instead of twenty) inline objects. For the sake of keeping this brief, let’s just duplicate the first inline object and then show how concatenation would work:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">other_inline</span> <span class="op">&lt;-</span> <span class="va">starwars_inline</span></pre></div>
+<div class="section level2">
+<h2 id="concatenate-inline-objects">Concatenate inline objects<a class="anchor" aria-label="anchor" href="#concatenate-inline-objects"></a>
+</h2>
+<p>If you have twenty tables, you may prefer to keep their data in one
+(instead of twenty) inline objects. For the sake of keeping this brief,
+let’s just duplicate the first inline object and then show how
+concatenation would work:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">other_inline</span> <span class="op">&lt;-</span> <span class="va">starwars_inline</span></span></code></pre></div>
 <p>Now the concatenation:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-
-<span class="va">inline</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>starwars <span class="op">=</span> <span class="va">starwars_inline</span>,
-              other <span class="op">=</span> <span class="va">other_inline</span><span class="op">)</span>
-
-<span class="co"># now you can access all your table data in one place. Happy writing!</span>
-<span class="va">inline</span><span class="op">$</span><span class="va">starwars</span><span class="op">$</span><span class="va">female</span><span class="op">$</span><span class="va">blue</span><span class="op">$</span><span class="va">tbv_height</span>
-<span class="co">#&gt; [1] "166 (166 - 168)"</span>
-<span class="va">inline</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">male</span><span class="op">$</span><span class="va">blue</span><span class="op">$</span><span class="va">tbv_height</span>
-<span class="co">#&gt; [1] "178 (175 - 188)"</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">inline</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>starwars <span class="op">=</span> <span class="va">starwars_inline</span>,</span>
+<span>              other <span class="op">=</span> <span class="va">other_inline</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># now you can access all your table data in one place. Happy writing!</span></span>
+<span><span class="va">inline</span><span class="op">$</span><span class="va">starwars</span><span class="op">$</span><span class="va">female</span><span class="op">$</span><span class="va">blue</span><span class="op">$</span><span class="va">tbv_height</span></span>
+<span><span class="co">#&gt; [1] "166 (166 - 168)"</span></span>
+<span><span class="va">inline</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">male</span><span class="op">$</span><span class="va">blue</span><span class="op">$</span><span class="va">tbv_height</span></span>
+<span><span class="co">#&gt; [1] "178 (175 - 188)"</span></span></code></pre></div>
 </div>
   </div>
 
@@ -710,11 +863,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Byron Jaeger.</p>
+  <p></p>
+<p>Developed by Byron Jaeger.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -722,6 +877,8 @@
 
   
 
+
+  
 
   </body>
 </html>
