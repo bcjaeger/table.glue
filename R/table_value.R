@@ -45,7 +45,7 @@ table_value <- function(x, rspec = NULL){
               expected  = list(class = 'rounding_specification'))
 
   # use the format(round()) combination dictated by .rspec
-  switch(glue::glue_data(.rspec, "{round_using}_{round_half}"),
+  switch(glue::glue("{round_using}_{round_half}", .envir = .rspec),
          "decimal_up"     = fr_decimal_up(x, .rspec),
          "decimal_even"   = fr_decimal_even(x, .rspec),
          "signif_up"      = fr_signif_up(x, .rspec),
