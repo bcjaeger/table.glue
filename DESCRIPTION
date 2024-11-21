@@ -1,6 +1,6 @@
 Package: table.glue
 Title: Make and Apply Customized Rounding Specifications for Tables
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     c(person(given = "Byron",
              family = "Jaeger",

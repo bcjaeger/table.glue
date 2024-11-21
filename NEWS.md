@@ -1,3 +1,7 @@
+# table.glue 0.0.5
+
+* fixed an error that caused `table_value` to pass non-environment objects to `glue::glue()` on Ubuntu.
+
 # table.glue 0.0.4
 
 * internally, prefer `glue_data` over `glue` when data source is a list (Thanks to @jennybc for the [PR](https://github.com/bcjaeger/table.glue/pull/1)!).
