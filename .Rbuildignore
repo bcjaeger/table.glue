@@ -12,3 +12,4 @@
 ^data-raw$
 ^vignettes_that_break_cran$
 ^CRAN-SUBMISSION$
+^\.github
