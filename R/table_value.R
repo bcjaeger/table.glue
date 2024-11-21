@@ -44,14 +44,16 @@ table_value <- function(x, rspec = NULL){
               arg_value = .rspec,
               expected  = list(class = 'rounding_specification'))
 
+  .rspec_envir <- list2env(.rspec)
+
   # use the format(round()) combination dictated by .rspec
-  switch(glue::glue("{round_using}_{round_half}", .envir = .rspec),
-         "decimal_up"     = fr_decimal_up(x, .rspec),
-         "decimal_even"   = fr_decimal_even(x, .rspec),
-         "signif_up"      = fr_signif_up(x, .rspec),
-         "signif_even"    = fr_signif_even(x, .rspec),
-         "magnitude_up"   = fr_magnitude(x, .rspec),
-         "magnitude_even" = fr_magnitude(x, .rspec))
+  switch(glue::glue("{round_using}_{round_half}", .envir = .rspec_envir),
+         "decimal_up"     = fr_decimal_up(x, .rspec_envir),
+         "decimal_even"   = fr_decimal_even(x, .rspec_envir),
+         "signif_up"      = fr_signif_up(x, .rspec_envir),
+         "signif_even"    = fr_signif_even(x, .rspec_envir),
+         "magnitude_up"   = fr_magnitude(x, .rspec_envir),
+         "magnitude_even" = fr_magnitude(x, .rspec_envir))
 
 }
 
